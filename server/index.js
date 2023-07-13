@@ -29,7 +29,7 @@ app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 
 app.use((error, req, res, next) => {
