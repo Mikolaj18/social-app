@@ -8,10 +8,14 @@ import {
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 import "../styles/global.scss";
+import {useContext} from "react";
+import {AuthContext} from "./context/authContext.jsx";
 
 
 
 function App() {
+  const {currentUser} = useContext(AuthContext);
+
 
   const Layout = () => {
     return (
@@ -27,7 +31,7 @@ function App() {
           </div>
     );
   };
-  const currentUser = false;
+
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to="/login" />;

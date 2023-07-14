@@ -23,10 +23,12 @@ const UserSchema = new Schema({
     profilePicture: {
         type: String,
         required: false,
+        default: "",
     },
     description: {
         type: String,
         required: false,
+        default: "",
     },
 }, {timestamps: true});
 
