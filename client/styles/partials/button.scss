@@ -1,0 +1,23 @@
+.btn {
+  border: none;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  color: $color-white;
+  width: 100%;
+  min-width: 200px;
+
+  &--blue {
+    background: $color-blue;
+  }
+
+  &--green {
+    background: $color-green;
+  }
+
+  &--mt-20 {
+    margin: 20px auto 0;
+  }
+}
