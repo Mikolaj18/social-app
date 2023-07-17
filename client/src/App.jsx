@@ -10,6 +10,7 @@ import Register from "./pages/Register/Register.jsx";
 import "../styles/global.scss";
 import {useContext} from "react";
 import {AuthContext} from "./context/authContext.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 
 function App() {
   const {currentUser} = useContext(AuthContext);
@@ -18,6 +19,7 @@ function App() {
   const Layout = () => {
     return (
           <div>
+            <Navbar/>
           </div>
     );
   };
