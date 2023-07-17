@@ -1,5 +1,5 @@
 import {Form, Formik} from "formik";
-import "./register.scss";
+import "./Register.scss";
 import FormikInput from "../../components/FormikInput/FormikInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import AuthForm from "../../components/AuthForm/AuthForm.jsx";

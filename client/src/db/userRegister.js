@@ -10,7 +10,6 @@ export const userRegister = async (userData) => {
                 "Content-Type": "application/json",
             }
         });
-        console.log(response);
         return await response.json();
     } catch (error) {
         throw new Error(error);

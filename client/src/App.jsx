@@ -11,8 +11,6 @@ import "../styles/global.scss";
 import {useContext} from "react";
 import {AuthContext} from "./context/authContext.jsx";
 
-
-
 function App() {
   const {currentUser} = useContext(AuthContext);
 
@@ -20,14 +18,6 @@ function App() {
   const Layout = () => {
     return (
           <div>
-            <Navbar/>
-            <div style={{display: "flex"}}>
-              <LeftBar/>
-              <div style={{flex: 6}}>
-                <Outlet/>
-              </div>
-              <RightBar/>
-            </div>
           </div>
     );
   };

@@ -2,18 +2,19 @@ import "./Login.scss";
 import {Form, Formik} from "formik";
 import FormikInput from "../../components/FormikInput/FormikInput.jsx";
 import {loginSchema} from "../../schemas/loginSchema/loginSchema.js";
-import {useContext, useRef, useState} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthForm from "../../components/AuthForm/AuthForm.jsx";
 
 const Login = () => {
     const {login} = useContext(AuthContext);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
     const onSubmit = async (values, actions) => {
         try {
             await login(values);
-            // navigate("/");
+            navigate("/");
         } catch (error) {
             setError(error.message);
         }

@@ -1,4 +1,4 @@
-import "../../../styles/partials/auth.scss";
+import "./authForm.scss";
 
 const AuthForm = ({children}) => {
     return (
