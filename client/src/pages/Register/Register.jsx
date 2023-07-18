@@ -5,8 +5,10 @@ import {Link, useNavigate} from "react-router-dom";
 import AuthForm from "../../components/AuthForm/AuthForm.jsx";
 import {registerSchema} from "../../schemas/registerSchema/registerSchema.js";
 import {userRegister} from "../../db/userRegister.js";
+import {useState} from "react";
 
 const Register = () => {
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const onSubmit = async (values, actions) => {
@@ -14,7 +16,7 @@ const Register = () => {
             await userRegister(values);
             navigate("/login");
         } catch (error) {
-            console.log(error);
+            setError(error.message)
         }
         actions.setSubmitting(false)
     }
@@ -57,7 +59,8 @@ const Register = () => {
                             type="password"
                             placeholder="Enter your password"
                         />
-                            <button className="btn btn--green register-button" disabled={isSubmitting} type="submit">
+                        {error && <div className="error">{error}</div>}
+                        <button className="btn btn--green register-button" disabled={isSubmitting} type="submit">
                                 Sign in
                             </button>
                         <Link className="btn--mt-20" to="/login">
