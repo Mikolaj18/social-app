@@ -1,0 +1,13 @@
+@import "../../client/styles/theme.scss";
+
+.home {
+  @include themify($themes) {
+    &__wrapper {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      background: themed("bg");
+    }
+  }
+}

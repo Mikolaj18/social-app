@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate,
+  Navigate, Outlet,
 } from "react-router-dom";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
@@ -10,6 +10,9 @@ import {useContext} from "react";
 import {AuthContext} from "./context/authContext.jsx";
 import {DarkModeContext} from "./context/darkModeContext.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
+import LeftMenu from "./components/LeftMenu/LeftMenu.jsx";
+import RightMenu from "./components/RightMenu/RightMenu.jsx";
+import Home from "./pages/Home/Home.jsx";
 
 function App() {
   const {currentUser} = useContext(AuthContext);
@@ -19,6 +22,13 @@ function App() {
     return (
           <div className={`theme theme--${darkMode ? "dark" : "light"}`}>
             <Navbar/>
+            <div style={{display: "flex", marginTop: "30px"}}>
+              <LeftMenu/>
+              <div style={{flex: 7}}>
+                <Outlet/>
+              </div>
+              <RightMenu/>
+            </div>
           </div>
     );
   };
@@ -39,6 +49,12 @@ function App() {
             <Layout />
           </ProtectedRoute>
       ),
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+      ],
     },
     {
       path: "/login",

@@ -1,0 +1,57 @@
+@import "../../client/styles/theme.scss";
+
+.rightMenu {
+  @include themify($themes) {
+    flex: 3;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    background: themed("bg");
+    //overflow-y: scroll;
+
+    &__wrapper {
+      padding: 0 20px;
+    }
+
+    &__title {
+      padding: 10px;
+      color: themed("color-first");
+      font-size: 2rem;
+    }
+
+    &__list {
+      list-style-type: none;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        column-gap: 5px;
+        cursor: pointer;
+        color: themed("color-first");
+        transition: all .4s;
+        border-radius: 10px;
+
+        p {
+          font-size: 1.7rem;
+          font-weight: $fw-700;
+        }
+
+        img {
+          width: 25px;
+          height: 25px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+
+        &:hover {
+          background-color: themed("bg-hover-first");
+        }
+      }
+    }
+    //&::-webkit-scrollbar {
+    //  display: none;
+    //}
+  }
+}
