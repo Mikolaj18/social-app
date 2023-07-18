@@ -1,0 +1,43 @@
+@import "./vars.scss";
+
+$themes: (
+        light: (
+                bg: $color-white,
+                bg-second: $color-white,
+                bg-third: $bg-gray,
+                color-first: $color-black,
+                bg-hover-first: $color-gray-second,
+                bg-hover-second: $color-gray-third,
+        ),
+        dark: (
+                bg: $theme-dark-bg,
+                bg-second: $theme-dark-bg-second,
+                bg-third: $theme-dark-bg-third,
+                color-first: $color-white,
+                bg-hover-first: $theme-dark-bg-third,
+                bg-hover-second: $theme-dark-hover-second,
+        ),
+);
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+                        $theme-map,
+                        (
+                                $key: $value,
+                        )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

@@ -31,17 +31,9 @@ a {
   text-decoration: none;
 }
 
-.hover-animation {
-  transition: all .5s;
-
-  &:hover {
-    background: $color-gray-second;
-  }
-
-  &--darker {
-
-    &:hover {
-      background: $color-gray-third;
-    }
+.theme {
+  height: 100vh;
+  &--dark {
+    background: $theme-dark-bg;
   }
 }
