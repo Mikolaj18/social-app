@@ -11,7 +11,6 @@ import {Link} from "react-router-dom";
 export const Navbar = () => {
     const {currentUser} = useContext(AuthContext);
     const [openMenu, setOpenMenu] = useState(false);
-    console.log(currentUser)
 
     const handleMenuOpen = () => {
         setOpenMenu(!openMenu);
@@ -26,21 +25,20 @@ export const Navbar = () => {
                     </div>
                 </Link>
                 <div className="navbar__items">
-                    <div className="navbar__item">
+                    <div className="navbar__item hover-animation hover-animation--darker">
                         <MessageIcon/>
                     </div>
-                    <div className="navbar__item">
+                    <div className="navbar__item hover-animation hover-animation--darker">
                         <GroupIcon/>
                     </div>
                     <div className="navbar__item navbar__img">
-                        <img onClick={handleMenuOpen}
-                             src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}/>
+                        <img onClick={handleMenuOpen} src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture} alt="Profile picture"/>
                     </div>
                 </div>
             </div>
             {openMenu &&
                 <div className="navbar__menu">
-                    <div className="navbar__menu-profile">
+                    <div className="navbar__menu-profile hover-animation">
                         <div className="navbar__img">
                             <img src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}/>
                         </div>
@@ -49,11 +47,11 @@ export const Navbar = () => {
                         </div>
                     </div>
                     <ul className="navbar__menu-list">
-                        <li>
+                        <li className="hover-animation">
                             <DarkModeIcon/>
                             Dark mode
                         </li>
-                        <li>
+                        <li className="hover-animation">
                             <LogoutIcon/>
                             Logout
                         </li>

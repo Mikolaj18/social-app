@@ -99,7 +99,6 @@
       list-style-type: none;
 
       li {
-        margin-top: 10px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -107,11 +106,14 @@
         column-gap: 10px;
         cursor: pointer;
         font-weight: $fw-700;
+        padding: 10px 5px;
+        border-radius: 10px;
 
         svg {
           width: 20px;
           height: 20px;
         }
+
       }
     }
   }
