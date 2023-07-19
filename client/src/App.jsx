@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import LeftMenu from "./components/LeftMenu/LeftMenu.jsx";
 import RightMenu from "./components/RightMenu/RightMenu.jsx";
 import Home from "./pages/Home/Home.jsx";
+import {UserProfile} from "./pages/UserProfile/UserProfile.jsx";
 
 function App() {
   const {currentUser} = useContext(AuthContext);
@@ -53,6 +54,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/profile/:id",
+          element: <UserProfile />,
         },
       ],
     },

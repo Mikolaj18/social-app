@@ -25,6 +25,31 @@ const UserSchema = new Schema({
         required: false,
         default: "",
     },
+    coverPicture: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    city: {
+        type: String,
+        default: "",
+    },
+    work: {
+        type: String,
+        default: "",
+    },
+    school: {
+        type: String,
+        default: "",
+    },
+    from: {
+        type: String,
+        default: "",
+    },
+    livesIn: {
+        type: String,
+        default: "",
+    },
     description: {
         type: String,
         required: false,

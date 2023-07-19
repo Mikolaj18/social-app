@@ -7,6 +7,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import {useContext} from "react";
 import "./sectionList.scss";
 import {AuthContext} from "../../context/authContext.jsx";
+import {Link} from "react-router-dom";
 
 export const SectionList = () => {
     const {currentUser} = useContext(AuthContext);
@@ -18,10 +19,13 @@ export const SectionList = () => {
                   <HomeIcon/>
                   <p>Home</p>
               </li>
-              <li className="sectionList__item">
-                  <img src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture} alt="Profile picture"/>
-                  <p>{currentUser.name} {currentUser.surname}</p>
-              </li>
+              <Link reloadDocument to={`/profile/${currentUser._id}`}>
+                  <li className="sectionList__item">
+                      <img src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
+                           alt="Profile picture"/>
+                      <p>{currentUser.name} {currentUser.surname}</p>
+                  </li>
+              </Link>
               <li className="sectionList__item">
                   <PeopleAltIcon/>
                   <p>Friends</p>

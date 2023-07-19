@@ -52,16 +52,18 @@ export const Navbar = () => {
             </div>
             {openMenu &&
                 <div className="navbar__menu">
-                    <div className="navbar__menu-profile">
-                        <div className="navbar__img">
-                            <img
-                                src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
-                                alt="Profile picture"/>
+                    <Link to={`/profile/${currentUser._id}`}>
+                        <div className="navbar__menu-profile">
+                            <div className="navbar__img">
+                                <img
+                                    src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
+                                    alt="Profile picture"/>
+                            </div>
+                            <div className="navbar__menu-profile-name">
+                                <p>{currentUser.name} {currentUser.surname}</p>
+                            </div>
                         </div>
-                        <div className="navbar__menu-profile-name">
-                            <p>{currentUser.name} {currentUser.surname}</p>
-                        </div>
-                    </div>
+                    </Link>
                     <ul className="navbar__menu-list">
                         <li onClick={toggle}>
                             {darkMode ? (
