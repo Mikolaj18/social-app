@@ -1,6 +1,10 @@
 @import "../../client/styles/theme.scss";
 
 .rightMenu {
+  display: none;
+  @media(min-width: $breakpoint-tablet) {
+    display: block;
+  }
   @include themify($themes) {
     flex: 3;
     position: sticky;

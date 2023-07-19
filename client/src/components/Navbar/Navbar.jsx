@@ -4,21 +4,27 @@ import MessageIcon from '@mui/icons-material/Message';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import {useContext, useState} from "react";
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
+import SectionList from "../SectionList/SectionList.jsx";
 
 export const Navbar = () => {
     const {currentUser} = useContext(AuthContext);
     const {darkMode, toggle} = useContext(DarkModeContext);
 
     const [openMenu, setOpenMenu] = useState(false);
+    const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
-    const handleMenuOpen = () => {
-        setOpenMenu(!openMenu);
-    }
-
+    useEffect(() => {
+        openMobileMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [openMobileMenu]);
     return (
         <nav className="navbar">
             <div className="navbar__wrapper">
@@ -28,14 +34,19 @@ export const Navbar = () => {
                     </div>
                 </Link>
                 <div className="navbar__items">
-                    <div className="navbar__item">
+                    <div className="navbar__item navbar__icon">
                         <MessageIcon/>
                     </div>
-                    <div className="navbar__item">
+                    <div className="navbar__item navbar__icon">
                         <GroupIcon/>
                     </div>
                     <div className="navbar__item navbar__img">
-                        <img onClick={handleMenuOpen} src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture} alt="Profile picture"/>
+                        <img onClick={() => setOpenMenu(!openMenu)}
+                             src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
+                             alt="Profile picture"/>
+                    </div>
+                    <div onClick={() => setOpenMobileMenu(!openMobileMenu)} className="navbar__item navbar__mobile-menu-trigger">
+                        {openMobileMenu ? <MenuOpenIcon/> : <MenuIcon/> }
                     </div>
                 </div>
             </div>
@@ -43,7 +54,9 @@ export const Navbar = () => {
                 <div className="navbar__menu">
                     <div className="navbar__menu-profile">
                         <div className="navbar__img">
-                            <img src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture} alt="Profile picture"/>
+                            <img
+                                src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
+                                alt="Profile picture"/>
                         </div>
                         <div className="navbar__menu-profile-name">
                             <p>{currentUser.name} {currentUser.surname}</p>
@@ -53,12 +66,12 @@ export const Navbar = () => {
                         <li onClick={toggle}>
                             {darkMode ? (
                                 <>
-                                    <LightModeIcon />
+                                    <LightModeIcon/>
                                     Light mode
                                 </>
                             ) : (
                                 <>
-                                    <DarkModeIcon />
+                                    <DarkModeIcon/>
                                     Dark mode
                                 </>
                             )}
@@ -68,7 +81,13 @@ export const Navbar = () => {
                             Logout
                         </li>
                     </ul>
-                </div>}
+                </div>
+            }
+            {openMobileMenu &&
+                <div className="navbar__mobile">
+                    <SectionList/>
+                </div>
+            }
         </nav>
     );
 }

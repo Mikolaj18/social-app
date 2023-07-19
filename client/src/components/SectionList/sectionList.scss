@@ -1,0 +1,43 @@
+@import "../../client/styles/vars.scss";
+@import "../../client/styles/theme.scss";
+
+.sectionList {
+  @include themify($themes) {
+    border-bottom: 1px solid themed("bg-third");
+    padding: 10px 0;
+
+    &__item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      column-gap: 5px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 10px;
+      transition: all .4s;
+      color: themed("color-first");
+      position: relative;
+
+      p {
+        font-size: 1.5rem;
+        font-weight: $fw-700;
+      }
+
+      svg {
+        height: 25px;
+        width: 25px;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        background-color: themed("bg-hover-first");
+      }
+    }
+  }
+}
