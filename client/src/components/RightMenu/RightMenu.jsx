@@ -1,6 +1,6 @@
 import "./rightMenu.scss";
 
-export const RightMenu = () => {
+const RightMenu = () => {
     return (
         <aside className="rightMenu">
             <div className="rightMenu__wrapper">

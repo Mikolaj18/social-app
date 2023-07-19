@@ -1,7 +1,6 @@
 import "./Home.scss";
-import RightMenu from "../../components/RightMenu/RightMenu.jsx";
 
-export const Home = () => {
+const Home = () => {
     return (
         <div className="home">
             <div className="home__wrapper">

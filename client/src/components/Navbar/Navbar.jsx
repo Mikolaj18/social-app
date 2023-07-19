@@ -12,7 +12,7 @@ import {Link} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 
-export const Navbar = () => {
+const Navbar = () => {
     const {currentUser} = useContext(AuthContext);
     const {darkMode, toggle} = useContext(DarkModeContext);
 

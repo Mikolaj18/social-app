@@ -9,7 +9,7 @@ import "./sectionList.scss";
 import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
 
-export const SectionList = () => {
+const SectionList = () => {
     const {currentUser} = useContext(AuthContext);
 
     return (

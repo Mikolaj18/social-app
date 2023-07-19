@@ -4,7 +4,7 @@ import FormikInput from "../../components/FormikInput/FormikInput.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import AuthForm from "../../components/AuthForm/AuthForm.jsx";
 import {registerSchema} from "../../schemas/registerSchema/registerSchema.js";
-import {userRegister} from "../../db/userRegister.js";
+import {userRegister} from "../../db/auth/userRegister.js";
 import {useState} from "react";
 
 const Register = () => {

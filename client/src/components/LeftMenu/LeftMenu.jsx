@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 
-export const LeftMenu = () => {
+const LeftMenu = () => {
 
     return (
         <aside className="leftMenu">

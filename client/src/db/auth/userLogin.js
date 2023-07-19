@@ -1,8 +1,8 @@
-import {USER_REGISTER_URL} from "../api/api.js";
+import {USER_LOGIN_URL} from "../../api/api.js";
 
-export const userRegister = async (userData) => {
+export const userLogin = async (userData, setUser) => {
     try {
-        const response = await fetch(USER_REGISTER_URL, {
+        const response = await fetch(USER_LOGIN_URL, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(userData),
@@ -11,7 +11,8 @@ export const userRegister = async (userData) => {
             }
         });
         if (!response.ok) throw await response.json();
-        return await response.json();
+        const data = await response.json();
+        setUser(data);
     } catch (error) {
         throw new Error(error);
     }
