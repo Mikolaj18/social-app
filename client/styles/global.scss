@@ -1,4 +1,5 @@
 @import "./vars.scss";
+@import "../../client/styles/theme.scss";
 
 * {
   margin: 0;
@@ -22,7 +23,7 @@ html, body, #root {
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -31,9 +32,9 @@ a {
   text-decoration: none;
 }
 
-.theme {
-  height: 100vh;
-  &--dark {
-    background: $theme-dark-bg;
+.main {
+  @include themify($themes) {
+    background: themed("bg");
+    display: flex;
   }
 }

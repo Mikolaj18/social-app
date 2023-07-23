@@ -30,10 +30,6 @@ const UserSchema = new Schema({
         required: false,
         default: "",
     },
-    city: {
-        type: String,
-        default: "",
-    },
     work: {
         type: String,
         default: "",

@@ -6,7 +6,7 @@
     width: 100%;
     background-color: themed("bg-second");
     box-shadow: $navbar-box-shadow;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 30;
 

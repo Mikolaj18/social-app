@@ -1,25 +1,28 @@
 @import "../../client/styles/vars.scss";
+@import "../../client/styles/theme.scss";
 
 .spinner {
-  width: 88px;
-  height: 88px;
-  border: 5px solid $color-black;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+  @include themify($themes) {
+    width: 88px;
+    height: 88px;
+    border: 5px solid themed("color-first");
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
-  100% {
-    transform: rotate(360deg);
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

@@ -15,8 +15,8 @@ import RightMenu from "./components/RightMenu/RightMenu.jsx";
 import Home from "./pages/Home/Home.jsx";
 import UserProfile from "./pages/UserProfile/UserProfile.jsx";
 import {
-  QueryClient,
-  QueryClientProvider,
+    QueryClient,
+    QueryClientProvider,
 } from '@tanstack/react-query';
 
 function App() {
@@ -24,17 +24,19 @@ function App() {
     const {darkMode} = useContext(DarkModeContext);
     const queryClient = new QueryClient()
 
-    const Layout = () => {
+    const Layout = ({rightMenuVisible = true}) => {
         return (
             <div className={`theme theme--${darkMode ? "dark" : "light"}`}>
                 <QueryClientProvider client={queryClient}>
                     <Navbar/>
-                    <div style={{display: "flex", marginTop: "30px"}}>
+                    <div className="main" style={{marginTop: "30px"}}>
                         <LeftMenu/>
                         <div style={{flex: 7}}>
                             <Outlet/>
                         </div>
-                        <RightMenu/>
+                        {rightMenuVisible &&
+                            <RightMenu/>
+                        }
                     </div>
                 </QueryClientProvider>
             </div>
@@ -62,6 +64,15 @@ function App() {
                     path: "/",
                     element: <Home/>,
                 },
+            ],
+        },
+        {
+            element: (
+                <ProtectedRoute>
+                    <Layout rightMenuVisible={false}/>
+                </ProtectedRoute>
+            ),
+            children: [
                 {
                     path: "/profile/:id",
                     element: <UserProfile/>,
