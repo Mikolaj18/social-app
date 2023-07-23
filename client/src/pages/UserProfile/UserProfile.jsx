@@ -1,5 +1,5 @@
 import "./userProfile.scss";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getSingleUserData} from "../../db/user/getSingleUserData.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
@@ -21,8 +21,10 @@ const UserProfile = () => {
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
                 <div className="profile__wrapper">
                     <div className="profile__cover">
-                        <img
-                            src="https://scontent-waw1-1.xx.fbcdn.net/v/t1.18169-9/1456143_574505342603752_1000848339_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e3f864&_nc_ohc=pXbVZybiZcMAX8MTvuC&_nc_ht=scontent-waw1-1.xx&oh=00_AfDFJ9W0uYEQai294c-8l4gdvsNCmm04fkvQPsiDCsFOiA&oe=64E07E82"/>
+                        {data.coverPicture
+                            ? <img src={data.coverPicture} alt="Cover picture"/>
+                            : <div className="profile__cover-empty"></div>
+                        }
                     </div>
                     <div className="profile__content">
                         <div className="profile__flex">
@@ -45,33 +47,122 @@ const UserProfile = () => {
                         </div>
                         <div className="profile__flex profile__flex--1000">
                             <div className="profile__personal">
-                                <h2>Informations</h2>
-                                <ul>
-                                    {data.livesIn &&
-                                        <li>
-                                            <HouseIcon/>
-                                            Lives in: <b>{data.livesIn}</b>
-                                        </li>
+                                <div className="profile__personal-info">
+                                    <h2>Informations</h2>
+                                    {data.description &&
+                                        <div className="profile__personal-info-description">
+                                            {data.description}
+                                        </div>
                                     }
-                                    {data.from &&
-                                        <li>
-                                            <LocationOnIcon/>
-                                            From: <b>{data.from}</b>
-                                        </li>
-                                    }
-                                    {data.school &&
-                                        <li>
-                                            <SchoolIcon/>
-                                            Studied in: <b>{data.school}</b>
-                                        </li>
-                                    }
-                                    {data.work &&
-                                        <li>
-                                            <WorkIcon/>
-                                            Works in: <b>{data.work}</b>
-                                        </li>
-                                    }
-                                </ul>
+                                    <ul>
+                                        {data.livesIn &&
+                                            <li>
+                                                <HouseIcon/>
+                                                Lives in: <b>{data.livesIn}</b>
+                                            </li>
+                                        }
+                                        {data.from &&
+                                            <li>
+                                                <LocationOnIcon/>
+                                                From: <b>{data.from}</b>
+                                            </li>
+                                        }
+                                        {data.school &&
+                                            <li>
+                                                <SchoolIcon/>
+                                                Studied in: <b>{data.school}</b>
+                                            </li>
+                                        }
+                                        {data.work &&
+                                            <li>
+                                                <WorkIcon/>
+                                                Works in: <b>{data.work}</b>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div className="profile__friends">
+                                    <div className="profile__friends-title">
+                                        <h2>Friends</h2>
+                                        <Link to="/">
+                                            Show all friends
+                                        </Link>
+                                    </div>
+                                    <div className="profile__friends-flex">
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                        <div className="profile__friend">
+                                            <div className="profile__friend-img">
+                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
+                                            </div>
+                                            <div className="profile__friend-data">
+                                                Lorem ipsum
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="profile__posts">
                                 <h2>Posty</h2>

@@ -29,7 +29,7 @@ function App() {
             <div className={`theme theme--${darkMode ? "dark" : "light"}`}>
                 <QueryClientProvider client={queryClient}>
                     <Navbar/>
-                    <div className="main" style={{marginTop: "30px"}}>
+                    <div className="main">
                         <LeftMenu/>
                         <div style={{flex: 7}}>
                             <Outlet/>
