@@ -11,7 +11,7 @@ import WorkIcon from '@mui/icons-material/Work';
 const UserProfile = () => {
     const {id} = useParams();
     const {isLoading, error, data} = useQuery({
-        queryKey: ["profile"],
+        queryKey: ["profiles"],
         queryFn: () => getSingleUserData(id),
     });
 

@@ -13,7 +13,7 @@ import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 
 const Navbar = () => {
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, logout} = useContext(AuthContext);
     const {darkMode, toggle} = useContext(DarkModeContext);
 
     const [openMenu, setOpenMenu] = useState(false);
@@ -78,7 +78,7 @@ const Navbar = () => {
                                 </>
                             )}
                         </li>
-                        <li>
+                        <li onClick={logout}>
                             <LogoutIcon/>
                             Logout
                         </li>
