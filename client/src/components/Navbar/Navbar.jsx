@@ -11,6 +11,8 @@ import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
+import {useQuery} from "@tanstack/react-query";
+import {getFriendRequests} from "../../db/friendRequest/getFriendRequests.js";
 
 const Navbar = () => {
     const {currentUser, logout} = useContext(AuthContext);
@@ -18,6 +20,13 @@ const Navbar = () => {
 
     const [openMenu, setOpenMenu] = useState(false);
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
+
+    const {isLoading: isLoadingFriends, error: errorFriends, data: dataFriends} = useQuery({
+        queryKey: [currentUser._id],
+        queryFn: () => getFriendRequests(),
+    });
+
+    console.log(dataFriends)
 
     useEffect(() => {
         openMobileMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
@@ -39,6 +48,11 @@ const Navbar = () => {
                     </div>
                     <div className="navbar__item navbar__icon">
                         <GroupIcon/>
+                        {dataFriends?.length !== 0 && typeof  dataFriends !== "undefined" &&
+                            <div className="navbar__counter">
+                                {dataFriends?.length}
+                            </div>
+                        }
                     </div>
                     <div className="navbar__item navbar__img">
                         <img onClick={() => setOpenMenu(!openMenu)}

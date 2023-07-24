@@ -14,8 +14,6 @@ const UserProfile = () => {
         queryKey: ["profiles"],
         queryFn: () => getSingleUserData(id),
     });
-
-    console.log(data);
     return (
         <section className="profile">
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
