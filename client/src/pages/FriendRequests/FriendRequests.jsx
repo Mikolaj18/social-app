@@ -10,7 +10,7 @@ const FriendRequests = () => {
     const {currentUser} = useContext(AuthContext);
 
     const {isLoading, error, data} = useQuery({
-        queryKey: [currentUser._id],
+        queryKey: ["friendsRequests"],
         queryFn: () => getFriendRequests(),
     });
 
@@ -22,8 +22,12 @@ const FriendRequests = () => {
     }
     return (
         <section className="friendRequests">
-            <h1>Friends request:</h1>
-            <Friends data={data} isLoading={isLoading} error={error}/>
+            {isLoading ? <Spinner/> : error ? "Something went wrong" :
+                <>
+                    <h1>Friends request:</h1>
+                    <Friends data={data}/>
+                </>
+            }
         </section>
     );
 }
