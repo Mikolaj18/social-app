@@ -59,6 +59,11 @@
         fill: themed("color-first");
       }
 
+      a {
+        display: flex;
+        justify-content: center;
+      }
+
       &:hover {
         background-color: themed("bg-hover-second");
       }

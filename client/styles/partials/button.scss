@@ -17,7 +17,16 @@
     background: $color-green;
   }
 
+  &--gray {
+    background: $color-gray;
+  }
+
   &--mt-20 {
     margin: 20px auto 0;
+  }
+
+
+  &--no-min-width {
+    min-width: unset;
   }
 }

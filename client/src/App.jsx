@@ -18,6 +18,7 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
+import FriendRequests from "./pages/FriendRequests/FriendRequests.jsx";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
@@ -76,6 +77,10 @@ function App() {
                 {
                     path: "/profile/:id",
                     element: <UserProfile/>,
+                },
+                {
+                    path: "/friends/requests",
+                    element: <FriendRequests/>,
                 },
             ],
         },

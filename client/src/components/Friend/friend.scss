@@ -1,0 +1,29 @@
+@import "../../client/styles/theme.scss";
+@import "../../client/styles/vars.scss";
+
+.friends {
+  @include themify($themes) {
+    &__friend {
+      text-align: center;
+      display: flex;
+      flex-flow: column;
+      h2 {
+        margin-top: 10px;
+        color: themed("color-first");
+        font-size: 1.7rem;
+        @media(min-width: $breakpoint-tablet) {
+          font-size: 2rem;
+        }
+      }
+
+      &-img {
+        height: 100%;
+
+        img {
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

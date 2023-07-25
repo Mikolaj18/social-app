@@ -17,7 +17,7 @@ export const sendFriendRequest = async (req, res,next) => {
             receiver: req.body.receiverId,
             status: { $in: ['pending', 'accepted'] },
         });
-        if (isRequestAlreadySent) return next(createError(409, "Friend request has been already sent"))
+        // if (isRequestAlreadySent) return next(createError(409, "Friend request has been already sent"))
 
         const newFriendRequest = new FriendRequest({
             sender: senderId,

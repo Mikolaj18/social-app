@@ -22,11 +22,11 @@ const Navbar = () => {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     const {isLoading: isLoadingFriends, error: errorFriends, data: dataFriends} = useQuery({
-        queryKey: [currentUser._id],
+        queryKey: ["friends"],
         queryFn: () => getFriendRequests(),
     });
 
-    console.log(dataFriends)
+    console.log(dataFriends);
 
     useEffect(() => {
         openMobileMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
@@ -47,20 +47,23 @@ const Navbar = () => {
                         <MessageIcon/>
                     </div>
                     <div className="navbar__item navbar__icon">
-                        <GroupIcon/>
-                        {dataFriends?.length !== 0 && typeof  dataFriends !== "undefined" &&
-                            <div className="navbar__counter">
-                                {dataFriends?.length}
-                            </div>
-                        }
+                        <Link to="/friends/requests">
+                            <GroupIcon/>
+                            {dataFriends?.length !== 0 && typeof dataFriends !== "undefined" &&
+                                <div className="navbar__counter">
+                                    {dataFriends?.length}
+                                </div>
+                            }
+                        </Link>
                     </div>
                     <div className="navbar__item navbar__img">
                         <img onClick={() => setOpenMenu(!openMenu)}
                              src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
                              alt="Profile picture"/>
                     </div>
-                    <div onClick={() => setOpenMobileMenu(!openMobileMenu)} className="navbar__item navbar__mobile-menu-trigger">
-                        {openMobileMenu ? <MenuOpenIcon/> : <MenuIcon/> }
+                    <div onClick={() => setOpenMobileMenu(!openMobileMenu)}
+                         className="navbar__item navbar__mobile-menu-trigger">
+                        {openMobileMenu ? <MenuOpenIcon/> : <MenuIcon/>}
                     </div>
                 </div>
             </div>
