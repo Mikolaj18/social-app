@@ -7,6 +7,10 @@
       text-align: center;
       display: flex;
       flex-flow: column;
+      width: 100%;
+      @media(min-width: $breakpoint-friends) {
+        max-width: 200px;
+      }
       h2 {
         margin-top: 10px;
         color: themed("color-first");
@@ -16,6 +20,10 @@
         }
       }
 
+      a {
+        height: 100%;
+      }
+
       &-img {
         height: 100%;
 
@@ -23,6 +31,9 @@
           height: 100%;
           object-fit: cover;
         }
+      }
+      &-buttons {
+        margin-top: 30px;
       }
     }
   }

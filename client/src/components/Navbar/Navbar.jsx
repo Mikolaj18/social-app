@@ -26,8 +26,6 @@ const Navbar = () => {
         queryFn: () => getFriendRequests(),
     });
 
-    console.log(dataFriends);
-
     useEffect(() => {
         openMobileMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
         return () => {

@@ -1,19 +1,54 @@
 import "./userProfile.scss";
 import {Link, useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {getSingleUserData} from "../../db/user/getSingleUserData.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import HouseIcon from '@mui/icons-material/House';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext.jsx";
+import {getSentFriendRequests} from "../../db/friendRequest/getSentFriendRequests.js";
+import {getFriendRequests} from "../../db/friendRequest/getFriendRequests.js";
+import {sendFriendRequest} from "../../db/friendRequest/sendFriendRequest.js";
 
 const UserProfile = () => {
     const {id} = useParams();
+    const {currentUser} = useContext(AuthContext);
+    const queryClient = useQueryClient();
     const {isLoading, error, data} = useQuery({
         queryKey: ["profiles"],
         queryFn: () => getSingleUserData(id),
     });
+
+    const {isLoading: sentIsLoading, error: sentError, data: sentData} = useQuery({
+        queryKey: ["sentRequests"],
+        queryFn: () => getSentFriendRequests(),
+    });
+
+    const {isLoading: requestLoading, error: requestError, data: requestData} = useQuery({
+        queryKey: ["friendsRequest"],
+        queryFn: () => getFriendRequests(),
+    });
+
+    const mutation = useMutation({
+        mutationFn: async (id) => sendFriendRequest(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries("sentRequests");
+        }
+    });
+
+    const handleFriendRequestSend = async () => {
+        const userObject = {
+            receiverId: id,
+        }
+        mutation.mutate(userObject);
+    }
+
+    const isFriendRequestSent = sentData?.some(data => data.receiver === id);
+    const isFriendRequestReceived = requestData?.some(data => data.sender._id === id);
+
     return (
         <section className="profile">
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
@@ -37,10 +72,19 @@ const UserProfile = () => {
                             </div>
 
                             <div className="profile__button">
-                                {data._id === id &&
-                                    <button className="btn btn--blue">Add to friends</button>
+                                {!isFriendRequestReceived && currentUser._id !== id && !isFriendRequestSent &&
+                                    <button onClick={handleFriendRequestSend} className="btn btn--blue">Add to friend</button>
                                 }
-                                <button className="btn btn--green">Edit profile</button>
+                                {currentUser._id !== id && isFriendRequestSent ? (
+                                    <button className="btn btn--blue">Friend request sent</button>
+                                ) : currentUser._id !== id && isFriendRequestReceived ? (
+                                    <Link to="/friends/requests">
+                                        <button className="btn btn--blue">Invitation to friends in the mailbox</button>
+                                    </Link>
+                                ) : null}
+                                {currentUser._id === id &&
+                                    <button className="btn btn--green">Edit profile</button>
+                                }
                             </div>
                         </div>
                         <div className="profile__flex profile__flex--1000">

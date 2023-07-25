@@ -17,7 +17,7 @@ export const sendFriendRequest = async (req, res,next) => {
             receiver: req.body.receiverId,
             status: { $in: ['pending', 'accepted'] },
         });
-        // if (isRequestAlreadySent) return next(createError(409, "Friend request has been already sent"))
+        if (isRequestAlreadySent) return next(createError(409, "Friend request has been already sent"))
 
         const newFriendRequest = new FriendRequest({
             sender: senderId,
@@ -35,6 +35,16 @@ export const getFriendRequests = async (req, res, next) => {
     try {
         const id = req.userId;
         const friendRequests = await FriendRequest.find({ receiver: id, status: 'pending' }).populate('sender');
+        return res.status(200).json(friendRequests);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const getSentFriendRequests = async (req, res, next) => {
+    try {
+        const id = req.userId;
+        const friendRequests = await FriendRequest.find({ sender: id, status: 'pending' });
         return res.status(200).json(friendRequests);
     } catch (error) {
         next(error);
