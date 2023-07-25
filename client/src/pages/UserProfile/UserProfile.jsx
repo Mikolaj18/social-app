@@ -13,6 +13,7 @@ import {getSentFriendRequests} from "../../db/friends/getSentFriendRequests.js";
 import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
 import {sendFriendRequest} from "../../db/friends/sendFriendRequest.js";
 import {getFriendsList} from "../../db/friends/getFriendsList.js";
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 
 const UserProfile = () => {
     const {id} = useParams();
@@ -34,7 +35,7 @@ const UserProfile = () => {
     });
 
     const {isLoading: friendsIsLoading, error: friendsError, data: friendsData} = useQuery({
-        queryKey: ["friendsList"],
+        queryKey: [currentUser._id],
         queryFn: () => getFriendsList(id),
     });
 
@@ -56,7 +57,8 @@ const UserProfile = () => {
 
     const isFriendRequestSent = sentData?.some(data => data.receiver === id && data.status === 'pending');
     const isFriendRequestReceived = requestData?.some(data => data.sender._id === id && data.status === 'pending');
-    const isUserHasRelationship = friendsData?.some(data => data.friends.includes(id));
+    const isUserHasRelationship = friendsData?.some(data => data._id === currentUser._id);
+
 
     return (
         <section className="profile">
@@ -111,32 +113,7 @@ const UserProfile = () => {
                                             {data.description}
                                         </div>
                                     }
-                                    <ul>
-                                        {data.livesIn &&
-                                            <li>
-                                                <HouseIcon/>
-                                                Lives in: <b>{data.livesIn}</b>
-                                            </li>
-                                        }
-                                        {data.from &&
-                                            <li>
-                                                <LocationOnIcon/>
-                                                From: <b>{data.from}</b>
-                                            </li>
-                                        }
-                                        {data.school &&
-                                            <li>
-                                                <SchoolIcon/>
-                                                Studied in: <b>{data.school}</b>
-                                            </li>
-                                        }
-                                        {data.work &&
-                                            <li>
-                                                <WorkIcon/>
-                                                Works in: <b>{data.work}</b>
-                                            </li>
-                                        }
-                                    </ul>
+                                        <ProfileInfo data={data}/>
                                 </div>
                                 <div className="profile__friends">
                                     <div className="profile__friends-title">

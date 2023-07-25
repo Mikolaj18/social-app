@@ -2,7 +2,7 @@ import User from '../models/user.model.js';
 import FriendRequest from '../models/friendRequest.model.js';
 import {createError} from "../utils/createError.js";
 
-export const sendFriendRequest = async (req, res,next) => {
+export const sendFriendRequest = async (req, res, next) => {
     try {
         const senderId = req.userId;
 
