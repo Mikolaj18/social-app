@@ -12,7 +12,7 @@ import {Link} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 import {useQuery} from "@tanstack/react-query";
-import {getFriendRequests} from "../../db/friendRequest/getFriendRequests.js";
+import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
 
 const Navbar = () => {
     const {currentUser, logout} = useContext(AuthContext);

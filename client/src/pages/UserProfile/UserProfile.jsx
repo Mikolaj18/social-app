@@ -9,9 +9,10 @@ import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
 import {useContext} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import {getSentFriendRequests} from "../../db/friendRequest/getSentFriendRequests.js";
-import {getFriendRequests} from "../../db/friendRequest/getFriendRequests.js";
-import {sendFriendRequest} from "../../db/friendRequest/sendFriendRequest.js";
+import {getSentFriendRequests} from "../../db/friends/getSentFriendRequests.js";
+import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
+import {sendFriendRequest} from "../../db/friends/sendFriendRequest.js";
+import {getFriendsList} from "../../db/friends/getFriendsList.js";
 
 const UserProfile = () => {
     const {id} = useParams();
@@ -32,6 +33,13 @@ const UserProfile = () => {
         queryFn: () => getFriendRequests(),
     });
 
+    const {isLoading: friendsIsLoading, error: friendsError, data: friendsData} = useQuery({
+        queryKey: ["friendsList"],
+        queryFn: () => getFriendsList(id),
+    });
+
+    console.log(friendsData)
+
     const mutation = useMutation({
         mutationFn: async (id) => sendFriendRequest(id),
         onSuccess: () => {
@@ -46,8 +54,9 @@ const UserProfile = () => {
         mutation.mutate(userObject);
     }
 
-    const isFriendRequestSent = sentData?.some(data => data.receiver === id);
-    const isFriendRequestReceived = requestData?.some(data => data.sender._id === id);
+    const isFriendRequestSent = sentData?.some(data => data.receiver === id && data.status === 'pending');
+    const isFriendRequestReceived = requestData?.some(data => data.sender._id === id && data.status === 'pending');
+    const isUserHasRelationship = friendsData?.some(data => data.friends.includes(id));
 
     return (
         <section className="profile">
@@ -67,14 +76,19 @@ const UserProfile = () => {
                                 </div>
                                 <div className="profile__data-info">
                                     <h1>{data.name} {data.surname}</h1>
-                                    <p>370 friends</p>
+                                    <p>{friendsData?.length === 1 ? "1 friend" : `${friendsData?.length} friends`}</p>
                                 </div>
                             </div>
 
                             <div className="profile__button">
-                                {!isFriendRequestReceived && currentUser._id !== id && !isFriendRequestSent &&
+                                {!isFriendRequestReceived && currentUser._id !== id && !isFriendRequestSent && !isUserHasRelationship &&
                                     <button onClick={handleFriendRequestSend} className="btn btn--blue">Add to friend</button>
                                 }
+
+                                {isUserHasRelationship && currentUser._id !== id &&
+                                    <button className="btn btn--blue">You are friends</button>
+                                }
+
                                 {currentUser._id !== id && isFriendRequestSent ? (
                                     <button className="btn btn--blue">Friend request sent</button>
                                 ) : currentUser._id !== id && isFriendRequestReceived ? (
@@ -82,6 +96,7 @@ const UserProfile = () => {
                                         <button className="btn btn--blue">Invitation to friends in the mailbox</button>
                                     </Link>
                                 ) : null}
+
                                 {currentUser._id === id &&
                                     <button className="btn btn--green">Edit profile</button>
                                 }
@@ -131,78 +146,19 @@ const UserProfile = () => {
                                         </Link>
                                     </div>
                                     <div className="profile__friends-flex">
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
-                                        <div className="profile__friend">
-                                            <div className="profile__friend-img">
-                                                <img src="https://fakeimg.pl/250x100/" alt="Profile picture"/>
-                                            </div>
-                                            <div className="profile__friend-data">
-                                                Lorem ipsum
-                                            </div>
-                                        </div>
+                                        {friendsIsLoading ? <Spinner/> : friendsError ? "Something went wrong" :
+                                            friendsData.map(f => (
+                                                <div className="profile__friend" key={f._id}>
+                                                    <Link reloadDocument to={`/profile/${f._id}`}>
+                                                        <div className="profile__friend-img">
+                                                            <img src={f.profilePicture} alt="Profile picture"/>
+                                                        </div>
+                                                        <div className="profile__friend-data">
+                                                            {f.name} {f.surname}
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                             </div>

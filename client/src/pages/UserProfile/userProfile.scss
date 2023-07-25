@@ -110,7 +110,7 @@
     &__personal {
       display: flex;
       flex-flow: column;
-      flex: 5;
+      flex: 4;
 
       &-info {
         box-shadow: $form-box-shadow;
@@ -178,6 +178,9 @@
       margin-top: 20px;
       box-shadow: $form-box-shadow;
       padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 10px;
 
       &-title {
         font-size: 1.8rem;
@@ -198,7 +201,6 @@
       &-flex {
         display: flex;
         flex-flow: wrap;
-        justify-content: center;
         column-gap: 10px;
         row-gap: 10px;
       }
@@ -224,6 +226,7 @@
 
         img {
           height: 100%;
+          object-fit: cover;
         }
       }
     }

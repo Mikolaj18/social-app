@@ -4,5 +4,6 @@ export const USER_LOGOUT_URL = "http://localhost:8800/auth/logout";
 
 export const USER_GET_URL = "http://localhost:8800/users";
 
-export const FRIEND_REQUESTS_URL = "http://localhost:8800/friends"
-export const SENT_FRIEND_REQUESTS_URL = "http://localhost:8800/friends/sent"
+export const FRIEND_REQUESTS_URL = "http://localhost:8800/friends";
+export const SENT_FRIEND_REQUESTS_URL = "http://localhost:8800/friends/sent";
+export const FRIENDS_LIST_URL = "http://localhost:8800/friends/list";

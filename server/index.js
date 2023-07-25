@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser"
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
-import friendsRoutes from "./routes/friendRequest.route.js";
+import friendsRoutes from "./routes/friend.route.js";
 
 const app = express();
 dotenv.config();
