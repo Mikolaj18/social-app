@@ -4,12 +4,15 @@
 .friendRequests {
   @include themify($themes) {
     width: 100%;
+    padding: 0 20px 20px;
 
-    h1 {
+    h1, p {
       padding: 0 20px;
+      text-align: center;
       margin: 30px 0;
       font-size: 2rem;
       color: themed("color-first");
+      font-weight: $fw-700;
       @media(min-width: $breakpoint-tablet) {
         font-size: 2.5rem;
       }

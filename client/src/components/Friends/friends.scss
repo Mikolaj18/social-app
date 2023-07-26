@@ -1,9 +1,0 @@
-.friends {
-  &__wrapper {
-    display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
-    column-gap: 10px;
-    row-gap: 10px;
-    padding: 0 20px;
-  }
-}

@@ -1,5 +1,7 @@
 @import "../../client/styles/theme.scss";
 @import "../../client/styles/vars.scss";
+@import "./styles/partials/slider.scss";
+
 
 .friends {
   @include themify($themes) {
@@ -33,7 +35,7 @@
         }
       }
       &-buttons {
-        margin-top: 30px;
+        margin-top: 10px;
       }
     }
   }

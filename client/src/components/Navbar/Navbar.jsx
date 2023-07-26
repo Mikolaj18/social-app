@@ -71,7 +71,7 @@ const Navbar = () => {
             }
             {openMobileMenu &&
                 <div className="navbar__mobile">
-                    <SectionList/>
+                    <SectionList dataFriends={dataFriends}/>
                 </div>
             }
         </nav>

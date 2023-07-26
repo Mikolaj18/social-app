@@ -32,7 +32,7 @@ function App() {
                     <Navbar/>
                     <div className="main">
                         <LeftMenu/>
-                        <div style={{flex: 7}}>
+                        <div style={{flex: 7, width: "100%"}}>
                             <Outlet/>
                         </div>
                         {rightMenuVisible &&

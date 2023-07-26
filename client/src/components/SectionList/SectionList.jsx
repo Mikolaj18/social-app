@@ -8,8 +8,9 @@ import {useContext} from "react";
 import "./sectionList.scss";
 import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
+import GroupIcon from "@mui/icons-material/Group.js";
 
-const SectionList = () => {
+const SectionList = ({dataFriends}) => {
     const {currentUser} = useContext(AuthContext);
 
     return (
@@ -48,6 +49,18 @@ const SectionList = () => {
                   <StoreIcon/>
                   <p>Marketplace</p>
               </li>
+              <li className="sectionList__item sectionList__item--mobile">
+                  <Link reloadDocument  to="/friends/requests">
+                      <GroupIcon />
+                      {dataFriends?.length !== 0 && typeof dataFriends !== "undefined" && (
+                          <div className="navbar__counter">
+                              {dataFriends?.length}
+                          </div>
+                      )}
+                      <p>Friends invitation</p>
+                  </Link>
+              </li>
+
           </ul>
       </>
     );

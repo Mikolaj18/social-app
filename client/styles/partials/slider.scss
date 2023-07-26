@@ -1,0 +1,15 @@
+.slider-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.slide {
+  //min-width: 25%!important;
+  text-align: center;
+}
+.slide > div{
+  margin: 0 auto;
+}
+.carousel.carousel-slider .control-arrow {
+  background: $color-gray-fourth !important;
+}
