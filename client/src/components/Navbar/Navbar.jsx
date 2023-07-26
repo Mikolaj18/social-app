@@ -13,6 +13,7 @@ import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
+import NavbarMenu from "../NavbarMenu/NavbarMenu.jsx";
 
 const Navbar = () => {
     const {currentUser, logout} = useContext(AuthContext);
@@ -66,39 +67,7 @@ const Navbar = () => {
                 </div>
             </div>
             {openMenu &&
-                <div className="navbar__menu">
-                    <Link reloadDocument to={`/profile/${currentUser._id}`}>
-                        <div className="navbar__menu-profile">
-                            <div className="navbar__img">
-                                <img
-                                    src={!currentUser.profilePicture ? "../src/images/default.jpg" : currentUser.profilePicture}
-                                    alt="Profile picture"/>
-                            </div>
-                            <div className="navbar__menu-profile-name">
-                                <p>{currentUser.name} {currentUser.surname}</p>
-                            </div>
-                        </div>
-                    </Link>
-                    <ul className="navbar__menu-list">
-                        <li onClick={toggle}>
-                            {darkMode ? (
-                                <>
-                                    <LightModeIcon/>
-                                    Light mode
-                                </>
-                            ) : (
-                                <>
-                                    <DarkModeIcon/>
-                                    Dark mode
-                                </>
-                            )}
-                        </li>
-                        <li onClick={logout}>
-                            <LogoutIcon/>
-                            Logout
-                        </li>
-                    </ul>
-                </div>
+                <NavbarMenu darkMode={darkMode} currentUser={currentUser} logout={logout} toggle={toggle}/>
             }
             {openMobileMenu &&
                 <div className="navbar__mobile">
