@@ -70,11 +70,13 @@ const UserProfile = () => {
                         <div className="profile__flex">
                             <div className="profile__data">
                                 <div className="profile__data-img">
-                                    <img src={data.profilePicture} alt="Profile picture"/>
+                                    <img src={data.profilePicture ? data.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
                                 </div>
                                 <div className="profile__data-info">
                                     <h1>{data.name} {data.surname}</h1>
-                                    <p>{friendsData?.length === 1 ? "1 friend" : `${friendsData?.length} friends`}</p>
+                                    {typeof friendsData !== "undefined" &&
+                                        <p>{friendsData?.length === 1 ? "1 friend" : `${friendsData?.length} friends`}</p>
+                                    }
                                 </div>
                             </div>
 
@@ -124,7 +126,7 @@ const UserProfile = () => {
                                                 <div className="profile__friend" key={f._id}>
                                                     <Link reloadDocument to={`/profile/${f._id}`}>
                                                         <div className="profile__friend-img">
-                                                            <img src={f.profilePicture} alt="Profile picture"/>
+                                                            <img src={f.profilePicture ? f.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
                                                         </div>
                                                         <div className="profile__friend-data">
                                                             {f.name} {f.surname}

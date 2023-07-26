@@ -15,7 +15,7 @@ export const sendFriendRequest = async (req, res, next) => {
         const isRequestAlreadySent = await FriendRequest.findOne({
             sender: senderId,
             receiver: req.body.receiverId,
-            status: { $in: ['pending', 'accepted'] },
+            status: { $in: ['pending'] },
         });
         if (isRequestAlreadySent) return next(createError(409, "Friend request has been already sent"))
 
@@ -69,6 +69,26 @@ export const acceptFriendRequest = async (req, res, next) => {
         await User.findByIdAndUpdate(friendRequest.sender, { $addToSet: { friends: id } });
 
         res.status(200).json("Friend request has been accepted");
+    } catch (error) {
+        next(error);
+    }
+}
+
+const rejectFriendRequest = async (req, res, next) => {
+    try {
+        const id = req.userId;
+        const { friendRequestId } = req.body;
+
+        const user = await User.findById(id);
+        if (!user) return next(createError(404, "User not found"));
+
+        const friendRequest = await FriendRequest.findById(friendRequestId);
+        if (!friendRequest) return next(createError(404, "This friend request does not exist"));
+
+        if (friendRequest.status !== 'pending') return next(createError(400, "This friend request expired"));
+
+        await FriendRequest.findByIdAndUpdate(friendRequestId, { $set: { status: 'rejected' } });
+        res.status(200).json("Friend request has been rejected");
     } catch (error) {
         next(error);
     }
