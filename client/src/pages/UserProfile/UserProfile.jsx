@@ -11,6 +11,7 @@ import {sendFriendRequest} from "../../db/friends/sendFriendRequest.js";
 import {getFriendsList} from "../../db/friends/getFriendsList.js";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 import {removeFriend} from "../../db/friends/removeFriend.js";
+import ProfileFriend from "../../components/ProfileFriend/ProfileFriend.jsx";
 
 const UserProfile = () => {
     const {id} = useParams();
@@ -98,13 +99,13 @@ const UserProfile = () => {
 
                                 {isUserHasRelationship && currentUser._id !== id &&
                                     <>
-                                        <button className="btn btn--blue">You are friends</button>
+                                        <button className="btn btn--blue btn--cursor-default">You are friends</button>
                                         <button onClick={handleRemoveFriend} className="btn btn--red">Remove from friends list</button>
                                     </>
                                 }
 
                                 {currentUser._id !== id && isFriendRequestSent ? (
-                                    <button className="btn btn--blue">Friend request sent</button>
+                                    <button className="btn btn--blue btn--cursor-default">Friend request sent</button>
                                 ) : currentUser._id !== id && isFriendRequestReceived ? (
                                     <Link to="/friends/requests">
                                         <button className="btn btn--blue">Invitation to friends in the mailbox</button>
@@ -137,16 +138,7 @@ const UserProfile = () => {
                                     <div className="profile__friends-flex">
                                         {friendsIsLoading ? <Spinner/> : friendsError ? "Something went wrong" :
                                             friendsData.map(f => (
-                                                <div className="profile__friend" key={f._id}>
-                                                    <Link reloadDocument to={`/profile/${f._id}`}>
-                                                        <div className="profile__friend-img">
-                                                            <img src={f.profilePicture ? f.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
-                                                        </div>
-                                                        <div className="profile__friend-data">
-                                                            {f.name} {f.surname}
-                                                        </div>
-                                                    </Link>
-                                                </div>
+                                                <ProfileFriend item={f} key={f._id}/>
                                             ))}
                                     </div>
                                 </div>

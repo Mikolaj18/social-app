@@ -24,6 +24,10 @@
   &--red {
     background: $color-red;
   }
+  
+  &--cursor-default {
+    cursor: default;
+  }
 
   &--mt-20 {
     margin: 20px auto 0;
