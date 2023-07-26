@@ -104,6 +104,20 @@ export const getFriendList = async (req, res, next) => {
         const friendList = await User.find({ _id: { $in: user.friends } }).sort({createdAt: -1});
         res.status(200).json(friendList);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }
+
+export const removeFriend = async (req, res, next) => {
+    try {
+        const { friendId } = req.params;
+        const id = req.userId;
+
+        await User.findByIdAndUpdate(id, { $pull: { friends: friendId } });
+        await User.findByIdAndUpdate(friendId, { $pull: { friends: id } });
+
+        res.status(200).json({ message: 'Friend removed successfully' });
+    } catch (error) {
+        next(error);
+    }
+};

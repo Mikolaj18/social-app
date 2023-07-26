@@ -67,7 +67,7 @@ const Navbar = () => {
             </div>
             {openMenu &&
                 <div className="navbar__menu">
-                    <Link to={`/profile/${currentUser._id}`}>
+                    <Link reloadDocument to={`/profile/${currentUser._id}`}>
                         <div className="navbar__menu-profile">
                             <div className="navbar__img">
                                 <img

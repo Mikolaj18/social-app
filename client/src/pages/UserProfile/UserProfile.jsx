@@ -10,11 +10,13 @@ import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
 import {sendFriendRequest} from "../../db/friends/sendFriendRequest.js";
 import {getFriendsList} from "../../db/friends/getFriendsList.js";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
+import {removeFriend} from "../../db/friends/removeFriend.js";
 
 const UserProfile = () => {
     const {id} = useParams();
     const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
+
     const {isLoading, error, data} = useQuery({
         queryKey: ["profiles"],
         queryFn: () => getSingleUserData(id),
@@ -35,12 +37,17 @@ const UserProfile = () => {
         queryFn: () => getFriendsList(id),
     });
 
-    console.log(friendsData)
-
     const mutation = useMutation({
         mutationFn: async (id) => sendFriendRequest(id),
         onSuccess: () => {
             queryClient.invalidateQueries("sentRequests");
+        }
+    });
+
+    const removeFriendMutation = useMutation({
+        mutationFn: async (id) => removeFriend(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries("friends");
         }
     });
 
@@ -49,6 +56,10 @@ const UserProfile = () => {
             receiverId: id,
         }
         mutation.mutate(userObject);
+    }
+
+    const handleRemoveFriend = async () => {
+        removeFriendMutation.mutate(id);
     }
 
     const isFriendRequestSent = sentData?.some(data => data.receiver === id && data.status === 'pending');
@@ -86,7 +97,10 @@ const UserProfile = () => {
                                 }
 
                                 {isUserHasRelationship && currentUser._id !== id &&
-                                    <button className="btn btn--blue">You are friends</button>
+                                    <>
+                                        <button className="btn btn--blue">You are friends</button>
+                                        <button onClick={handleRemoveFriend} className="btn btn--red">Remove from friends list</button>
+                                    </>
                                 }
 
                                 {currentUser._id !== id && isFriendRequestSent ? (
