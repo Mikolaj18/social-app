@@ -12,6 +12,7 @@ import {getFriendsList} from "../../db/friends/getFriendsList.js";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 import {removeFriend} from "../../db/friends/removeFriend.js";
 import ProfileFriend from "../../components/ProfileFriend/ProfileFriend.jsx";
+import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
 
 const UserProfile = () => {
     const {id} = useParams();
@@ -67,7 +68,6 @@ const UserProfile = () => {
     const isFriendRequestReceived = requestData?.some(data => data.sender._id === id && data.status === 'pending');
     const isUserHasRelationship = friendsData?.some(data => data._id === currentUser._id);
 
-
     return (
         <section className="profile">
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
@@ -91,31 +91,15 @@ const UserProfile = () => {
                                     }
                                 </div>
                             </div>
-
-                            <div className="profile__button">
-                                {!isFriendRequestReceived && currentUser._id !== id && !isFriendRequestSent && !isUserHasRelationship &&
-                                    <button onClick={handleFriendRequestSend} className="btn btn--blue">Add to friend</button>
-                                }
-
-                                {isUserHasRelationship && currentUser._id !== id &&
-                                    <>
-                                        <button className="btn btn--blue btn--cursor-default">You are friends</button>
-                                        <button onClick={handleRemoveFriend} className="btn btn--red">Remove from friends list</button>
-                                    </>
-                                }
-
-                                {currentUser._id !== id && isFriendRequestSent ? (
-                                    <button className="btn btn--blue btn--cursor-default">Friend request sent</button>
-                                ) : currentUser._id !== id && isFriendRequestReceived ? (
-                                    <Link to="/friends/requests">
-                                        <button className="btn btn--blue">Invitation to friends in the mailbox</button>
-                                    </Link>
-                                ) : null}
-
-                                {currentUser._id === id &&
-                                    <button className="btn btn--green">Edit profile</button>
-                                }
-                            </div>
+                            <ProfileButtons
+                                isFriendRequestReceived={isFriendRequestReceived}
+                                isFriendRequestSent={isFriendRequestSent}
+                                isUserHasRelationship={isUserHasRelationship}
+                                currentUser={currentUser}
+                                id={id}
+                                handleFriendRequestSend={handleFriendRequestSend}
+                                handleRemoveFriend={handleRemoveFriend}
+                            />
                         </div>
                         <div className="profile__flex profile__flex--1000">
                             <div className="profile__personal">
@@ -183,7 +167,7 @@ const UserProfile = () => {
                 </div>
             }
         </section>
-    )
+    );
 }
 
 export default UserProfile;
