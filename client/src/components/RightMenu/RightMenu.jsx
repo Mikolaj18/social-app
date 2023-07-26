@@ -13,7 +13,6 @@ const RightMenu = () => {
         queryFn: () => getFriendsList(currentUser._id),
     });
 
-    console.log(data);
     return (
         <aside className="rightMenu">
             <div className="rightMenu__wrapper">
