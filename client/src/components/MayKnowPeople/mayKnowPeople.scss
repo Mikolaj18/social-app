@@ -1,12 +1,12 @@
 @import "../../client/styles/vars.scss";
 @import "../../client/styles/theme.scss";
 
-.friendRequests {
-  @include themify($themes) {
-    width: 100%;
-    padding: 0 20px 20px;
+.mayKnow {
+  max-width: 500px;
+  margin: 0 auto;
 
-    h1 {
+  h2 {
+    @include themify($themes) {
       padding: 0 20px;
       text-align: center;
       margin: 30px 0;

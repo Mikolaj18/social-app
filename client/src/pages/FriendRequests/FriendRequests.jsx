@@ -6,8 +6,7 @@ import {acceptFriendRequest} from "../../db/friends/acceptFriendRequest.js";
 import {rejectFriendRequest} from "../../db/friends/rejectFriendRequest.js";
 import {getRandomUsers} from "../../db/user/getRandomUsers.js";
 import Friend from "../../components/Friend/Friend.jsx";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import MayKnowPeople from "../../components/MayKnowPeople/MayKnowPeople.jsx";
 
 const FriendRequests = () => {
     const queryClient = useQueryClient();
@@ -46,18 +45,6 @@ const FriendRequests = () => {
     const handleAcceptFriendRequest = handleFriendRequest(acceptMutation);
     const handleRejectFriendRequest = handleFriendRequest(rejectMutation);
 
-    const settings = {
-        showArrows: true,
-        infiniteLoop: true,
-        showIndicators: false,
-        centerMode: true,
-        centerSlidePercentage: 100,
-        emulateTouch: true,
-        showStatus: false,
-        showThumbs: false,
-    };
-
-
     return (
         <section className="friendRequests">
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
@@ -67,21 +54,13 @@ const FriendRequests = () => {
                     <>
                         <h1>Friends request:</h1>
                         {data.map(f => (
-                            <Friend key={f._id} item={f} isRequest={true} isSender={true} onAccept={handleAcceptFriendRequest} onReject={handleRejectFriendRequest}/>
+                            <Friend key={f._id} item={f} isRequest={true} isSender={true}
+                                    onAccept={handleAcceptFriendRequest} onReject={handleRejectFriendRequest}/>
                         ))}
                     </>
             }
             {isLoadingRandom ? <Spinner/> : error ? "Something went wrong" :
-                <>
-                    <p>People you may know</p>
-                    <div className="slider-wrapper">
-                        <Carousel {...settings}>
-                            {dataRandom.map(f => (
-                                <Friend item={f} isRequest={false} isSender={false} key={f._id} />
-                            ))}
-                        </Carousel>
-                    </div>
-                </>
+                <MayKnowPeople/>
             }
         </section>
     );
