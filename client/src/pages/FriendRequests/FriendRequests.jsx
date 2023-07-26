@@ -53,10 +53,12 @@ const FriendRequests = () => {
                     :
                     <>
                         <h1>Friends request:</h1>
-                        {data.map(f => (
-                            <Friend key={f._id} item={f} isRequest={true} isSender={true}
-                                    onAccept={handleAcceptFriendRequest} onReject={handleRejectFriendRequest}/>
-                        ))}
+                        <div className="friends">
+                            {data.map(f => (
+                                <Friend key={f._id} item={f} isRequest={true} isSender={true}
+                                        onAccept={handleAcceptFriendRequest} onReject={handleRejectFriendRequest}/>
+                            ))}
+                        </div>
                     </>
             }
             {isLoadingRandom ? <Spinner/> : error ? "Something went wrong" :
