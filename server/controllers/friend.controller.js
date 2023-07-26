@@ -74,7 +74,7 @@ export const acceptFriendRequest = async (req, res, next) => {
     }
 }
 
-const rejectFriendRequest = async (req, res, next) => {
+export const rejectFriendRequest = async (req, res, next) => {
     try {
         const id = req.userId;
         const { friendRequestId } = req.body;
