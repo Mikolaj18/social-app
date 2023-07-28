@@ -1,0 +1,8 @@
+.friends {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
+  justify-items: center;
+  column-gap: 10px;
+  row-gap: 50px;
+  padding: 0 20px;
+}

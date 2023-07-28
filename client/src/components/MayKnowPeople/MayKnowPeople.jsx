@@ -28,7 +28,7 @@ const MayKnowPeople = () => {
         <>
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
                 <div className="mayKnow">
-                    <h2>People you may know:</h2>
+                    <h2 className="header">People you may know:</h2>
                         <Carousel {...settings}>
                             {data.map(f => (
                                 <Friend item={f} isRequest={false} isSender={false} key={f._id}/>

@@ -20,7 +20,7 @@ const UserProfile = () => {
     const queryClient = useQueryClient();
 
     const {isLoading, error, data} = useQuery({
-        queryKey: ["profiles"],
+        queryKey: ["profile"],
         queryFn: () => getSingleUserData(id),
     });
 
@@ -115,7 +115,7 @@ const UserProfile = () => {
                                 <div className="profile__friends">
                                     <div className="profile__friends-title">
                                         <h2>Friends</h2>
-                                        <Link to="/">
+                                        <Link to={`/friends/${id}`}>
                                             Show all friends
                                         </Link>
                                     </div>

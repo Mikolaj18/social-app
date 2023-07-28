@@ -5,17 +5,4 @@
   max-width: 500px;
   margin: 0 auto;
 
-  h2 {
-    @include themify($themes) {
-      padding: 0 20px;
-      text-align: center;
-      margin: 30px 0;
-      font-size: 2rem;
-      color: themed("color-first");
-      font-weight: $fw-700;
-      @media(min-width: $breakpoint-tablet) {
-        font-size: 2.5rem;
-      }
-    }
-  }
 }

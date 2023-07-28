@@ -49,10 +49,10 @@ const FriendRequests = () => {
         <section className="friendRequests">
             {isLoading ? <Spinner/> : error ? "Something went wrong" :
                 data.length === 0 ?
-                    <h1>No friend requests!</h1>
+                    <h1 className="header">No friend requests!</h1>
                     :
                     <>
-                        <h1>Friends request:</h1>
+                        <h1 className="header">Friends request:</h1>
                         <div className="friends">
                             {data.map(f => (
                                 <Friend key={f._id} item={f} isRequest={true} isSender={true}
