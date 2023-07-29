@@ -24,6 +24,34 @@ export const random = async (req, res, next) => {
     }
 };
 
+export const editUser = async (req, res, next) => {
+    try {
+        const id = req.userId;
+        const { name, surname, email, profilePicture, coverPicture, work, school, from, livesIn, description } = req.body;
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            {
+                name,
+                surname,
+                email,
+                profilePicture,
+                coverPicture,
+                work,
+                school,
+                from,
+                livesIn,
+                description,
+            },
+            { new: true }
+        );
+        if(!updatedUser) return next(createError(404, "User not found"));
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        next(error)
+    }
+
+}
+
 export const deleteUser = async (req, res, next) => {
     try {
 
