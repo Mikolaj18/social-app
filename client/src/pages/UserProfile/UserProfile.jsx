@@ -13,16 +13,13 @@ import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 import {removeFriend} from "../../db/friends/removeFriend.js";
 import ProfileFriend from "../../components/ProfileFriend/ProfileFriend.jsx";
 import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
-import {Form, Formik} from "formik";
-import {loginSchema} from "../../schemas/loginSchema/loginSchema.js";
-import FormikInput from "../../components/FormikInput/FormikInput.jsx";
-import CloseIcon from '@mui/icons-material/Close';
 import {editUserProfile} from "../../db/user/editUserProfile.js";
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit.jsx";
+import {upload} from "../../upload/upload.js";
 
 const UserProfile = () => {
     const {id} = useParams();
-    const {currentUser} = useContext(AuthContext);
+    const {currentUser, setCurrentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -76,7 +73,24 @@ const UserProfile = () => {
 
     const onSubmit = async (values, actions) => {
         try {
-            editProfileMutation.mutate(values)
+            const profileUpload = values.profilePicture ? await upload(values.profilePicture) : null;
+            const coverUpload = values.coverPicture ? await upload(values.coverPicture) : null;
+
+            const profileImg = profileUpload?.url || data.profilePicture;
+            const coverImg = coverUpload?.url || data.coverPicture;
+
+            const userDataObject = {
+                ...values,
+                profilePicture: profileImg,
+                coverPicture: coverImg,
+            }
+
+           await editProfileMutation.mutate(userDataObject);
+            setCurrentUser((prevUser) => ({
+                ...prevUser,
+                ...userDataObject,
+            }));
+
             setIsOpen(false);
         } catch (error) {
             console.log(error)

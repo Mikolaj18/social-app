@@ -14,3 +14,6 @@ export const REMOVE_FRIEND_URL = "http://localhost:8800/friends/remove";
 export const FRIEND_REQUESTS_URL = "http://localhost:8800/friends";
 export const FRIENDS_LIST_URL = "http://localhost:8800/friends/list";
 
+export const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY;
+
+
