@@ -2,7 +2,6 @@
 @import "../../client/styles/theme.scss";
 
 .profile {
-  position: relative;
   @include themify($themes) {
     background: themed("bg");
     max-width: 1300px;
