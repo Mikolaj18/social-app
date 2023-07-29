@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import "./profileButtons.scss";
 
-const ProfileButtons = ({isFriendRequestReceived, isFriendRequestSent, isUserHasRelationship, currentUser, id, handleFriendRequestSend, handleRemoveFriend,}) => {
+const ProfileButtons = ({isFriendRequestReceived, isFriendRequestSent, isUserHasRelationship, currentUser, id, handleFriendRequestSend, handleRemoveFriend, onClick}) => {
     return (
         <div className="profile__buttons">
             {!isFriendRequestReceived && currentUser._id !== id && !isFriendRequestSent && !isUserHasRelationship && (
@@ -27,7 +27,7 @@ const ProfileButtons = ({isFriendRequestReceived, isFriendRequestSent, isUserHas
                 </Link>
             ) : null}
 
-            {currentUser._id === id && <button className="btn btn--green">Edit profile</button>}
+            {currentUser._id === id && <button onClick={onClick} className="btn btn--green">Edit profile</button>}
         </div>
     );
 };

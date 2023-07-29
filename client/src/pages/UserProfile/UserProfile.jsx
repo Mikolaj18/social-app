@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {getSingleUserData} from "../../db/user/getSingleUserData.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import {getSentFriendRequests} from "../../db/friends/getSentFriendRequests.js";
 import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
@@ -13,11 +13,25 @@ import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 import {removeFriend} from "../../db/friends/removeFriend.js";
 import ProfileFriend from "../../components/ProfileFriend/ProfileFriend.jsx";
 import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
+import {Form, Formik} from "formik";
+import {loginSchema} from "../../schemas/loginSchema/loginSchema.js";
+import FormikInput from "../../components/FormikInput/FormikInput.jsx";
+import CloseIcon from '@mui/icons-material/Close';
+import {editUserProfile} from "../../db/user/editUserProfile.js";
+import ProfileEdit from "../../components/ProfileEdit/ProfileEdit.jsx";
 
 const UserProfile = () => {
     const {id} = useParams();
     const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isOpen]);
 
     const {isLoading, error, data} = useQuery({
         queryKey: ["profile"],
@@ -40,7 +54,7 @@ const UserProfile = () => {
     });
 
     const mutation = useMutation({
-        mutationFn: async (id) => sendFriendRequest(id),
+        mutationFn: async (data) => sendFriendRequest(data),
         onSuccess: () => {
             queryClient.invalidateQueries("sentRequests");
         }
@@ -52,6 +66,23 @@ const UserProfile = () => {
             queryClient.invalidateQueries("friends");
         }
     });
+
+    const editProfileMutation = useMutation({
+        mutationFn: async (data, id) => editUserProfile(data, id),
+        onSuccess: () => {
+            queryClient.invalidateQueries("profile");
+        }
+    });
+
+    const onSubmit = async (values, actions) => {
+        try {
+            editProfileMutation.mutate(values)
+            setIsOpen(false);
+        } catch (error) {
+            console.log(error)
+        }
+        actions.setSubmitting(false)
+    }
 
     const handleFriendRequestSend = async () => {
         const userObject = {
@@ -82,7 +113,8 @@ const UserProfile = () => {
                         <div className="profile__flex">
                             <div className="profile__data">
                                 <div className="profile__data-img">
-                                    <img src={data.profilePicture ? data.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
+                                    <img src={data.profilePicture ? data.profilePicture : "../src/images/default.jpg"}
+                                         alt="Profile picture"/>
                                 </div>
                                 <div className="profile__data-info">
                                     <h1>{data.name} {data.surname}</h1>
@@ -99,6 +131,7 @@ const UserProfile = () => {
                                 id={id}
                                 handleFriendRequestSend={handleFriendRequestSend}
                                 handleRemoveFriend={handleRemoveFriend}
+                                onClick={() => setIsOpen(true)}
                             />
                         </div>
                         <div className="profile__flex profile__flex--1000">
@@ -110,7 +143,7 @@ const UserProfile = () => {
                                             {data.description}
                                         </div>
                                     }
-                                        <ProfileInfo data={data}/>
+                                    <ProfileInfo data={data}/>
                                 </div>
                                 <div className="profile__friends">
                                     <div className="profile__friends-title">
@@ -165,6 +198,9 @@ const UserProfile = () => {
                         </div>
                     </div>
                 </div>
+            }
+            {isOpen &&
+                <ProfileEdit data={data} onSubmit={onSubmit} onClick={() => setIsOpen(false)}/>
             }
         </section>
     );

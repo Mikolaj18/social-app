@@ -37,4 +37,8 @@
   &--no-min-width {
     min-width: unset;
   }
+
+  &--width-auto {
+    width: auto;
+  }
 }

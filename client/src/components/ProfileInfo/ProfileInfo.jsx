@@ -22,7 +22,7 @@ const ProfileInfo = ({ data }) => {
         },
         {
             icon: <WorkIcon />,
-            label: 'Works in:',
+            label: 'Works as:',
             value: data.work,
         },
     ];
