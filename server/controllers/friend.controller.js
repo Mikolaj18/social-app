@@ -34,7 +34,7 @@ export const sendFriendRequest = async (req, res, next) => {
 export const getFriendRequests = async (req, res, next) => {
     try {
         const id = req.userId;
-        const friendRequests = await FriendRequest.find({ receiver: id, status: 'pending' }).populate('sender');
+        const friendRequests = await FriendRequest.find({ receiver: id, status: 'pending' }).populate('sender', 'name surname profilePicture');
         return res.status(200).json(friendRequests);
     } catch (error) {
         next(error);
