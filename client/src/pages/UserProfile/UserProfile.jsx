@@ -16,6 +16,7 @@ import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
 import {editUserProfile} from "../../db/user/editUserProfile.js";
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit.jsx";
 import {upload} from "../../upload/upload.js";
+import {getUserPosts} from "../../db/posts/getUserPosts.js";
 
 const UserProfile = () => {
     const {id} = useParams();
@@ -45,10 +46,18 @@ const UserProfile = () => {
         queryFn: () => getFriendRequests(),
     });
 
+    const {isLoading: isLoadingPosts, error: errorPosts, data: dataPosts} = useQuery({
+        queryKey: ["posts"],
+        queryFn: () => getUserPosts(id),
+    });
+
+    console.log(dataPosts);
+
     const {isLoading: friendsIsLoading, error: friendsError, data: friendsData} = useQuery({
         queryKey: [currentUser._id],
         queryFn: () => getFriendsList(id),
     });
+
 
     const mutation = useMutation({
         mutationFn: async (data) => sendFriendRequest(data),
