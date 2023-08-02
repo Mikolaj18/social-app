@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 import {createError} from "../utils/createError.js";
 
 export const addPost = async (req, res, next) => {
@@ -16,15 +17,36 @@ export const addPost = async (req, res, next) => {
     }
 }
 
-export const getPosts = async (req, res, next) => {
+export const getUserPosts = async (req, res, next) => {
     try {
-        const id = req.userId;
-        const posts = await Post.find({ author: id }).populate('author', 'name surname profilePicture');
+        const userId = req.params.id;
+        const posts = await Post.find({ author: userId });
         return res.status(200).json(posts);
     } catch (error) {
         next(error);
     }
 }
+
+export const getPostsAndFriendsPosts = async (req, res, next) => {
+    try {
+        const currentUserId = req.userId;
+        const currentUserPosts = await Post.find({ author: currentUserId }).populate('author', 'name surname profilePicture');
+
+        const currentUser = await User.findById(currentUserId).lean().exec();
+        const friends = currentUser.friends;
+
+        const friendsPosts = await Post.find({ author: { $in: friends } }).populate('author', 'name surname profilePicture');
+
+        const allPosts = [...currentUserPosts, ...friendsPosts];
+
+        allPosts.sort((a, b) => b.createdAt - a.createdAt);
+
+        return res.status(200).json(allPosts);
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 export const deletePost = async (req, res, next) => {
     try {
