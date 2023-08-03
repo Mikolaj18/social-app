@@ -16,7 +16,6 @@ import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
 import {editUserProfile} from "../../db/user/editUserProfile.js";
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit.jsx";
 import {upload} from "../../db/upload/upload.js";
-import {getUserPosts} from "../../db/posts/getUserPosts.js";
 import Posts from "../../components/Posts/Posts.jsx";
 
 const UserProfile = () => {
@@ -179,7 +178,7 @@ const UserProfile = () => {
                             </div>
                             <div className="profile__posts">
                                 <h2 className="profile__posts-header">Posty</h2>
-                                <Posts id={id} includeFriends={false}/>
+                                <Posts id={id} includeFriends={false} />
                             </div>
                         </div>
                     </div>

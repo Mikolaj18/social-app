@@ -15,6 +15,8 @@
       svg {
         width: 30px;
         height: 30px;
+        color: themed("color-first");
+        cursor: pointer;
       }
     }
 
@@ -42,8 +44,12 @@
       }
 
       &-userData {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: $fw-700;
+        color: themed("color-first");
+        @media(min-width: $breakpoint-tablet) {
+          font-size: 1.5rem;
+        }
       }
 
       &-date {
@@ -54,8 +60,37 @@
     &__content {
       margin-top: 10px;
       text-align: left;
-      font-size: 2.4rem;
       color: themed("color-first");
+      font-size: 1.8rem;
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 2.4rem;
+
+      }
+    }
+    &__actions {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      column-gap: 20px;
+      justify-content: space-evenly;
+      padding-top: 10px;
+      border-top: 1px solid themed("bg-third");
+    }
+
+    &__action {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      font-size: 1.2rem;
+      color: $color-gray-fourth;
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 1.5rem;
+      }
+
+      svg {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }

@@ -13,6 +13,8 @@ const imageValidation = (value) => {
 };
 
 export const profileSchema = yup.object().shape({
+    name: yup.string().required("Cannot be empty"),
+    surname: yup.string().required("Cannot be empty"),
     profilePicture: yup.mixed()
         .test('fileType', 'Allowed formats are *jpeg *jpg *png', imageValidation)
         .test('fileSize', 'The maximum image size is 2 MB', imageValidation),

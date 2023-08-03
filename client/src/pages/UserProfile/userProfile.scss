@@ -44,6 +44,7 @@
       display: flex;
       justify-content: space-between;
       flex-flow: column;
+      column-gap: 10px;
       @media(min-width: $breakpoint-tablet) {
         padding: 0;
         flex-flow: row wrap;
@@ -214,7 +215,6 @@
       &-header {
         color: themed("color-first");
         font-size: 2rem;
-        margin-bottom: 30px;
       }
     }
   }
