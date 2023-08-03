@@ -12,6 +12,6 @@ export const editUserProfile = async (userData, id) => {
         });
         return await response.json();
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };

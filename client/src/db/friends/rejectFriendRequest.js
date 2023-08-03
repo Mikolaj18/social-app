@@ -12,6 +12,6 @@ export const rejectFriendRequest = async (requestId) => {
         });
         return await response.json();
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };

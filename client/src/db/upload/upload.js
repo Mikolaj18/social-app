@@ -1,4 +1,4 @@
-import {CLOUDINARY_UPLOAD_URL} from "../api/api.js";
+import {CLOUDINARY_UPLOAD_URL} from "../../api/api.js";
 
 export const upload = async (file) => {
     const data = new FormData();

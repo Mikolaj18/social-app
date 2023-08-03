@@ -12,6 +12,6 @@ export const removeFriend = async (id) => {
         console.log(response);
         return await response.json();
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
