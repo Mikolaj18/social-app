@@ -38,7 +38,16 @@ const Post = ({post}) => {
             </div>
             <div className="post__content">
                 {post.description}
-                {post.img && <img src={post.img} alt=""/>}
+                {post.file && (
+                    post.file.endsWith('.jpg') || post.file.endsWith('.jpeg') || post.file.endsWith('.png') ? (
+                        <img src={post.file} alt="" />
+                    ) : (
+                        <video controls>
+                            <source src={post.file} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    )
+                )}
             </div>
             <div className="post__actions">
                 <div className="post__action">

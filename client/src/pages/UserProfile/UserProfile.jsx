@@ -177,7 +177,7 @@ const UserProfile = () => {
                                 </div>
                             </div>
                             <div className="profile__posts">
-                                <h2 className="profile__posts-header">Posty</h2>
+                                <h2 className="profile__posts-header">Posts</h2>
                                 <Posts id={id} includeFriends={false} />
                             </div>
                         </div>
