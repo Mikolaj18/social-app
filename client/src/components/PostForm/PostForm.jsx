@@ -13,7 +13,6 @@ const PostForm = () => {
     const [isFileLoaded, setIsFileLoaded] = useState(false);
     const [fileURL, setFileURL] = useState(null);
     const queryClient = useQueryClient();
-
     const fileRef = useRef();
 
     const handleFileUpload = async () => {
@@ -39,11 +38,11 @@ const PostForm = () => {
         }
     });
 
-
     const handleSubmit = async (values, actions) => {
         if (!values.description && !values.file) return;
 
         const file = values.file ? await upload(values.file) : "";
+
         const postObject = {
             description: values.description,
             file: file.url,
@@ -68,14 +67,7 @@ const PostForm = () => {
                     <div className="postForm__wrapper">
                         <div className="postForm__content">
                             <div className="postForm__img">
-                                <img
-                                    src={
-                                        currentUser.profilePicture
-                                            ? currentUser.profilePicture
-                                            : "../src/images/default.jpg"
-                                    }
-                                    alt="Profile picture"
-                                />
+                                <img src={currentUser.profilePicture ? currentUser.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
                             </div>
                             <div className="postForm__input">
                                 <Field
@@ -93,10 +85,7 @@ const PostForm = () => {
                                     id="file"
                                     style={{ display: "none" }}
                                     name="file"
-                                    onChange={(event) => {
-                                        handleFileUpload(event);
-                                        setFieldValue("file", event.currentTarget.files[0]);
-                                    }}
+                                    onChange={(event) => {handleFileUpload(event);setFieldValue("file", event.currentTarget.files[0]);}}
                                     ref={fileRef}
                                 />
                                 <label htmlFor="file">
@@ -114,7 +103,8 @@ const PostForm = () => {
                             <button
                                 className="btn btn--blue btn--no-min-width"
                                 type="submit"
-                                disabled={!values.description && !values.file}>
+                                disabled={!values.description && !values.file}
+                            >
                                 Share
                             </button>
                         </div>
