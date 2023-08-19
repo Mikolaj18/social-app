@@ -16,15 +16,21 @@
     }
 
     &__author {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: $fw-700;
       color: themed("color-first");
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 1.3rem;
+      }
     }
 
     &__desc {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: themed("color-first");
       text-align: left;
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 1.5rem;
+      }
     }
 
     &__img {
@@ -39,10 +45,13 @@
     }
 
     &__date {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: $color-gray-fourth;
       text-align: left;
       margin-top: 5px;
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 1.3rem;
+      }
     }
   }
 }

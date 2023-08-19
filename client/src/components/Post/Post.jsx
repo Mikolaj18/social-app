@@ -20,8 +20,6 @@ const Post = ({post}) => {
         queryFn: () => getPostComments(post._id),
     });
 
-    console.log(data);
-
     return (
         <div className="post">
             <div className="post__info">
@@ -74,7 +72,7 @@ const Post = ({post}) => {
             </div>
             {isCommentsOpen && (
                 <div>
-                <CommentForm/>
+                <CommentForm postId={post._id}/>
                     {isLoading ? "Loading" : error ? "Something went wrong..." :
                         <div className="post__comments">
                             {data.map(comment => (

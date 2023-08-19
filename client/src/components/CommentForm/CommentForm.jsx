@@ -3,12 +3,30 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import SendIcon from '@mui/icons-material/Send';
 import "./commentForm.scss";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {addComment} from "../../db/comments/addComment.js";
 
-const CommentForm = () => {
+const CommentForm = ({postId}) => {
     const {currentUser} = useContext(AuthContext);
+    const queryClient = useQueryClient();
 
-    const handleSubmit = () => {
-        console.log("test")
+
+    const mutation = useMutation({
+        mutationFn: async (data) => addComment(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries("comment");
+        }
+    });
+
+    const handleSubmit = async (values, actions) => {
+        if (!values.description) return;
+        const commentObject = {
+            description: values.description,
+            postId: postId,
+        }
+        mutation.mutate(commentObject);
+        actions.resetForm();
+        actions.setSubmitting(false)
     }
 
     return (
