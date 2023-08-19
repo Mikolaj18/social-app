@@ -26,7 +26,7 @@ const CommentForm = ({postId}) => {
         }
         mutation.mutate(commentObject);
         actions.resetForm();
-        actions.setSubmitting(false)
+        actions.setSubmitting(false);
     }
 
     return (
