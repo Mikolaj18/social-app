@@ -1,0 +1,48 @@
+@import "../../client/styles/theme.scss";
+@import "../../client/styles/vars.scss";
+
+.comment {
+  @include themify($themes) {
+    &__flex {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+    }
+
+    &__content {
+      background: themed("bg-third");
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    &__author {
+      font-size: 1.3rem;
+      font-weight: $fw-700;
+      color: themed("color-first");
+    }
+
+    &__desc {
+      font-size: 1.5rem;
+      color: themed("color-first");
+      text-align: left;
+    }
+
+    &__img {
+      width: 36px;
+      height: 36px;
+
+      img {
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    &__date {
+      font-size: 1.3rem;
+      color: $color-gray-fourth;
+      text-align: left;
+      margin-top: 5px;
+    }
+  }
+}

@@ -2,7 +2,6 @@
 @import "../../client/styles/vars.scss";
 @import "./styles/partials/slider.scss";
 
-
 .friends {
   @include themify($themes) {
     &__friend {

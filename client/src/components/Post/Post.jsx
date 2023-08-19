@@ -2,13 +2,25 @@ import CloseIcon from '@mui/icons-material/Close';
 import moment from "moment";
 import "./post.scss";
 import {Link} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import CommentIcon from '@mui/icons-material/Comment';
+import {useQuery} from "@tanstack/react-query";
+import {getPostComments} from "../../db/comments/getPostComments.js";
+import Comment from "../Comment/Comment.jsx";
+import CommentForm from "../CommentForm/CommentForm.jsx";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
+    const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+
+    const {isLoading, error, data} = useQuery({
+        queryKey: [`comment-${post._id}`],
+        queryFn: () => getPostComments(post._id),
+    });
+
+    console.log(data);
 
     return (
         <div className="post">
@@ -53,11 +65,25 @@ const Post = ({post}) => {
                     <ThumbUpOffAltIcon/>
                     0 likes
                 </div>
-                <div className="post__action">
+                <div className="post__action" onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
                     <CommentIcon/>
-                    0 comments
+                    {typeof data !== "undefined" &&
+                        <p>{data?.length === 1 ? "1 comment" : `${data?.length} comments`}</p>
+                    }
                 </div>
             </div>
+            {isCommentsOpen && (
+                <div>
+                <CommentForm/>
+                    {isLoading ? "Loading" : error ? "Something went wrong..." :
+                        <div className="post__comments">
+                            {data.map(comment => (
+                                <Comment comment={comment} key={comment._id}/>
+                            ))}
+                        </div>
+                    }
+                </div>
+            )}
         </div>
     );
 }

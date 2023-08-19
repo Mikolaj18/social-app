@@ -1,0 +1,56 @@
+@import "../../client/styles/theme.scss";
+@import "../../client/styles/vars.scss";
+
+.commentForm {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  margin: 20px 0 20px 0;
+  @include themify($themes) {
+    &__img {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+
+      img {
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+    &__input {
+      width: 100%;
+
+      textarea {
+        width: 100%;
+        background: themed("");
+        color: themed("color-first");
+        background: transparent;
+        font-family: $font-default;
+        resize: none;
+        border: none;
+      }
+    }
+    button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+
+      svg {
+        width: 25px;
+        height: 25px;
+        color: $color-blue;
+        transition: all .4s;
+
+      }
+
+      &:disabled {
+        svg {
+          color: $color-gray-fourth;
+          transition: all .4s;
+
+        }
+      }
+    }
+  }
+}

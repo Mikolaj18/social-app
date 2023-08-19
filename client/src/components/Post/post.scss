@@ -83,8 +83,9 @@
       margin-top: 20px;
       column-gap: 20px;
       justify-content: space-evenly;
-      padding-top: 10px;
+      padding: 10px 0 10px 0;
       border-top: 1px solid themed("bg-third");
+      border-bottom: 1px solid themed("bg-third");
     }
 
     &__action {
@@ -93,6 +94,7 @@
       column-gap: 5px;
       font-size: 1.2rem;
       color: $color-gray-fourth;
+      cursor: pointer;
       @media(min-width: $breakpoint-tablet) {
         font-size: 1.5rem;
       }
@@ -101,6 +103,12 @@
         width: 25px;
         height: 25px;
       }
+    }
+
+    &__comments {
+      display: flex;
+      flex-flow: column;
+      row-gap: 10px;
     }
   }
 }
