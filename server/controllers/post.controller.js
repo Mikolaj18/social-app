@@ -20,7 +20,7 @@ export const addPost = async (req, res, next) => {
 export const getUserPosts = async (req, res, next) => {
     try {
         const userId = req.params.id;
-        const posts = await Post.find({ author: userId }).sort({createdAt: -1}).populate('author', 'name surname profilePicture');;
+        const posts = await Post.find({ author: userId }).sort({createdAt: -1}).populate('author', 'name surname profilePicture');
         return res.status(200).json(posts);
     } catch (error) {
         next(error);

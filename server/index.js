@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import friendsRoutes from "./routes/friend.route.js";
 import postsRoutes from "./routes/post.route.js";
+import commentRoutes from "./routes/comment.route.js";
 
 const app = express();
 dotenv.config();
@@ -36,6 +37,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/friends", friendsRoutes);
 app.use("/posts", postsRoutes);
+app.use("/comments", commentRoutes);
 
 app.use((error, req, res, next) => {
     const errorStatus = error.status || 500;
