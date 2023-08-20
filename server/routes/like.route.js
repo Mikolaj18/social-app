@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/", checkToken, like);
 router.get("/:objectId", checkToken, getLikes);
-router.delete("/", checkToken, unlike);
+router.delete("/:objectId", checkToken, unlike);
 
 export default router;

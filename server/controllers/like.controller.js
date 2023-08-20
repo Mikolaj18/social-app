@@ -20,10 +20,11 @@ export const like = async (req, res, next) => {
 
 export const unlike = async (req, res, next) => {
     const userId = req.userId;
+    const objectId = req.params.objectId;
     try {
-        const existingLike = await Like.findOneAndDelete({ userId, ...req.body});
+        const existingLike = await Like.findOneAndDelete({userId, objectId});
         if (!existingLike) return next(createError(404, "Like not found"));
-        res.status(200).json("Unliked");
+        res.status(200).json(existingLike);
     } catch (error) {
         next(error);
     }
@@ -32,7 +33,7 @@ export const unlike = async (req, res, next) => {
 export const getLikes = async (req, res, next) => {
     const objectId = req.params.objectId;
     try {
-        const likes = await Like.find({ objectId: objectId });
+        const likes = await Like.find({ objectId });
         res.status(200).json(likes);
     } catch (error) {
         next(error);

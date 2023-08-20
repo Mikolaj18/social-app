@@ -19,6 +19,8 @@ export const USER_AND_FRIENDS_POSTS_GET = "http://localhost:8800/posts";
 
 export const COMMENTS_URL = "http://localhost:8800/comments";
 
+export const LIKES_URL = "http://localhost:8800/likes";
+
 export const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY;
 
 

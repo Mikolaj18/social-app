@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 
 const LikeSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
     objectId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
 }, { timestamps: true });

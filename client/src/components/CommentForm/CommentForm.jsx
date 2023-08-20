@@ -10,9 +10,8 @@ const CommentForm = ({postId}) => {
     const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
 
-
     const mutation = useMutation({
-        mutationFn: async (data) => addComment(data),
+        mutationFn: async (data) => await addComment(data),
         onSuccess: () => {
             queryClient.invalidateQueries("comment");
         }

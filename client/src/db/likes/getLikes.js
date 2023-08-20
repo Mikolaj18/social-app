@@ -1,11 +1,9 @@
-import {COMMENTS_URL} from "../../api/api.js";
+import {LIKES_URL} from "../../api/api.js";
 
-export const addComment = async (commentData) => {
+export const getLikes = async (objectId) => {
     try {
-        const response = await fetch(COMMENTS_URL, {
-            method: "POST",
+        const response = await fetch(`${LIKES_URL}/${objectId}`, {
             credentials: "include",
-            body: JSON.stringify(commentData),
             headers: {
                 "Content-Type": "application/json",
             }
