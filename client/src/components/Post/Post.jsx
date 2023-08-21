@@ -4,48 +4,24 @@ import "./post.scss";
 import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import CommentIcon from '@mui/icons-material/Comment';
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getPostComments} from "../../db/comments/getPostComments.js";
 import Comment from "../Comment/Comment.jsx";
 import CommentForm from "../CommentForm/CommentForm.jsx";
-import {getLikes} from "../../db/likes/getLikes.js";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import {unlike} from "../../db/likes/unlike.js";
-import {like} from "../../db/likes/like.js";
+import PostActions from "../PostActions/PostActions.jsx";
+import PostInteractions from "../PostInteractions/PostInteractions.jsx";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-    const [isLiking, setIsLiking] = useState(false);
-    const queryClient = useQueryClient();
 
     const {isLoading, error, data} = useQuery({
         queryKey: [`comment-${post._id}`],
         queryFn: () => getPostComments(post._id),
     });
 
-    const {isLoading: isLoadingLike, error: errorLike, data: dataLike} = useQuery({
-        queryKey: [`like-${post._id}`],
-        queryFn: () => getLikes(post._id),
-    });
-
-    const isLiked = dataLike?.some(data => data.userId === currentUser._id);
-
-    const mutation = useMutation({
-        mutationFn: async (objectId) => {isLiked ? await unlike(post._id) : await like(objectId)},
-        onSuccess: () => {
-            queryClient.invalidateQueries('likes');
-        }
-    });
-
-    const handleLike = async () => {
-        if (!isLiking) {
-            setIsLiking(true);
-            await mutation.mutateAsync({objectId: post._id});
-            setIsLiking(false);
-        }
+    const handleClick = () => {
+        setIsCommentsOpen(!isCommentsOpen);
     }
 
     return (
@@ -86,23 +62,8 @@ const Post = ({post}) => {
                     )
                 )}
             </div>
-            <div className="post__actions">
-                <div className="post__action">
-                    {dataLike && isLiked
-                        ? <ThumbUpIcon color={"primary"} onClick={handleLike}/>
-                        : <ThumbUpOffAltIcon onClick={handleLike}/>
-                    }
-                    {typeof dataLike !== "undefined" &&
-                        <p>{dataLike?.length === 1 ? "1 like" : `${dataLike?.length} likes`}</p>
-                    }
-                </div>
-                <div className="post__action" onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
-                    <CommentIcon/>
-                    {typeof data !== "undefined" &&
-                        <p>{data?.length === 1 ? "1 comment" : `${data?.length} comments`}</p>
-                    }
-                </div>
-            </div>
+           <PostInteractions post={post} handleClick={handleClick} data={data}/>
+           <PostActions post={post} handleClick={handleClick}/>
             {isCommentsOpen && (
                 <div>
                 <CommentForm postId={post._id}/>

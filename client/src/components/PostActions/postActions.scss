@@ -1,0 +1,43 @@
+@import "../../client/styles/vars.scss";
+@import "../../client/styles/theme.scss";
+
+.post {
+  @include themify($themes) {
+    &__actions {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      column-gap: 20px;
+      justify-content: space-evenly;
+      border-top: 1px solid themed("bg-third");
+      border-bottom: 1px solid themed("bg-third");
+    }
+
+    &__action {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      font-size: 1.2rem;
+      color: $color-gray-fourth;
+      cursor: pointer;
+      padding: 10px;
+      width: 50%;
+      justify-content: center;
+      transition: all .4s;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: themed("bg-hover-first");
+      }
+
+      @media(min-width: $breakpoint-tablet) {
+        font-size: 1.5rem;
+      }
+
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+}

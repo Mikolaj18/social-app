@@ -1,0 +1,21 @@
+@import "../../client/styles/vars.scss";
+
+.post {
+  &__interactions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  &__interaction {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    cursor: pointer;
+
+    p {
+      color: $color-gray-fourth;
+      font-size: 1.5rem;
+    }
+  }
+}
