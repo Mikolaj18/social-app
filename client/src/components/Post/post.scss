@@ -23,17 +23,6 @@
       display: flex;
       column-gap: 10px;
 
-      &-img {
-        width: 36px;
-        height: 36px;
-
-        img {
-          height: 100%;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-
       &-flex {
         display: flex;
         flex-flow: column;

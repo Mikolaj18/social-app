@@ -62,3 +62,20 @@ a {
     }
   }
 }
+
+.user-profile-rounded {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  img {
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &--big {
+    width: 40px;
+    height: 40px;
+  }
+}

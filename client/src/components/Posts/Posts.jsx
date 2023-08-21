@@ -4,9 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import {getUserPosts} from "../../db/posts/getUserPosts.js";
 import Spinner from "../Spinner/Spinner.jsx";
 
-
 const Posts = ({id, includeFriends}) => {
-
     const {isLoading, error, data} = useQuery({
         queryKey: [includeFriends ? "homePosts" : "profilePosts"],
         queryFn: () => getUserPosts(id, includeFriends),

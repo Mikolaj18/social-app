@@ -33,17 +33,6 @@
       }
     }
 
-    &__img {
-      width: 36px;
-      height: 36px;
-
-      img {
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
-
     &__date {
       font-size: 1.2rem;
       color: $color-gray-fourth;

@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const LikeSchema = new Schema({
-    userId: {
+    user: {
         type: String,
         required: true,
+        ref: 'User',
     },
     objectId: {
         type: String,

@@ -8,7 +8,7 @@ const Comment = ({comment}) => {
             <div className="comment__wrapper">
                 <div className="comment__flex">
                     <Link reloadDocument to={`/profile/${comment.author._id}`}>
-                        <div className="comment__img">
+                        <div className="comment__img user-profile-rounded">
                             <img
                                 src={comment.author.profilePicture ? comment.author.profilePicture : "../src/images/default.jpg"}
                                 alt="Profile picture"/>

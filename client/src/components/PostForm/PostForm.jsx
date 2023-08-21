@@ -66,7 +66,7 @@ const PostForm = () => {
                 <Form className="postForm">
                     <div className="postForm__wrapper">
                         <div className="postForm__content">
-                            <div className="postForm__img">
+                            <div className="postForm__img user-profile-rounded user-profile-rounded--big">
                                 <img src={currentUser.profilePicture ? currentUser.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
                             </div>
                             <div className="postForm__input">

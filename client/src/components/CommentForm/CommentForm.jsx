@@ -37,7 +37,7 @@ const CommentForm = ({postId}) => {
         >
             {({ values}) => (
                 <Form className="commentForm">
-                    <div className="commentForm__img">
+                    <div className="commentForm__img user-profile-rounded">
                         <img src={currentUser.profilePicture ? currentUser.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
                     </div>
                     <div className="commentForm__input">

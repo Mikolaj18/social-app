@@ -1,4 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
 import moment from "moment";
 import "./post.scss";
 import {Link} from "react-router-dom";
@@ -8,6 +7,7 @@ import CommentForm from "../CommentForm/CommentForm.jsx";
 import PostActions from "../PostActions/PostActions.jsx";
 import PostInteractions from "../PostInteractions/PostInteractions.jsx";
 import Comments from "../Comments/Comments.jsx";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
@@ -22,7 +22,7 @@ const Post = ({post}) => {
             <div className="post__info">
                 <div className="post__data">
                     <Link reloadDocument to={`/profile/${post.author._id}`}>
-                        <div className="post__data-img">
+                        <div className="post__data-img user-profile-rounded">
                             <img
                                 src={post.author.profilePicture ? post.author.profilePicture : "../src/images/default.jpg"}
                                 alt="Profile picture"/>
@@ -40,7 +40,7 @@ const Post = ({post}) => {
                     </div>
                 </div>
                 {post.author._id === currentUser._id &&
-                    <CloseIcon/>
+                    <MoreHorizIcon/>
                 }
             </div>
             <div className="post__content">

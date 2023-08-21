@@ -24,5 +24,15 @@
       fill: white;
       padding: 2px;
     }
+
+    &--comment {
+      width: 100%;
+      justify-content: flex-end;
+      cursor: unset;
+
+      p {
+        cursor: pointer;
+      }
+    }
   }
 }

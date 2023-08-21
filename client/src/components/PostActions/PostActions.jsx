@@ -19,7 +19,7 @@ const PostActions = ({post, handleClick}) => {
         queryFn: () => getLikes(post._id),
     });
 
-    const isLiked = dataLike?.some(data => data.userId === currentUser._id);
+    const isLiked = dataLike?.some(data => data.user._id === currentUser._id);
 
     const mutation = useMutation({
         mutationFn: async (objectId) => {isLiked ? await unlike(post._id) : await like(objectId)},
