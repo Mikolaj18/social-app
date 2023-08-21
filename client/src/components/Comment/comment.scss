@@ -19,6 +19,7 @@
       font-size: 1.2rem;
       font-weight: $fw-700;
       color: themed("color-first");
+      text-align: left;
       @media(min-width: $breakpoint-tablet) {
         font-size: 1.3rem;
       }
