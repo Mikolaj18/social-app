@@ -12,8 +12,6 @@ const LikesList = ({post, onClose}) => {
         queryFn: () => getLikes(post._id),
     });
 
-    console.log(data)
-
     return (
         <div className="modal">
             <div className="modal__content">
