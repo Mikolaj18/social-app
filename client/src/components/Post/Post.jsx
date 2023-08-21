@@ -4,21 +4,14 @@ import "./post.scss";
 import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import {useQuery} from "@tanstack/react-query";
-import {getPostComments} from "../../db/comments/getPostComments.js";
-import Comment from "../Comment/Comment.jsx";
 import CommentForm from "../CommentForm/CommentForm.jsx";
 import PostActions from "../PostActions/PostActions.jsx";
 import PostInteractions from "../PostInteractions/PostInteractions.jsx";
+import Comments from "../Comments/Comments.jsx";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-
-    const {isLoading, error, data} = useQuery({
-        queryKey: [`comment-${post._id}`],
-        queryFn: () => getPostComments(post._id),
-    });
 
     const handleClick = () => {
         setIsCommentsOpen(!isCommentsOpen);
@@ -62,18 +55,12 @@ const Post = ({post}) => {
                     )
                 )}
             </div>
-           <PostInteractions post={post} handleClick={handleClick} data={data}/>
+           <PostInteractions post={post} handleClick={handleClick}/>
            <PostActions post={post} handleClick={handleClick}/>
             {isCommentsOpen && (
                 <div>
-                <CommentForm postId={post._id}/>
-                    {isLoading ? "Loading" : error ? "Something went wrong..." :
-                        <div className="post__comments">
-                            {data.map(comment => (
-                                <Comment comment={comment} key={comment._id}/>
-                            ))}
-                        </div>
-                    }
+                    <CommentForm postId={post._id}/>
+                    <Comments post={post}/>
                 </div>
             )}
         </div>

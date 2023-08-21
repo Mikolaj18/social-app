@@ -2,8 +2,14 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp.js";
 import {useQuery} from "@tanstack/react-query";
 import {getLikes} from "../../db/likes/getLikes.js";
 import "./postInteractions.scss";
+import {getPostComments} from "../../db/comments/getPostComments.js";
 
-const PostInteractions = ({post, data, handleClick}) => {
+const PostInteractions = ({post, handleClick}) => {
+
+    const {isLoading, error, data} = useQuery({
+        queryKey: [`comment-${post._id}`],
+        queryFn: () => getPostComments(post._id),
+    });
 
     const {isLoading: isLoadingLike, error: errorLike, data: dataLike} = useQuery({
         queryKey: [`like-${post._id}`],
