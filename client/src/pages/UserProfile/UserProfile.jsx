@@ -33,27 +33,26 @@ const UserProfile = () => {
 
     const {isLoading, error, data} = useQuery({
         queryKey: ["profile"],
-        queryFn: () => getSingleUserData(id),
+        queryFn: async () => await getSingleUserData(id),
     });
 
     const {isLoading: sentIsLoading, error: sentError, data: sentData} = useQuery({
         queryKey: ["sentRequests"],
-        queryFn: () => getSentFriendRequests(),
+        queryFn: async () => await getSentFriendRequests(),
     });
 
     const {isLoading: requestLoading, error: requestError, data: requestData} = useQuery({
         queryKey: ["friendsRequest"],
-        queryFn: () => getFriendRequests(),
+        queryFn: async () => await getFriendRequests(),
     });
 
     const {isLoading: friendsIsLoading, error: friendsError, data: friendsData} = useQuery({
         queryKey: [currentUser._id],
-        queryFn: () => getFriendsList(id),
+        queryFn: async () => await getFriendsList(id),
     });
 
-
     const mutation = useMutation({
-        mutationFn: async (data) => sendFriendRequest(data),
+        mutationFn: async (data) => await sendFriendRequest(data),
         onSuccess: () => {
             queryClient.invalidateQueries("sentRequests");
         }

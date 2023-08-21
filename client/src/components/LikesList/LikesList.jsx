@@ -6,7 +6,6 @@ import Spinner from "../Spinner/Spinner.jsx";
 import {Link} from "react-router-dom";
 
 const LikesList = ({post, onClose}) => {
-
     const {isLoading, error, data} = useQuery({
         queryKey: [`like-${post._id}`],
         queryFn: () => getLikes(post._id),
