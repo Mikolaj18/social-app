@@ -1,4 +1,5 @@
 import ThumbUpIcon from "@mui/icons-material/ThumbUp.js";
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import {useQuery} from "@tanstack/react-query";
 import {getLikes} from "../../db/likes/getLikes.js";
 import "./postInteractions.scss";
@@ -21,7 +22,7 @@ const PostInteractions = ({post, handleClick}) => {
             {typeof dataLike !== "undefined" &&
                 <div className="post__interaction">
                     <p>{dataLike.length}</p>
-                    <ThumbUpIcon color={"primary"}/>
+                    <ThumbUpIcon/>
                 </div>
             }
             {typeof data !== "undefined" &&

@@ -17,5 +17,12 @@
       color: $color-gray-fourth;
       font-size: 1.5rem;
     }
+
+    svg {
+      background: $color-blue;
+      border-radius: 50%;
+      fill: white;
+      padding: 2px;
+    }
   }
 }

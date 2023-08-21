@@ -1,6 +1,6 @@
 import moment from "moment/moment.js";
-import "./comment.scss"
 import {Link} from "react-router-dom";
+import "./comment.scss"
 
 const Comment = ({comment}) => {
     return (
