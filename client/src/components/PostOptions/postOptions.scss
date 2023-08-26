@@ -1,0 +1,37 @@
+@import "../../client/styles/vars.scss";
+@import "../../client/styles/theme.scss";
+
+.post__options {
+    @include themify($themes) {
+        position: absolute;
+        background: themed("bg-second");
+        right: 0;
+        top: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: $form-box-shadow;
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-flow: column;
+            row-gap: 5px;
+
+            li {
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+                cursor: pointer;
+                font-size: 1.5rem;
+                font-weight: $fw-700;
+                color: themed("color-first");
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    color: themed("color-first");
+                }
+            }
+        }
+    }
+}

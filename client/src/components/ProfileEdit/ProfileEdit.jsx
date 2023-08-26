@@ -85,6 +85,6 @@ const ProfileEdit = ({data, onSubmit, onClick}) => {
                 </Formik>
             </div>
         </div>
-    )
+    );
 }
 export default ProfileEdit;

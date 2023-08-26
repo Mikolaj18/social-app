@@ -8,10 +8,12 @@ import PostActions from "../PostActions/PostActions.jsx";
 import PostInteractions from "../PostInteractions/PostInteractions.jsx";
 import Comments from "../Comments/Comments.jsx";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PostOptions from "../PostOptions/PostOptions.jsx";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+    const [isPostOptionsOpen, setIsPostOptionsOpen] = useState(false);
 
     const handleClick = () => {
         setIsCommentsOpen(!isCommentsOpen);
@@ -40,7 +42,10 @@ const Post = ({post}) => {
                     </div>
                 </div>
                 {post.author._id === currentUser._id &&
-                    <MoreHorizIcon/>
+                    <MoreHorizIcon onClick={() => setIsPostOptionsOpen(!isPostOptionsOpen)}/>
+                }
+                {isPostOptionsOpen &&
+                    <PostOptions/>
                 }
             </div>
             <div className="post__content">
