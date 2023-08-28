@@ -8,7 +8,6 @@ const imageValidation = (value) => {
     const maxSizeInBytes = 2 * 1024 * 1024;
 
     const isAcceptedFormat = acceptedFormats.includes(value.type);
-    console.log(value)
     const isWithinMaxSize = value.size <= maxSizeInBytes;
 
     return isAcceptedFormat && isWithinMaxSize;
