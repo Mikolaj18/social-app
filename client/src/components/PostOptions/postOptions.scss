@@ -10,12 +10,13 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: $form-box-shadow;
+        z-index: 333;
 
         ul {
             list-style-type: none;
             display: flex;
             flex-flow: column;
-            row-gap: 5px;
+            row-gap: 10px;
 
             li {
                 display: flex;

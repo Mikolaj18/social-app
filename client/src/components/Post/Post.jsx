@@ -13,6 +13,7 @@ import PostEdit from "../PostEdit/PostEdit.jsx";
 import {upload} from "../../db/upload/upload.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {editPostData} from "../../db/posts/editPostData.js";
+import {deletePost} from "../../db/posts/deletePost.js";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
@@ -20,7 +21,6 @@ const Post = ({post}) => {
     const [isPostOptionsOpen, setIsPostOptionsOpen] = useState(false);
     const [isPostEditOpen, setIsPostEditOpen] = useState(false);
     const queryClient = useQueryClient();
-
 
     useEffect(() => {
         isPostEditOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
@@ -40,6 +40,17 @@ const Post = ({post}) => {
         }
     });
 
+    const deletePostMutation = useMutation({
+        mutationFn: async () => await deletePost(post._id),
+        onSuccess: () => {
+            queryClient.invalidateQueries('posts');
+        }
+    });
+
+    const onDelete = async () => {
+        await deletePostMutation.mutate();
+    }
+
     const onSubmit = async (values, actions) => {
         try {
             const fileUpload = values.file ? await upload(values.file) : null;
@@ -49,7 +60,6 @@ const Post = ({post}) => {
                 ...values,
                 file: fileImg,
             }
-            console.log(postDataObject);
             await editPostMutation.mutate(postDataObject);
             setIsPostEditOpen(false);
         } catch (error) {
@@ -84,7 +94,7 @@ const Post = ({post}) => {
                     <MoreHorizIcon onClick={() => setIsPostOptionsOpen(!isPostOptionsOpen)}/>
                 }
                 {isPostOptionsOpen &&
-                    <PostOptions onEdit={() => setIsPostEditOpen(true)}/>
+                    <PostOptions onEdit={() => setIsPostEditOpen(true)} onDelete={onDelete}/>
                 }
                 {isPostEditOpen &&
                     <PostEdit data={post} onClose={() => setIsPostEditOpen(false)} onSubmit={onSubmit}/>

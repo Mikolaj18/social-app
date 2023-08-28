@@ -2,7 +2,7 @@ import "./postOptions.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const PostOptions = ({onEdit}) => {
+const PostOptions = ({onEdit, onDelete}) => {
     return (
         <div className="post__options">
             <ul>
@@ -10,7 +10,7 @@ const PostOptions = ({onEdit}) => {
                     <EditIcon/>
                     Edit post
                 </li>
-                <li>
+                <li onClick={onDelete}>
                     <DeleteIcon/>
                     Delete Post
                 </li>
