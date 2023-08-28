@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 const LikesList = ({post, onClose}) => {
     const {isLoading, error, data} = useQuery({
         queryKey: [`like-${post._id}`],
-        queryFn: () => getLikes(post._id),
+        queryFn: async () => await getLikes(post._id),
     });
 
     return (
