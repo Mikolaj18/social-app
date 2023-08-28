@@ -12,14 +12,16 @@ const PostForm = () => {
     const {currentUser} = useContext(AuthContext);
     const [isFileLoaded, setIsFileLoaded] = useState(false);
     const [fileURL, setFileURL] = useState(null);
+    const [uploadedFileName, setUploadedFileName] = useState("");
     const queryClient = useQueryClient();
     const fileRef = useRef();
 
-    const handleFileUpload = async () => {
-        const files = fileRef.current.files[0];
+    const handleFileUpload = async (event) => {
+        const files = event.target.files[0];
         if (files) {
             setIsFileLoaded(true);
             setFileURL(URL.createObjectURL(files));
+            setUploadedFileName(files.name);
         }
     };
 
@@ -51,6 +53,7 @@ const PostForm = () => {
         actions.resetForm();
         actions.setSubmitting(false)
         setFileURL(null);
+        setUploadedFileName("");
     }
 
     return (
@@ -74,6 +77,7 @@ const PostForm = () => {
                                     as="textarea"
                                     name="description"
                                     placeholder={`What's on your mind ${currentUser.name}?`}
+                                    className="form-textarea"
                                 />
                                 <ErrorMessage name="description" component="div" className="error" />
                             </div>
@@ -94,7 +98,7 @@ const PostForm = () => {
                                     {isFileLoaded && fileRef.current.files.length !== 0 && (
                                         <div>
                                             <img className="file" alt="" src={fileURL} />
-                                            <p style={{color: "#1877f2", fontWeight: "700"}}>{fileRef.current.files[0].name}</p>
+                                            <p style={{color: "#1877f2", fontWeight: "700"}}>{uploadedFileName}</p>
                                         </div>
                                     )}
                                 </label>

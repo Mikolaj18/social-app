@@ -1,7 +1,7 @@
 import moment from "moment";
 import "./post.scss";
 import {Link} from "react-router-dom";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import CommentForm from "../CommentForm/CommentForm.jsx";
 import PostActions from "../PostActions/PostActions.jsx";
@@ -9,14 +9,53 @@ import PostInteractions from "../PostInteractions/PostInteractions.jsx";
 import Comments from "../Comments/Comments.jsx";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PostOptions from "../PostOptions/PostOptions.jsx";
+import PostEdit from "../PostEdit/PostEdit.jsx";
+import {upload} from "../../db/upload/upload.js";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {editPostData} from "../../db/posts/editPostData.js";
 
 const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const [isPostOptionsOpen, setIsPostOptionsOpen] = useState(false);
+    const [isPostEditOpen, setIsPostEditOpen] = useState(false);
+    const queryClient = useQueryClient();
+
+
+    useEffect(() => {
+        isPostEditOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isPostEditOpen]);
 
     const handleClick = () => {
         setIsCommentsOpen(!isCommentsOpen);
+    }
+
+    const editPostMutation = useMutation({
+        mutationFn: async (data) => await editPostData(data, post._id),
+        onSuccess: () => {
+            queryClient.invalidateQueries("posts");
+        }
+    });
+
+    const onSubmit = async (values, actions) => {
+        try {
+            const fileUpload = values.file ? await upload(values.file) : null;
+            const fileImg = fileUpload?.url || post.file;
+
+            const postDataObject = {
+                ...values,
+                file: fileImg,
+            }
+            console.log(postDataObject);
+            await editPostMutation.mutate(postDataObject);
+            setIsPostEditOpen(false);
+        } catch (error) {
+            console.log(error)
+        }
+        actions.setSubmitting(false)
     }
 
     return (
@@ -45,7 +84,10 @@ const Post = ({post}) => {
                     <MoreHorizIcon onClick={() => setIsPostOptionsOpen(!isPostOptionsOpen)}/>
                 }
                 {isPostOptionsOpen &&
-                    <PostOptions/>
+                    <PostOptions onEdit={() => setIsPostEditOpen(true)}/>
+                }
+                {isPostEditOpen &&
+                    <PostEdit data={post} onClose={() => setIsPostEditOpen(false)} onSubmit={onSubmit}/>
                 }
             </div>
             <div className="post__content">

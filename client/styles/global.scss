@@ -79,3 +79,21 @@ a {
     height: 40px;
   }
 }
+
+.form-textarea {
+  @include themify($themes) {
+    border: none;
+    outline: none;
+    padding: 20px 10px;
+    background-color: transparent;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    color: themed("color-first");
+    resize: none;
+
+    &--border {
+      border: 1px solid themed("color-first");
+      border-radius: 10px;
+    }
+  }
+}

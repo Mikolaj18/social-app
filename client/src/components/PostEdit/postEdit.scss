@@ -1,0 +1,21 @@
+@import "./styles/partials/modal.scss";
+@import "../../client/styles/vars.scss";
+@import "../../client/styles/theme.scss";
+
+.postEdit {
+  display: flex;
+  flex-flow: column;
+  row-gap: 20px;
+  align-items: center;
+  margin-top: 30px;
+  @include themify($themes) {
+    input {
+      padding: 15px;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid $color-gray;
+      background: themed("bg-second");
+      color: themed("color-first");
+    }
+  }
+}

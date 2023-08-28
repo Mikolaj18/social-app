@@ -2,11 +2,11 @@ import "./postOptions.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const PostOptions = () => {
+const PostOptions = ({onEdit}) => {
     return (
-        <div class="post__options">
+        <div className="post__options">
             <ul>
-                <li>
+                <li onClick={onEdit}>
                     <EditIcon/>
                     Edit post
                 </li>
