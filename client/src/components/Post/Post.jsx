@@ -53,6 +53,7 @@ const Post = ({post}) => {
 
     const onSubmit = async (values, actions) => {
         try {
+            if (!values.description && !values.file) return;
             const fileUpload = values.file ? await upload(values.file) : null;
             const fileImg = fileUpload?.url || post.file;
 
@@ -62,6 +63,7 @@ const Post = ({post}) => {
             }
             await editPostMutation.mutate(postDataObject);
             setIsPostEditOpen(false);
+            setIsPostOptionsOpen(false);
         } catch (error) {
             console.log(error)
         }
