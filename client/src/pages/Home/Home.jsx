@@ -7,7 +7,7 @@ const Home = () => {
         <section className="home">
             <div className="home__wrapper">
                 <PostForm/>
-               <Posts includeFriends={true}/>
+                <Posts includeFriends={true}/>
             </div>
         </section>
     );
