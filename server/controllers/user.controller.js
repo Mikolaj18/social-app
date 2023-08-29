@@ -27,6 +27,8 @@ export const random = async (req, res, next) => {
 export const editUser = async (req, res, next) => {
     try {
         const id = req.userId;
+        const user = await User.findById(req.params.id);
+        if (user._id.toString() !== id) return next(createError(403, "You can edit only your profile."))
         const updatedUser = await User.findByIdAndUpdate(
             id,
             {...req.body},
