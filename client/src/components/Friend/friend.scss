@@ -9,9 +9,9 @@
       display: flex;
       flex-flow: column;
       width: 100%;
-      @media(min-width: $breakpoint-friends) {
-        max-width: 200px;
-      }
+      max-width: 200px;
+      aspect-ratio: 1/1;
+
       h2 {
         margin-top: 10px;
         color: themed("color-first");

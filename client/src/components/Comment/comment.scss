@@ -5,7 +5,6 @@
   @include themify($themes) {
     &__flex {
       display: flex;
-      align-items: center;
       column-gap: 10px;
     }
 

@@ -28,7 +28,7 @@ const SectionList = ({dataFriends}) => {
                         <p>{currentUser.name} {currentUser.surname}</p>
                     </li>
                 </Link>
-                <Link to={`/friends/${currentUser._id}`}>
+                <Link reloadDocument to={`/friends/${currentUser._id}`}>
                     <li className="sectionList__item">
                         <PeopleAltIcon/>
                         <p>Friends</p>
