@@ -5,10 +5,10 @@ import {getLikes} from "../../db/likes/getLikes.js";
 import Spinner from "../Spinner/Spinner.jsx";
 import {Link} from "react-router-dom";
 
-const LikesList = ({post, onClose}) => {
+const LikesList = ({object, onClose}) => {
     const {isLoading, error, data} = useQuery({
-        queryKey: [`like-${post._id}`],
-        queryFn: async () => await getLikes(post._id),
+        queryKey: [`like-${object._id}`],
+        queryFn: async () => await getLikes(object._id),
     });
 
     return (
