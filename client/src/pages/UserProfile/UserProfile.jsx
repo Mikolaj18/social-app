@@ -66,9 +66,9 @@ const UserProfile = () => {
     });
 
     const editProfileMutation = useMutation({
-        mutationFn: async (data, id) => editUserProfile(data, id),
+        mutationFn: async (data) => editUserProfile(data, currentUser._id),
         onSuccess: () => {
-            queryClient.invalidateQueries("profile");
+            queryClient.invalidateQueries("profile2");
         }
     });
 
@@ -86,7 +86,7 @@ const UserProfile = () => {
                 coverPicture: coverImg,
             }
 
-           await editProfileMutation.mutate(userDataObject);
+            await editProfileMutation.mutateAsync(userDataObject);
             setCurrentUser((prevUser) => ({
                 ...prevUser,
                 ...userDataObject,
