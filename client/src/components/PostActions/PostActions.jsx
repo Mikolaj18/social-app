@@ -43,7 +43,7 @@ const PostActions = ({post, handleClick}) => {
                     ? <ThumbUpIcon color={"primary"}/>
                     : <ThumbUpOffAltIcon/>
                 }
-                <p>I like this</p>
+                <p>Like</p>
             </div>
             <div className="post__action" onClick={handleClick}>
                 <CommentIcon/>
