@@ -44,7 +44,7 @@ const PostInteractions = ({post, handleClick}) => {
                 </div>
             }
             {isLikesListOpen &&
-                <LikesList post={post} onClose={handleLikesListOpen}/>
+                <LikesList object={post} onClose={handleLikesListOpen}/>
             }
         </div>
     );

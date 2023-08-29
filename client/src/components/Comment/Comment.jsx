@@ -6,13 +6,22 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {getLikes} from "../../db/likes/getLikes.js";
 import {unlike} from "../../db/likes/unlike.js";
 import {like} from "../../db/likes/like.js";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
+import LikesList from "../LikesList/LikesList.jsx";
 
 const Comment = ({comment}) => {
     const {currentUser} = useContext(AuthContext)
     const queryClient = useQueryClient();
     const [isLiking, setIsLiking] = useState(false);
+    const [isLikesListOpen, setIsLikesListOpen] = useState(false);
+
+    useEffect(() => {
+        isLikesListOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isLikesListOpen]);
 
     const {isLoading, error, data} = useQuery({
         queryKey: [`like-${comment._id}`],
@@ -34,6 +43,10 @@ const Comment = ({comment}) => {
             await mutation.mutateAsync({objectId: comment._id});
             setIsLiking(false);
         }
+    }
+
+    const handleLikesListOpen = () => {
+        setIsLikesListOpen(!isLikesListOpen);
     }
 
     return (
@@ -66,13 +79,16 @@ const Comment = ({comment}) => {
                         <p style={{color: isLiked ? "#1877f2" : "#65676b"}}>Like</p>
                     </div>
                     {typeof data !== "undefined" && data.length !== 0 &&
-                        <div className="comment__likes">
+                        <div className="comment__likes" onClick={handleLikesListOpen}>
                             <p>{data.length}</p>
                             <ThumbUpIcon/>
                         </div>
                     }
                 </div>
             </div>
+            {isLikesListOpen &&
+                <LikesList object={comment} onClose={handleLikesListOpen}/>
+            }
         </div>
     );
 }
