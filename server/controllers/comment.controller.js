@@ -38,3 +38,20 @@ export const deleteComment = async (req, res, next) => {
         next(error);
     }
 }
+
+export const editComment = async (req, res, next) => {
+    try {
+        const id = req.userId;
+        const comment = await Comment.findById(req.params.commentId);
+        if (comment.author !== id) return next(createError(403, "You can edit only your comments"));
+        const updatedComment = await Comment.findByIdAndUpdate(
+            req.params.commentId,
+            {...req.body},
+            {new: true},
+        );
+        if (!updatedComment) return next(createError(404, "Comment not found"));
+        res.status(200).json(updatedComment);
+    } catch (error) {
+        next(error)
+    }
+}
