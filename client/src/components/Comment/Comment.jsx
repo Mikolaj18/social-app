@@ -1,9 +1,7 @@
 import moment from "moment/moment.js";
 import {Link} from "react-router-dom";
 import "./comment.scss"
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {unlike} from "../../db/likes/unlike.js";
-import {like} from "../../db/likes/like.js";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import LikesList from "../LikesList/LikesList.jsx";
