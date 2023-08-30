@@ -2,9 +2,9 @@ import "./postOptions.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const PostOptions = ({onEdit, onDelete}) => {
+const OptionsBox = ({onEdit, onDelete}) => {
     return (
-        <div className="post__options">
+        <div className="optionsBox">
             <ul>
                 <li onClick={onEdit}>
                     <EditIcon/>
@@ -19,4 +19,4 @@ const PostOptions = ({onEdit, onDelete}) => {
     );
 }
 
-export default PostOptions;
+export default OptionsBox;

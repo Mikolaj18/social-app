@@ -10,8 +10,20 @@
 
     &__content {
       background: themed("bg-third");
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 10px;
+      position: relative;
+    }
+
+    &__options {
+      align-self: center;
+      position: relative;
+      svg {
+        color: themed("color-first");
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
     }
 
     &__author {

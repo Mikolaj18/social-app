@@ -51,6 +51,7 @@
       text-align: left;
       color: themed("color-first");
       font-size: 1.8rem;
+      word-break: break-word;
       @media(min-width: $breakpoint-tablet) {
         font-size: 2.4rem;
 

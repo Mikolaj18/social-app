@@ -1,7 +1,7 @@
 @import "../../../styles/vars.scss";
 @import "../../../styles/theme.scss";
 
-.post__options {
+.optionsBox {
     @include themify($themes) {
         position: absolute;
         background: themed("bg-second");
@@ -11,6 +11,7 @@
         border-radius: 10px;
         box-shadow: $form-box-shadow;
         z-index: 20;
+        min-width: 150px;
 
         ul {
             list-style-type: none;

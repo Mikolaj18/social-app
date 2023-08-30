@@ -9,12 +9,17 @@ import {like} from "../../db/likes/like.js";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import LikesList from "../LikesList/LikesList.jsx";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz.js";
+import OptionsBox from "../PostOptions/OptionsBox.jsx";
+import CommentEdit from "../CommentEdit/PostEdit.jsx";
 
 const Comment = ({comment}) => {
-    const {currentUser} = useContext(AuthContext)
+    const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
     const [isLiking, setIsLiking] = useState(false);
     const [isLikesListOpen, setIsLikesListOpen] = useState(false);
+    const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);
+    const [isCommentEditOpen, setIsCommentEditOpen] = useState(false);
 
     useEffect(() => {
         isLikesListOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
@@ -22,6 +27,13 @@ const Comment = ({comment}) => {
             document.body.style.overflow = 'auto';
         };
     }, [isLikesListOpen]);
+
+    useEffect(() => {
+        isCommentEditOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isCommentEditOpen]);
 
     const {isLoading, error, data} = useQuery({
         queryKey: [`like-${comment._id}`],
@@ -70,6 +82,14 @@ const Comment = ({comment}) => {
                             {comment.description}
                         </div>
                     </div>
+                    <div className="comment__options">
+                        {comment.author._id === currentUser._id &&
+                            <MoreHorizIcon className="comment__options" onClick={() => setIsOptionsBoxOpen(!istOptionsBoxOpen)}/>
+                        }
+                        {istOptionsBoxOpen &&
+                            <OptionsBox onEdit={() => setIsCommentEditOpen(true)}/>
+                        }
+                    </div>
                 </div>
                 <div className="comment__bottom">
                     <div className="comment__date">
@@ -88,6 +108,9 @@ const Comment = ({comment}) => {
             </div>
             {isLikesListOpen &&
                 <LikesList object={comment} onClose={handleLikesListOpen}/>
+            }
+            {isCommentEditOpen &&
+                <CommentEdit data={comment} onClose={() => setIsCommentEditOpen(false)}/>
             }
         </div>
     );

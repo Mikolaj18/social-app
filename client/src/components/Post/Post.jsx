@@ -8,7 +8,7 @@ import PostActions from "../PostActions/PostActions.jsx";
 import PostInteractions from "../PostInteractions/PostInteractions.jsx";
 import Comments from "../Comments/Comments.jsx";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import PostOptions from "../PostOptions/PostOptions.jsx";
+import OptionsBox from "../PostOptions/OptionsBox.jsx";
 import PostEdit from "../PostEdit/PostEdit.jsx";
 import {upload} from "../../db/upload/upload.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
@@ -19,15 +19,15 @@ const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const [isPostOptionsOpen, setIsPostOptionsOpen] = useState(false);
-    const [isPostEditOpen, setIsPostEditOpen] = useState(false);
+    const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        isPostEditOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        istOptionsBoxOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [isPostEditOpen]);
+    }, [istOptionsBoxOpen]);
 
     const handleClick = () => {
         setIsCommentsOpen(!isCommentsOpen);
@@ -62,7 +62,7 @@ const Post = ({post}) => {
                 file: fileImg,
             }
             await editPostMutation.mutate(postDataObject);
-            setIsPostEditOpen(false);
+            setIsOptionsBoxOpen(false);
             setIsPostOptionsOpen(false);
         } catch (error) {
             console.log(error)
@@ -96,10 +96,10 @@ const Post = ({post}) => {
                     <MoreHorizIcon onClick={() => setIsPostOptionsOpen(!isPostOptionsOpen)}/>
                 }
                 {isPostOptionsOpen &&
-                    <PostOptions onEdit={() => setIsPostEditOpen(true)} onDelete={onDelete}/>
+                    <OptionsBox onEdit={() => setIsOptionsBoxOpen(true)} onDelete={onDelete}/>
                 }
-                {isPostEditOpen &&
-                    <PostEdit data={post} onClose={() => setIsPostEditOpen(false)} onSubmit={onSubmit}/>
+                {istOptionsBoxOpen &&
+                    <PostEdit data={post} onClose={() => setIsOptionsBoxOpen(false)} onSubmit={onSubmit}/>
                 }
             </div>
             <div className="post__content">
