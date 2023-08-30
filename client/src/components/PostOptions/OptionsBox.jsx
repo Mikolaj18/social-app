@@ -1,4 +1,4 @@
-import "./postOptions.scss";
+import "./optionsBox.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -8,11 +8,11 @@ const OptionsBox = ({onEdit, onDelete}) => {
             <ul>
                 <li onClick={onEdit}>
                     <EditIcon/>
-                    Edit post
+                    Edit
                 </li>
                 <li onClick={onDelete}>
                     <DeleteIcon/>
-                    Delete Post
+                    Delete
                 </li>
             </ul>
         </div>

@@ -12,6 +12,8 @@ import LikesList from "../LikesList/LikesList.jsx";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz.js";
 import OptionsBox from "../PostOptions/OptionsBox.jsx";
 import CommentEdit from "../CommentEdit/PostEdit.jsx";
+import {deletePost} from "../../db/posts/deletePost.js";
+import {deleteComment} from "../../db/comments/deleteComment.js";
 
 const Comment = ({comment}) => {
     const {currentUser} = useContext(AuthContext);
@@ -57,6 +59,17 @@ const Comment = ({comment}) => {
         }
     }
 
+    const deleteCommentMutation = useMutation({
+        mutationFn: async () => await deleteComment(comment._id),
+        onSuccess: () => {
+            queryClient.invalidateQueries('comments');
+        }
+    });
+
+    const onDelete = async () => {
+        await deleteCommentMutation.mutate();
+    }
+
     const handleLikesListOpen = () => {
         setIsLikesListOpen(!isLikesListOpen);
     }
@@ -87,7 +100,7 @@ const Comment = ({comment}) => {
                             <MoreHorizIcon className="comment__options" onClick={() => setIsOptionsBoxOpen(!istOptionsBoxOpen)}/>
                         }
                         {istOptionsBoxOpen &&
-                            <OptionsBox onEdit={() => setIsCommentEditOpen(true)}/>
+                            <OptionsBox onEdit={() => setIsCommentEditOpen(true)} onDelete={onDelete}/>
                         }
                     </div>
                 </div>
