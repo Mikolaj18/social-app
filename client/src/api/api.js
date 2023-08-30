@@ -15,7 +15,6 @@ export const FRIEND_REQUESTS_URL = "http://localhost:8800/friends";
 export const FRIENDS_LIST_URL = "http://localhost:8800/friends/list";
 
 export const USER_POSTS_GET = "http://localhost:8800/posts";
-export const USER_POSTS_EDIT = "http://localhost:8800/posts/edit";
 
 export const COMMENTS_URL = "http://localhost:8800/comments";
 

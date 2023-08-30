@@ -56,10 +56,6 @@ const UserSchema = new Schema({
         ref: 'User',
     }
     ],
-    // friendsRequests: [{
-    //     type: String,
-    //     ref: 'FriendRequest',
-    // }],
 }, {timestamps: true});
 
 export default mongoose.model("User", UserSchema);

@@ -1,8 +1,8 @@
-import {USER_POSTS_EDIT} from "../../api/api.js";
+import {USER_POSTS_GET} from "../../api/api.js";
 
 export const editPostData = async (postData, id) => {
     try {
-        const response = await fetch(`${USER_POSTS_EDIT}/${id}`, {
+        const response = await fetch(`${USER_POSTS_GET}/${id}`, {
             method: "PUT",
             credentials: "include",
             body: JSON.stringify(postData),

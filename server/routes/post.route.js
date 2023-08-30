@@ -6,8 +6,8 @@ const router = express.Router();
 router.post("/", checkToken, addPost);
 router.get("/", checkToken, getPostsAndFriendsPosts);
 router.get("/:id", checkToken, getUserPosts);
-router.delete("/:id", checkToken, deletePost);
-router.put("/edit/:postId", checkToken, editPost);
+router.delete("/:postId", checkToken, deletePost);
+router.put("/:postId", checkToken, editPost);
 
 
 export default router;

@@ -51,10 +51,10 @@ export const getPostsAndFriendsPosts = async (req, res, next) => {
 export const deletePost = async (req, res, next) => {
     try {
         const id = req.userId;
-        const post = await Post.findById(req.params.id);
+        const post = await Post.findById(req.params.postId);
         if (post.author !== id) return next(createError(403, "You can delete only your posts"));
 
-        await Post.findByIdAndDelete(req.params.id);
+        await Post.findByIdAndDelete(req.params.postId);
         res.status(200).json("Post has been deleted");
     } catch (error) {
         next(error);
