@@ -1,5 +1,5 @@
-@import "../../client/styles/theme.scss";
-@import "../../client/styles/vars.scss";
+@import "../../../styles/theme.scss";
+@import "../../../styles/vars.scss";
 
 .postForm {
   @include themify($themes) {
