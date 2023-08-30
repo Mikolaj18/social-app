@@ -1,11 +1,11 @@
-import {USER_POSTS_GET} from "../../api/api.js";
+import {COMMENTS_URL} from "../../api/api.js";
 
-export const editPostData = async (postData, postId) => {
+export const editCommentData = async (commentData, commentId) => {
     try {
-        const response = await fetch(`${USER_POSTS_GET}/${postId}`, {
+        const response = await fetch(`${COMMENTS_URL}/${commentId}`, {
             method: "PUT",
             credentials: "include",
-            body: JSON.stringify(postData),
+            body: JSON.stringify(commentData),
             headers: {
                 "Content-Type": "application/json",
             }

@@ -19,15 +19,15 @@ const Post = ({post}) => {
     const {currentUser} = useContext(AuthContext);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const [isPostOptionsOpen, setIsPostOptionsOpen] = useState(false);
-    const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);
+    const [isPostEditOpen, setIsPostEditOpen] = useState(false);
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        istOptionsBoxOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+        isPostEditOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto';
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [istOptionsBoxOpen]);
+    }, [isPostEditOpen]);
 
     const handleClick = () => {
         setIsCommentsOpen(!isCommentsOpen);
@@ -62,7 +62,7 @@ const Post = ({post}) => {
                 file: fileImg,
             }
             await editPostMutation.mutate(postDataObject);
-            setIsOptionsBoxOpen(false);
+            setIsPostEditOpen(false);
             setIsPostOptionsOpen(false);
         } catch (error) {
             console.log(error)
@@ -96,10 +96,10 @@ const Post = ({post}) => {
                     <MoreHorizIcon onClick={() => setIsPostOptionsOpen(!isPostOptionsOpen)}/>
                 }
                 {isPostOptionsOpen &&
-                    <OptionsBox onEdit={() => setIsOptionsBoxOpen(true)} onDelete={onDelete}/>
+                    <OptionsBox onEdit={() => setIsPostEditOpen(true)} onDelete={onDelete}/>
                 }
-                {istOptionsBoxOpen &&
-                    <PostEdit data={post} onClose={() => setIsOptionsBoxOpen(false)} onSubmit={onSubmit}/>
+                {isPostEditOpen &&
+                    <PostEdit data={post} onClose={() => setIsPostEditOpen(false)} onSubmit={onSubmit}/>
                 }
             </div>
             <div className="post__content">
