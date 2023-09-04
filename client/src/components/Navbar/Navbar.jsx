@@ -37,7 +37,9 @@ const Navbar = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        navigate(`/search?q=${searchRef.current.value}`);
+        const queryValue = searchRef.current.value.trim();
+        if(queryValue === "") return;
+        navigate(`/search?q=${queryValue}`);
     }
     return (
         <nav className="navbar">
