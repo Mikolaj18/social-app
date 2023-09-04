@@ -50,3 +50,17 @@ export const deleteUser = async (req, res, next) => {
     }
 }
 
+export const searchUser = async (req, res, next) => {
+    const query = req.query.q;
+    try {
+        const users = await User.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { surname: { $regex: query, $options: "i" } }
+            ]
+        });
+        res.status(200).json(users);
+    } catch (error) {
+        next(error);
+    }
+}
