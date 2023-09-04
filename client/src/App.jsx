@@ -20,6 +20,7 @@ import {
 } from '@tanstack/react-query';
 import FriendRequests from "./pages/FriendRequests/FriendRequests.jsx";
 import Friends from "./pages/Friends/Friends.jsx";
+import SearchedUsers from "./pages/SearchedUsers/SearchedUsers.jsx";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
@@ -86,6 +87,10 @@ function App() {
                 {
                     path: "/friends/:id",
                     element: <Friends/>,
+                },
+                {
+                    path: "/search",
+                    element: <SearchedUsers/>,
                 },
             ],
         },

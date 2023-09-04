@@ -40,7 +40,8 @@ a {
 }
 
 .theme {
-
+  height: 100vh;
+  overflow: auto;
   &--dark {
     background: $theme-dark-bg;
 

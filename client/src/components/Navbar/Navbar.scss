@@ -25,11 +25,46 @@
     &__logo {
       h1 {
         color: $color-blue;
-        font-size: 2.5rem;
+        font-size: 1.2rem;
+        @media(min-width: $breakpoint-mobi-m) {
+          font-size: 1.5rem;
+        }
+        @media(min-width: $breakpoint-mobi-l) {
+          font-size: 1.7rem;
+        }
+        @media(min-width: $breakpoint-tablet) {
+          font-size: 2.5rem;
+        }
       }
+    }
 
-      @media(min-width: $breakpoint-tablet) {
-        font-size: 4rem;
+    &__search {
+      width: 50%;
+      margin: 0 auto;
+      position: relative;
+      form > input {
+        background: themed("bg-third");
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        width: 100%;
+        color: themed("color-first");
+      }
+      &-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translate(0, -50%);
+        border: none;
+        width: 20px;
+        height: 20px;
+        background: none;
+        cursor: pointer;
+        svg {
+          width: 100%;
+          height: 100%;
+          color: themed("color-first");
+        }
       }
     }
 

@@ -3,14 +3,15 @@ import GroupIcon from '@mui/icons-material/Group';
 import MessageIcon from '@mui/icons-material/Message';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import {Link} from "react-router-dom";
+import {createSearchParams, Link, useNavigate} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
 import NavbarMenu from "../NavbarMenu/NavbarMenu.jsx";
+import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = () => {
     const {currentUser, logout} = useContext(AuthContext);
@@ -18,6 +19,9 @@ const Navbar = () => {
 
     const [openMenu, setOpenMenu] = useState(false);
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
+
+    const searchRef = useRef();
+    const navigate = useNavigate();
 
     const {isLoading: isLoadingFriends, error: errorFriends, data: dataFriends} = useQuery({
         queryKey: ["friends"],
@@ -30,6 +34,11 @@ const Navbar = () => {
             document.body.style.overflow = 'auto';
         };
     }, [openMobileMenu]);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/search?q=${searchRef.current.value}`);
+    }
     return (
         <nav className="navbar">
             <div className="navbar__wrapper">
@@ -38,6 +47,14 @@ const Navbar = () => {
                         <h1>Social App</h1>
                     </div>
                 </Link>
+                <div className="navbar__search">
+                    <form onSubmit={onSubmit}>
+                        <input type="text" placeholder="Search for users" ref={searchRef}/>
+                        <button className="navbar__search-btn" type="submit">
+                            <SearchIcon/>
+                        </button>
+                    </form>
+                </div>
                 <div className="navbar__items">
                     <div className="navbar__item navbar__icon">
                         <MessageIcon/>

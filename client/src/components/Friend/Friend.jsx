@@ -6,7 +6,7 @@ const Friend = ({ item, isSender, isRequest, onAccept, onReject }) => {
 
     return (
         <div className="friends__friend">
-            <Link to={`/profile/${friendData._id}`}>
+            <Link reloadDocument to={`/profile/${friendData._id}`}>
                 <div className="friends__friend-img">
                     <img
                         src={friendData.profilePicture || "../src/images/default.jpg"}

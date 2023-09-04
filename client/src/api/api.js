@@ -20,6 +20,7 @@ export const COMMENTS_URL = "http://localhost:8800/comments";
 
 export const LIKES_URL = "http://localhost:8800/likes";
 
+export const SEARCH_URL = "http://localhost:8800/users/search";
 export const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY;
 
 

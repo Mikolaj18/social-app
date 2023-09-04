@@ -51,16 +51,28 @@ export const deleteUser = async (req, res, next) => {
 }
 
 export const searchUser = async (req, res, next) => {
-    const query = req.query.q;
+    const query = decodeURIComponent(req.query.q);
     try {
-        const users = await User.find({
-            $or: [
-                { name: { $regex: query, $options: "i" } },
-                { surname: { $regex: query, $options: "i" } }
-            ]
-        });
+        let users;
+        if (query.includes(" ")) {
+            const [firstName, lastName] = query.split(" ");
+            users = await User.find({
+                $and: [
+                    { name: { $regex: firstName, $options: "i" } },
+                    { surname: { $regex: lastName, $options: "i" }}
+                ]
+            });
+        } else {
+            users = await User.find({
+                $or: [
+                    { name: { $regex: query, $options: "i" } },
+                    { surname: { $regex: query, $options: "i" }}
+                ]
+            });
+        }
         res.status(200).json(users);
     } catch (error) {
         next(error);
     }
 }
+
