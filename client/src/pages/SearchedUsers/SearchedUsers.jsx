@@ -12,7 +12,6 @@ const SearchedUsers = () => {
         queryFn: () => getUsersByQuery(query),
     });
 
-    console.log(data);
     if(data?.length === 0) return <h1 className="header">No results</h1>
     return (
         <section className="searchedUsers">
