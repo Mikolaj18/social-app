@@ -7,14 +7,14 @@ import {AuthContext} from "../../context/authContext.jsx";
 import LikesList from "../LikesList/LikesList.jsx";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz.js";
 import OptionsBox from "../PostOptions/OptionsBox.jsx";
-import CommentEdit from "../CommentEdit/PostEdit.jsx";
+import CommentEdit from "../CommentEdit/CommentEdit.jsx";
 import {deleteComment} from "../../db/comments/deleteComment.js";
 import {editCommentData} from "../../db/comments/editCommentData.js";
 import CommentLike from "../CommentLike/CommentLike.jsx";
 
 const Comment = ({comment}) => {
     const {currentUser} = useContext(AuthContext);
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
     const [isLiking, setIsLiking] = useState(false);
     const [isLikesListOpen, setIsLikesListOpen] = useState(false);
     const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);
@@ -34,32 +34,12 @@ const Comment = ({comment}) => {
         };
     }, [isCommentEditOpen]);
 
-    const editCommentMutation = useMutation({
-        mutationFn: async (data) => await editCommentData(data, comment._id),
-        onSuccess: () => {
-            queryClient.invalidateQueries("comments");
-        }
-    });
-
     const deleteCommentMutation = useMutation({
         mutationFn: async () => await deleteComment(comment._id),
         onSuccess: () => {
             queryClient.invalidateQueries('comments');
         }
     });
-
-    const onSubmit = async (values, actions) => {
-        try {
-            if (!values.description) return;
-            const commentDataObject = {...values};
-            await editCommentMutation.mutate(commentDataObject);
-            setIsOptionsBoxOpen(false);
-            setIsCommentEditOpen(false);
-        } catch (error) {
-            console.log(error)
-        }
-        actions.setSubmitting(false)
-    }
 
     const onDelete = async () => {
         await deleteCommentMutation.mutate();
@@ -115,7 +95,11 @@ const Comment = ({comment}) => {
                 <LikesList object={comment} onClose={handleLikesListOpen}/>
             }
             {isCommentEditOpen &&
-                <CommentEdit data={comment} onClose={() => setIsCommentEditOpen(false)} onSubmit={onSubmit}/>
+                <CommentEdit
+                    comment={comment}
+                    setIsCommentEditOpen={setIsCommentEditOpen}
+                    setIsOptionsBoxOpen={setIsOptionsBoxOpen}
+                />
             }
         </div>
     );
