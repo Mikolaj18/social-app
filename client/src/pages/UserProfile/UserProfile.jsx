@@ -13,14 +13,12 @@ import ProfileInfo from "../../components/ProfileInfo/ProfileInfo.jsx";
 import {removeFriend} from "../../db/friends/removeFriend.js";
 import ProfileFriend from "../../components/ProfileFriend/ProfileFriend.jsx";
 import ProfileButtons from "../../components/ProfileButtons/ProfileButtons.jsx";
-import {editUserProfile} from "../../db/user/editUserProfile.js";
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit.jsx";
-import {upload} from "../../db/upload/upload.js";
 import Posts from "../../components/Posts/Posts.jsx";
 
 const UserProfile = () => {
     const {id} = useParams();
-    const {currentUser, setCurrentUser} = useContext(AuthContext);
+    const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -64,40 +62,6 @@ const UserProfile = () => {
             queryClient.invalidateQueries("friends");
         }
     });
-
-    const editProfileMutation = useMutation({
-        mutationFn: async (data) => editUserProfile(data, currentUser._id),
-        onSuccess: () => {
-            queryClient.invalidateQueries("profile2");
-        }
-    });
-
-    const onSubmit = async (values, actions) => {
-        try {
-            const profileUpload = values.profilePicture ? await upload(values.profilePicture) : null;
-            const coverUpload = values.coverPicture ? await upload(values.coverPicture) : null;
-
-            const profileImg = profileUpload?.url || data.profilePicture;
-            const coverImg = coverUpload?.url || data.coverPicture;
-
-            const userDataObject = {
-                ...values,
-                profilePicture: profileImg,
-                coverPicture: coverImg,
-            }
-
-            await editProfileMutation.mutateAsync(userDataObject);
-            setCurrentUser((prevUser) => ({
-                ...prevUser,
-                ...userDataObject,
-            }));
-
-            setIsOpen(false);
-        } catch (error) {
-            console.log(error)
-        }
-        actions.setSubmitting(false)
-    }
 
     const handleFriendRequestSend = async () => {
         const userObject = {
@@ -184,7 +148,10 @@ const UserProfile = () => {
                 </div>
             }
             {isOpen &&
-                <ProfileEdit data={data} onSubmit={onSubmit} onClick={() => setIsOpen(false)}/>
+                <ProfileEdit
+                    data={data}
+                    setIsOpen={setIsOpen}
+                />
             }
         </section>
     );

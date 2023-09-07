@@ -31,7 +31,6 @@ const Post = ({post}) => {
         setIsCommentsOpen(!isCommentsOpen);
     }
 
-
     const deletePostMutation = useMutation({
         mutationFn: async () => await deletePost(post._id),
         onSuccess: () => {
