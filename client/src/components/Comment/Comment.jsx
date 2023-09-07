@@ -9,12 +9,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz.js";
 import OptionsBox from "../PostOptions/OptionsBox.jsx";
 import CommentEdit from "../CommentEdit/CommentEdit.jsx";
 import {deleteComment} from "../../db/comments/deleteComment.js";
-import {editCommentData} from "../../db/comments/editCommentData.js";
 import CommentLike from "../CommentLike/CommentLike.jsx";
 
 const Comment = ({comment}) => {
     const {currentUser} = useContext(AuthContext);
-    // const queryClient = useQueryClient();
     const [isLiking, setIsLiking] = useState(false);
     const [isLikesListOpen, setIsLikesListOpen] = useState(false);
     const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);

@@ -10,9 +10,7 @@ import Comments from "../Comments/Comments.jsx";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import OptionsBox from "../PostOptions/OptionsBox.jsx";
 import PostEdit from "../PostEdit/PostEdit.jsx";
-import {upload} from "../../db/upload/upload.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {editPostData} from "../../db/posts/editPostData.js";
 import {deletePost} from "../../db/posts/deletePost.js";
 
 const Post = ({post}) => {
@@ -33,12 +31,6 @@ const Post = ({post}) => {
         setIsCommentsOpen(!isCommentsOpen);
     }
 
-    const editPostMutation = useMutation({
-        mutationFn: async (data) => await editPostData(data, post._id),
-        onSuccess: () => {
-            queryClient.invalidateQueries("posts");
-        }
-    });
 
     const deletePostMutation = useMutation({
         mutationFn: async () => await deletePost(post._id),
@@ -49,25 +41,6 @@ const Post = ({post}) => {
 
     const onDelete = async () => {
         await deletePostMutation.mutate();
-    }
-
-    const onSubmit = async (values, actions) => {
-        try {
-            if (!values.description && !values.file) return;
-            const fileUpload = values.file ? await upload(values.file) : null;
-            const fileImg = fileUpload?.url || post.file;
-
-            const postDataObject = {
-                ...values,
-                file: fileImg,
-            }
-            await editPostMutation.mutate(postDataObject);
-            setIsPostEditOpen(false);
-            setIsPostOptionsOpen(false);
-        } catch (error) {
-            console.log(error)
-        }
-        actions.setSubmitting(false)
     }
 
     return (
@@ -99,7 +72,12 @@ const Post = ({post}) => {
                     <OptionsBox onEdit={() => setIsPostEditOpen(true)} onDelete={onDelete}/>
                 }
                 {isPostEditOpen &&
-                    <PostEdit data={post} onClose={() => setIsPostEditOpen(false)} onSubmit={onSubmit}/>
+                    <PostEdit
+                        post={post}
+                        setIsPostEditOpen={setIsPostEditOpen}
+                        setIsPostOptionsOpen={setIsPostOptionsOpen}
+
+                    />
                 }
             </div>
             <div className="post__content">
