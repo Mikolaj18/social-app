@@ -1,9 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close.js";
-import "./commentEdit.scss";
+import "../../../styles/partials/editForm.scss";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {editCommentData} from "../../db/comments/editCommentData.js";
-import {deleteComment} from "../../db/comments/deleteComment.js";
 const CommentEdit = ({comment, setIsOptionsBoxOpen, setIsCommentEditOpen}) => {
     const queryClient = useQueryClient();
 
@@ -37,7 +36,7 @@ const CommentEdit = ({comment, setIsOptionsBoxOpen, setIsCommentEditOpen}) => {
                     onSubmit={onSubmit}
                 >
                     {({values, setFieldValue }) => (
-                        <Form className="commentEdit">
+                        <Form className="editForm">
                             <Field
                                 as="textarea"
                                 name="description"

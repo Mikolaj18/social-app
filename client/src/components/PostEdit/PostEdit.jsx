@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close.js";
-import "./postEdit.scss";
+import "../../../styles/partials/editForm.scss";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import FormikFileInput from "../FormikFileInput/FormikFileInput.jsx";
 import {postSchema} from "../../schemas/postSchema.js";
@@ -47,7 +47,7 @@ const PostEdit = ({post, setIsPostEditOpen, setIsPostOptionsOpen}) => {
                     onSubmit={onSubmit}
                 >
                     {({values, setFieldValue }) => (
-                        <Form className="postEdit">
+                        <Form className="editForm">
                             <Field
                                 as="textarea"
                                 name="description"

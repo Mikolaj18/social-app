@@ -1,8 +1,8 @@
-@import "../../../styles/partials/modal.scss";
-@import "../../../styles/vars.scss";
-@import "../../../styles/theme.scss";
+@import "../partials/modal.scss";
+@import "../vars.scss";
+@import "../theme.scss";
 
-.postEdit {
+.editForm {
   display: flex;
   flex-flow: column;
   row-gap: 20px;
