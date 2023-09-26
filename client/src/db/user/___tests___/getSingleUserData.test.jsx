@@ -2,7 +2,6 @@ import {getSingleUserData} from "../getSingleUserData.js";
 import {server} from "../../../mocks/server.js";
 import {rest} from "msw";
 
-
 describe('getSingleUserData db function', () => {
     it('should return the correct user data', async () => {
         const userId = 1;
