@@ -6,7 +6,7 @@ export const userHandlers = [
         return res(
             ctx.status(200),
             ctx.json({
-                id: id,
+                id: Number(id),
                 name: 'John',
                 surname: 'Doe',
                 email: 'johndoe@mail.com',
