@@ -49,7 +49,7 @@ app.use((error, req, res, next) => {
 });
 
 
-app.listen(8800, () => {
+app.listen(process.env.PORT, () => {
     connect();
     console.log("Server is running.");
 });
