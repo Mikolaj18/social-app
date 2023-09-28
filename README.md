@@ -6,3 +6,6 @@ Stack:
 - React
 - Node
 - MongoDB
+- MSW
+- RTL
+- Vitest
