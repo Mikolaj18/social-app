@@ -48,6 +48,17 @@ describe("PostForm component", () => {
         });
         await waitFor(() => {
             expect(shareButton).not.toBeDisabled();
-        })
+        });
+    });
+    it("should submit button be disabled when user type in desc input and clear it", async () => {
+        const descriptionInput = screen.getByPlaceholderText(/What's on your mind John?/i);
+        const shareButton = screen.getByText(/Share/i);
+        act(() => {
+            userEvent.type(descriptionInput, "Today was a good day.");
+            userEvent.clear(descriptionInput);
+        });
+        await waitFor(() => {
+            expect(shareButton).toBeDisabled();
+        });
     });
 });
