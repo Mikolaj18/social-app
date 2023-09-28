@@ -11,14 +11,17 @@ describe("getUserPosts db function", () => {
             {
                 author: userId,
                 description: "Post 1",
+                file: "image.jpg",
             },
             {
                 author: userId,
                 description: "Post 2",
+                file: "image.png",
             },
             {
                 author: userId,
                 description: "Post 3",
+                file: "",
             },
         ]);
     });
