@@ -9,16 +9,19 @@ describe("getUserPosts db function", () => {
 
         expect(userPosts).toEqual([
             {
+                id: 2,
                 author: userId,
                 description: "Post 1",
                 file: "image.jpg",
             },
             {
+                id: 3,
                 author: userId,
                 description: "Post 2",
                 file: "image.png",
             },
             {
+                id: 4,
                 author: userId,
                 description: "Post 3",
                 file: "",

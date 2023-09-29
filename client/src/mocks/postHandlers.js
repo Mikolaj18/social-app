@@ -6,16 +6,19 @@ export const postHandlers = [
             ctx.status(200),
             ctx.json([
                 {
+                    id: 2,
                     author: 1,
                     description: "Post 1",
                     file: "image.jpg",
                 },
                 {
+                    id: 3,
                     author: 1,
                     description: "Post 2",
                     file: "image.png",
                 },
                 {
+                    id: 4,
                     author: 1,
                     description: "Post 3",
                     file: "",
@@ -33,6 +36,17 @@ export const postHandlers = [
                     ...data,
                 },
             ),
+        );
+    }),
+    rest.put(`http://localhost:8800/posts/:postId`, async (req, res, ctx) => {
+        const { postId } = req.params;
+        const postData = await req.json();
+        return res(
+            ctx.status(200),
+            ctx.json({
+                id: Number(postId),
+                ...postData
+            }),
         );
     }),
 ];

@@ -3,6 +3,7 @@ import {server} from "../../../mocks/server.js";
 import {rest} from "msw";
 
 const mockData = {
+    id: 5,
     description: "Post 4",
     file: "",
 }
@@ -11,7 +12,7 @@ describe("addPost db function", () => {
     it('should return the posted todo item', async () => {
         const postedPost = await addPost(mockData);
         expect(postedPost).toEqual({
-            author: 1, description: "Post 4", file: "",
+            id:5, author: 1, description: "Post 4", file: "",
         });
     });
     it('should fail with an error', async () => {
