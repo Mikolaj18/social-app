@@ -38,7 +38,7 @@ export const postHandlers = [
             ),
         );
     }),
-    rest.put(`http://localhost:8800/posts/:postId`, async (req, res, ctx) => {
+    rest.put('http://localhost:8800/posts/:postId', async (req, res, ctx) => {
         const { postId } = req.params;
         const postData = await req.json();
         return res(
@@ -46,6 +46,15 @@ export const postHandlers = [
             ctx.json({
                 id: Number(postId),
                 ...postData
+            }),
+        );
+    }),
+    rest.delete('http://localhost:8800/posts/:postId', async (req, res, ctx) => {
+        const {postId} = req.params;
+        return res(
+            ctx.status(200),
+            ctx.json({
+                id: Number(postId),
             }),
         );
     }),
