@@ -28,7 +28,7 @@ const Register = () => {
                 onSubmit={onSubmit}
             >
                 {({isSubmitting}) => (
-                    <Form>
+                    <Form noValidate>
                         <FormikInput
                             label="Name"
                             name="name"
@@ -57,7 +57,7 @@ const Register = () => {
                             label="Confirm password"
                             name="confirmPassword"
                             type="password"
-                            placeholder="Enter your password"
+                            placeholder="Confirm your password"
                         />
                         {error && <div className="error">{error}</div>}
                         <button className="btn btn--green register-button" disabled={isSubmitting} type="submit">
