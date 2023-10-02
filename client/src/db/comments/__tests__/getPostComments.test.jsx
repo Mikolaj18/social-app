@@ -1,4 +1,3 @@
-import {getUserPosts} from "../../posts/getUserPosts.js";
 import {getPostComments} from "../getPostComments.js";
 import {server} from "../../../mocks/server.js";
 import {rest} from "msw";

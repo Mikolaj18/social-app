@@ -27,7 +27,7 @@ export const commentHandlers = [
             ]),
         );
     }),
-    rest.post('http://localhost:8800/posts', async (req, res, ctx) => {
+    rest.post('http://localhost:8800/comments', async (req, res, ctx) => {
         const data = await req.json();
         return res(
             ctx.status(201),
