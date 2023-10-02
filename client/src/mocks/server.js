@@ -1,8 +1,8 @@
 import {setupServer} from "msw/node";
-import {userHandlers} from "./userHandlers.js";
-import {postHandlers} from "./postHandlers.js";
-import {authHandlers} from "./authHandlers.js";
-import {commentHandlers} from "./commentHandlers.js";
+import {userHandlers} from "./handlers/userHandlers.js";
+import {postHandlers} from "./handlers/postHandlers.js";
+import {authHandlers} from "./handlers/authHandlers.js";
+import {commentHandlers} from "./handlers/commentHandlers.js";
 
 export const server = setupServer(
     ...userHandlers,

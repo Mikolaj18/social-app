@@ -17,6 +17,7 @@ const Comment = ({comment}) => {
     const [isLikesListOpen, setIsLikesListOpen] = useState(false);
     const [istOptionsBoxOpen, setIsOptionsBoxOpen] = useState(false);
     const [isCommentEditOpen, setIsCommentEditOpen] = useState(false);
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         isLikesListOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto';

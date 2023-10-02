@@ -50,7 +50,7 @@ export const commentHandlers = [
             }),
         );
     }),
-    rest.delete('http://localhost:8800/comments/:postId', async (req, res, ctx) => {
+    rest.delete('http://localhost:8800/comments/:commentId', async (req, res, ctx) => {
         const {commentId} = req.params;
         return res(
             ctx.status(200),

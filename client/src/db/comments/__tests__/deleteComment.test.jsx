@@ -1,25 +1,24 @@
-import {deletePost} from "../deletePost.js";
 import {server} from "../../../mocks/server.js";
 import {rest} from "msw";
+import {deleteComment} from "../deleteComment.js";
 
-const postId = 2;
-describe('deletePost db function', () => {
-
-    it('should return the deleted post id', async () => {
-        const deletedPost = await deletePost(postId);
-        expect(deletedPost).toEqual({
-            id: 2,
+const commentId = 5;
+describe('deleteComment db function', () => {
+    it('should return the deleted comment id', async () => {
+        const deletedComment = await deleteComment(commentId);
+        expect(deletedComment).toEqual({
+            id: 5,
         });
     });
     it('should fail with an error', async () => {
         server.use(
-            rest.delete('http://localhost:8800/posts/2', (req, res, ctx) => {
+            rest.delete('http://localhost:8800/comments/5', (req, res, ctx) => {
                 return res(ctx.status(400));
             }),
         );
         expect.assertions(1);
         try {
-            await deletePost(postId);
+            await deleteComment(commentId);
         } catch (error) {
             if(error instanceof Error) {
                 expect(error.message).toEqual('Failed to delete data');
