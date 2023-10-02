@@ -1,12 +1,9 @@
 import {COMMENTS_URL} from "../../api/api.js";
 
 export const getPostComments = async (postId) => {
-    try {
-        const response = await fetch(`${COMMENTS_URL}/${postId}`, {
-            credentials: "include",
-        });
-        return await response.json();
-    } catch (error) {
-        console.log(error);
-    }
+    const response = await fetch(`${COMMENTS_URL}/${postId}`, {
+        credentials: "include",
+    });
+    if(!response.ok) throw Error("Failed to get data")
+    return await response.json();
 }
