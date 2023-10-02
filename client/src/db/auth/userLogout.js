@@ -9,6 +9,7 @@ export const userLogout = async () => {
                 "Content-Type": "application/json",
             }
         });
+        return response.json();
     } catch (error) {
         console.log(error);
     }

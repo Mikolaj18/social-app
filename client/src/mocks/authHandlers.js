@@ -23,4 +23,10 @@ export const authHandlers = [
             ),
         );
     }),
+    rest.post('http://localhost:8800/auth/logout', async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({message: 'User has been logged out'})
+        );
+    }),
 ];
