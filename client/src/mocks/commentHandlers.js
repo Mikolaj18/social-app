@@ -2,7 +2,7 @@ import {rest} from 'msw';
 
 export const commentHandlers = [
     rest.get('http://localhost:8800/comments/:postId', async (req, res, ctx) => {
-        const postId = 2
+        const { postId } = req.params;
         return res(
             ctx.status(200),
             ctx.json([
@@ -10,19 +10,19 @@ export const commentHandlers = [
                     id: 2,
                     author: 1,
                     description: "Comment 1",
-                    postId: postId,
+                    postId: Number(postId),
                 },
                 {
                     id: 3,
                     author: 1,
                     description: "Comment 2",
-                    postId: postId,
+                    postId: Number(postId),
                 },
                 {
                     id: 4,
                     author: 2,
                     description: "Comment 3",
-                    postId: postId,
+                    postId: Number(postId),
                 }
             ]),
         );
@@ -34,29 +34,28 @@ export const commentHandlers = [
             ctx.json(
                 {
                     author: 1,
-                    postId: 2,
                     ...data,
                 },
             ),
         );
     }),
-    rest.put('http://localhost:8800/posts/:postId', async (req, res, ctx) => {
-        const { postId } = req.params;
-        const postData = await req.json();
+    rest.put('http://localhost:8800/comments/:commentId', async (req, res, ctx) => {
+        const { commentId } = req.params;
+        const commentData = await req.json();
         return res(
             ctx.status(200),
             ctx.json({
-                id: Number(postId),
-                ...postData
+                id: Number(commentId),
+                ...commentData
             }),
         );
     }),
-    rest.delete('http://localhost:8800/posts/:postId', async (req, res, ctx) => {
-        const {postId} = req.params;
+    rest.delete('http://localhost:8800/comments/:postId', async (req, res, ctx) => {
+        const {commentId} = req.params;
         return res(
             ctx.status(200),
             ctx.json({
-                id: Number(postId),
+                id: Number(commentId),
             }),
         );
     }),

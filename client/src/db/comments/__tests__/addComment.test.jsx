@@ -4,6 +4,7 @@ import {rest} from "msw";
 
 const mockData = {
     id: 5,
+    postId: 2,
     description: "Comment 4",
 }
 
