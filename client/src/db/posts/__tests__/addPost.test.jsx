@@ -9,7 +9,7 @@ const mockData = {
 }
 
 describe("addPost db function", () => {
-    it('should return the posted todo item', async () => {
+    it('should return the posted post', async () => {
         const postedPost = await addPost(mockData);
         expect(postedPost).toEqual({
             id:5, author: 1, description: "Post 4", file: "",

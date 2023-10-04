@@ -1,7 +1,6 @@
 import {FRIEND_REQUESTS_URL} from "../../api/api.js";
 
 export const sendFriendRequest = async (userData) => {
-    try {
         const response = await fetch(FRIEND_REQUESTS_URL, {
             method: "POST",
             credentials: "include",
@@ -10,8 +9,6 @@ export const sendFriendRequest = async (userData) => {
                 "Content-Type": "application/json",
             }
         });
+        if(!response.ok) throw Error("Failed to send request");
         return await response.json();
-    } catch (error) {
-        console.log(error);
-    }
-};
+    };
