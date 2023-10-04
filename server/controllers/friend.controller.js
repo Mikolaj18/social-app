@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import FriendRequest from '../models/friendRequest.model.js';
-import {createError} from "../utils/createError.js";
+import { createError } from "../utils/createError.js";
 
 export const sendFriendRequest = async (req, res, next) => {
     try {
@@ -96,12 +96,11 @@ export const rejectFriendRequest = async (req, res, next) => {
 
 export const getFriendList = async (req, res, next) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
 
         const user = await User.findById(id);
         if (!user) return next(createError(404, "User not found"));
-
-        const friendList = await User.find({ _id: { $in: user.friends } }).sort({createdAt: -1});
+        const friendList = await User.find({ _id: { $in: user.friends } }).select('name surname profilePicture').sort({ createdAt: -1 });
         res.status(200).json(friendList);
     } catch (error) {
         next(error);
