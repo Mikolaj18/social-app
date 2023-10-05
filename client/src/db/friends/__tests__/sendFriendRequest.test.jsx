@@ -4,6 +4,7 @@ import {sendFriendRequest} from "../sendFriendRequest.js";
 
 const receiverId = 2
 const mockData = {
+    id: 1,
     receiver: receiverId,
 }
 
@@ -11,7 +12,7 @@ describe("sendFriendRequest db function", () => {
     it('should return the correct friend request', async () => {
         const friendRequest = await sendFriendRequest(mockData);
         expect(friendRequest).toEqual({
-            sender: 1, receiver: 2, status: 'pending',
+            id: 1, sender: 1, receiver: 2, status: 'pending',
         });
     });
     it('should fail with an error', async () => {

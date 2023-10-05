@@ -14,4 +14,16 @@ export const friendRequestsHandlers = [
             ),
         );
     }),
+    rest.post('http://localhost:8800/friends/accept', async (req, res, ctx) => {
+        const data = await req.json();
+        return res(
+            ctx.status(201),
+            ctx.json(
+                {
+                    status: 'accepted',
+                    ...data,
+                },
+            ),
+        );
+    }),
 ];
