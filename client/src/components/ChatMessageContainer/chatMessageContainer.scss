@@ -1,0 +1,39 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/theme.scss";
+
+.chat {
+  @include themify($themes) {
+    &__message {
+      &-container {
+        flex: 4;
+        box-shadow: $form-box-shadow;
+        border-radius: 10px;
+        background: themed("bg-second");
+      }
+
+      &-user {
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: $navbar-box-shadow;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+
+        &-data {
+          font-weight: $fw-700;
+          font-size: 1.3rem;
+          color: themed("color-first");
+        }
+      }
+    }
+  }
+  &__messages {
+    display: flex;
+    margin-top: 20px;
+    padding: 0 20px;
+    flex-flow: column;
+    row-gap: 20px;
+    height: 480px;
+    overflow-y: scroll;
+  }
+}

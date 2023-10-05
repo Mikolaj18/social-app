@@ -54,7 +54,9 @@ const Navbar = () => {
                 </div>
                 <div className="navbar__items">
                     <div className="navbar__item navbar__icon">
-                        <MessageIcon/>
+                        <Link to="/chat">
+                            <MessageIcon/>
+                        </Link>
                     </div>
                     <div className="navbar__item navbar__icon">
                         <Link to="/friends/requests">

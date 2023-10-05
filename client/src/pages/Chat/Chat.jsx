@@ -1,6 +1,7 @@
 import "./chat.scss";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import ChatConversation from "../../components/ChatConversation/ChatConversation.jsx";
+import ChatMessageContainer from "../../components/ChatMessageContainer/ChatMessageContainer.jsx";
 const Chat = () => {
     return (
         <section className="chat">
@@ -16,9 +17,7 @@ const Chat = () => {
                         <ChatConversation/>
                     </div>
                 </div>
-                <div className="chat__container">
-                    Message Container
-                </div>
+                <ChatMessageContainer/>
             </div>
         </section>
     );

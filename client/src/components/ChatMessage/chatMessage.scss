@@ -1,0 +1,35 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/theme.scss";
+
+.chat {
+  @include themify($themes) {
+    &__message {
+      display: flex;
+      flex-flow: row-reverse;
+      width: max-content;
+      max-width: 450px;
+      column-gap: 10px;
+
+      &-text {
+        background: themed("bg-message");
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        color: themed("color-first");
+        word-wrap: break-word;
+      }
+
+    //owner message styles
+      &--is-owner {
+        align-self: flex-end;
+        flex-flow: row;
+        .chat__message {
+          &-text {
+            background: $color-blue;
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
