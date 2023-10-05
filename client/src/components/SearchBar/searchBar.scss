@@ -1,0 +1,33 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/theme.scss";
+
+form {
+  @include themify($themes) {
+    input {
+      background: themed("bg-third");
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      width: 100%;
+      color: themed("color-first");
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
+      border: none;
+      width: 20px;
+      height: 20px;
+      background: none;
+      cursor: pointer;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        color: themed("color-first");
+      }
+    }
+  }
+}

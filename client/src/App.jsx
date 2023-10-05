@@ -21,19 +21,22 @@ import {
 import FriendRequests from "./pages/FriendRequests/FriendRequests.jsx";
 import Friends from "./pages/Friends/Friends.jsx";
 import SearchedUsers from "./pages/SearchedUsers/SearchedUsers.jsx";
+import Chat from "./pages/Chat/Chat.jsx";
 
 function App() {
     const {currentUser} = useContext(AuthContext);
     const {darkMode} = useContext(DarkModeContext);
     const queryClient = new QueryClient()
 
-    const Layout = ({rightMenuVisible = true}) => {
+    const Layout = ({rightMenuVisible = true, leftMenuVisible = true,}) => {
         return (
             <div className={`theme theme--${darkMode ? "dark" : "light"}`}>
                 <QueryClientProvider client={queryClient}>
                     <Navbar/>
                     <div className="main">
-                        <LeftMenu/>
+                        {leftMenuVisible &&
+                            <LeftMenu/>
+                        }
                         <div style={{flex: 7, width: "100%"}}>
                             <Outlet/>
                         </div>
@@ -91,6 +94,19 @@ function App() {
                 {
                     path: "/search",
                     element: <SearchedUsers/>,
+                },
+            ],
+        },
+        {
+            element: (
+                <ProtectedRoute>
+                    <Layout rightMenuVisible={false} leftMenuVisible={false}/>
+                </ProtectedRoute>
+            ),
+            children: [
+                {
+                    path: "/chat",
+                    element: <Chat/>,
                 },
             ],
         },

@@ -1,0 +1,33 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/theme.scss";
+
+.chat {
+  width: 100%;
+  margin-top: 20px;
+  @include themify($themes) {
+
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+      column-gap: 50px;
+    }
+
+    &__aside {
+      h2 {
+        margin-bottom: 10px;
+        color: themed('color-first');
+      }
+    }
+
+    &__search {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    &__conversations {
+      display: flex;
+      flex-flow: column;
+      row-gap: 15px;
+    }
+  }
+}

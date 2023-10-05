@@ -5,13 +5,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {useContext, useEffect, useRef, useState} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
-import {createSearchParams, Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {DarkModeContext} from "../../context/darkModeContext.jsx";
 import SectionList from "../SectionList/SectionList.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {getFriendRequests} from "../../db/friends/getFriendRequests.js";
 import NavbarMenu from "../NavbarMenu/NavbarMenu.jsx";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchBar from "../SearchBar/SearchBar.jsx";
 
 const Navbar = () => {
     const {currentUser, logout} = useContext(AuthContext);
@@ -50,12 +50,7 @@ const Navbar = () => {
                     </div>
                 </Link>
                 <div className="navbar__search">
-                    <form onSubmit={onSubmit}>
-                        <input type="text" placeholder="Search for users" ref={searchRef}/>
-                        <button className="navbar__search-btn" type="submit">
-                            <SearchIcon/>
-                        </button>
-                    </form>
+                    <SearchBar onSubmit={onSubmit} searchRef={searchRef}/>
                 </div>
                 <div className="navbar__items">
                     <div className="navbar__item navbar__icon">
