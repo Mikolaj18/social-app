@@ -10,7 +10,7 @@ import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
 
 const ChatMessageContainer = () => {
-    const messagecContainerRef = useRef();
+    const messageContainerRef = useRef();
     const {selectedConversation} = useConversations();
     const {currentUser} = useContext(AuthContext);
     const {isLoading, error, data, refetch} = useQuery({
@@ -20,7 +20,7 @@ const ChatMessageContainer = () => {
     });
 
     useEffect(() => {
-        if (messagecContainerRef.current) messagecContainerRef.current.scrollTop = messagecContainerRef.current.scrollHeight;
+        if (messageContainerRef.current) messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
         }, [data]);
 
     useEffect(() => {
@@ -36,20 +36,17 @@ const ChatMessageContainer = () => {
                     <Link reloadDocument to={`/profile/${selectedConversation.userId}`}>
                         <div className="chat__message-user">
                             <div className="chat__message-user-img user-profile-rounded">
-                                <img
-                                    src={selectedConversation.profilePicture}
-                                    alt=""/>
+                                <img src={selectedConversation.profilePicture ? selectedConversation.profilePicture : "../src/images/default.jpg"} alt=""/>
                             </div>
                             <div className="chat__message-user-data">
                                 {selectedConversation.name} {selectedConversation.surname}
                             </div>
                         </div>
                     </Link>
-                    <div className="chat__messages" ref={messagecContainerRef}>
+                    <div className="chat__messages" ref={messageContainerRef}>
                         {isLoading ? <Spinner/> : error ? "Something went wrong" :
                             data.map(message => (
-                                <ChatMessage key={message._id} message={message}
-                                             isOwner={currentUser._id === message.sender}/>
+                                <ChatMessage key={message._id} message={message} isOwner={currentUser._id === message.sender}/>
                             ))
                         }
                     </div>

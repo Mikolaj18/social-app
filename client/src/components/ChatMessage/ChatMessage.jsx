@@ -5,7 +5,6 @@ import {AuthContext} from "../../context/authContext.jsx";
 const ChatMessage = ({message, isOwner}) => {
     const {selectedConversation} = useConversations();
     const {currentUser} = useContext(AuthContext);
-
     return (
       <div className={isOwner ? "chat__message chat__message--is-owner" : "chat__message"}>
           <div className="chat__message-text">
@@ -13,7 +12,9 @@ const ChatMessage = ({message, isOwner}) => {
           </div>
           <div className="chat__message-img user-profile-rounded">
               <img
-                  src={isOwner ? currentUser.profilePicture : selectedConversation.profilePicture} alt="pfp"/>
+                  src={isOwner ? currentUser.profilePicture || "../src/images/default.jpg" : selectedConversation.profilePicture || "../src/images/default.jpg"}
+                  alt="pfp"
+              />
           </div>
       </div>
     );

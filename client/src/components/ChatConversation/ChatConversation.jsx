@@ -23,7 +23,7 @@ const ChatConversation = ({conversation}) => {
         })}>
             <div className="chat__conversation-img user-profile-rounded">
                 <img
-                    src={user.profilePicture}
+                    src={user.profilePicture ? user.profilePicture : "../src/images/default.jpg"}
                     alt="pfp"/>
             </div>
             <div className="chat__conversation-flex">

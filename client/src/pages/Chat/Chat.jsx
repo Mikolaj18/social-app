@@ -7,7 +7,6 @@ import Spinner from "../../components/Spinner/Spinner.jsx";
 import {useQuery} from "@tanstack/react-query";
 
 const Chat = () => {
-
     const {isLoading, error, data} = useQuery({
         queryKey: ["conversations"],
         queryFn: async () => await getConversations(),

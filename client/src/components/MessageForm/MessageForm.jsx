@@ -6,7 +6,7 @@ import {sendMessage} from "../../db/messages/sendMessage.js";
 import {useConversations} from "../../context/conversationsContext.jsx";
 const MessageForm = () => {
     const queryClient = useQueryClient();
-    const {setConversations, selectedConversation} = useConversations();
+    const {selectedConversation} = useConversations();
 
     const mutation = useMutation({
         mutationFn: async (data) => await sendMessage(data),
@@ -22,8 +22,6 @@ const MessageForm = () => {
             recipientId: selectedConversation.userId,
         }
         mutation.mutate(messageObject);
-        setConversations(prevConv => {
-        });
         actions.resetForm();
         actions.setSubmitting(false);
     }
@@ -43,7 +41,7 @@ const MessageForm = () => {
                         />
                         <ErrorMessage name="message" component="div" className="error" />
                     </div>
-                    <button type="submit">
+                    <button type="submit" disabled={!values.message}>
                         <SendIcon />
                     </button>
                 </Form>
