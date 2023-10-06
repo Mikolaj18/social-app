@@ -9,7 +9,6 @@ export const createConversation = async (recipientId) => {
             "Content-Type": "application/json",
         }
     });
-    console.log(response)
     if(!response.ok) throw Error("Failed to post data");
     return await response.json();
 };

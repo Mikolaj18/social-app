@@ -38,7 +38,6 @@ const RightMenu = () => {
 
         if (isConversationExists) {
             const conversationId = id[0]._id;
-            console.log(conversationId)
             setSelectedConversation({
                 _id: conversationId,
                 userId: recipient._id,
