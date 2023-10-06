@@ -1,5 +1,4 @@
 import Like from "../models/like.model.js";
-import Comment from "../models/comment.model.js";
 import {createError} from "../utils/createError.js";
 
 export const like = async (req, res, next) => {

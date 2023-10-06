@@ -9,6 +9,8 @@ import friendsRoutes from "./routes/friend.route.js";
 import postsRoutes from "./routes/post.route.js";
 import commentsRoutes from "./routes/comment.route.js";
 import likesRoutes from "./routes/like.route.js";
+import messagesRoutes from "./routes/messages.route.js";
+import conversationsRoutes from "./routes/conversations.route.js";
 
 const app = express();
 dotenv.config();
@@ -40,6 +42,8 @@ app.use("/friends", friendsRoutes);
 app.use("/posts", postsRoutes);
 app.use("/comments", commentsRoutes);
 app.use("/likes", likesRoutes);
+app.use("/messages", messagesRoutes);
+app.use("/conversations", conversationsRoutes);
 
 app.use((error, req, res, next) => {
     const errorStatus = error.status || 500;
