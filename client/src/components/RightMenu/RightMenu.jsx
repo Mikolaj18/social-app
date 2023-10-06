@@ -7,11 +7,17 @@ import Spinner from "../Spinner/Spinner.jsx";
 import {Link} from "react-router-dom";
 import {createConversation} from "../../db/conversations/createConversation.js";
 import {useConversations} from "../../context/conversationsContext.jsx";
+import {getConversations} from "../../db/conversations/getConversations.js";
 
 const RightMenu = () => {
     const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
     const {setSelectedConversation} = useConversations();
+
+    const {isLoading: isLoadingConv, error: errorConv, data: dataConv} = useQuery({
+        queryKey: ["conversations"],
+        queryFn: async () => await getConversations(),
+    });
 
     const {isLoading, error, data} = useQuery({
         queryKey: [currentUser._id],
@@ -25,16 +31,30 @@ const RightMenu = () => {
         }
     });
 
-    const handleConversation = async (recipient, conversationId) => {
+    const handleConversation = async (recipient) => {
+        const id = dataConv.filter(p => p.participants[0]._id === recipient._id);
+        const isConversationExists = id[0]?.participants[0]._id === recipient._id;
         conversationMutation.mutate({recipientId: recipient._id});
-        setSelectedConversation({
-            _id: "",
-            userId: "",
-            name: "",
-            surname: "",
-            profilePicture: "",
-        });
 
+        if (isConversationExists) {
+            const conversationId = id[0]._id;
+            console.log(conversationId)
+            setSelectedConversation({
+                _id: conversationId,
+                userId: recipient._id,
+                name: recipient.name,
+                surname: recipient.surname,
+                profilePicture: recipient.profilePicture,
+            });
+        } else {
+            setSelectedConversation({
+                _id: "",
+                userId: "",
+                name: "",
+                surname: "",
+                profilePicture: "",
+            });
+        }
     }
 
     return (
@@ -44,9 +64,11 @@ const RightMenu = () => {
                 <ul className="rightMenu__list">
                     {isLoading ? <Spinner/> : error ? "Something went wrong" :
                         data.map(f => (
-                            <Link to="/chat" onClick={() => handleConversation(f, conversationMutation.data)} key={f._id}>
+                            <Link to="/chat" onClick={() => handleConversation(f, conversationMutation.data)}
+                                  key={f._id}>
                                 <li className="rightMenu__list-item">
-                                    <img src={f.profilePicture ? f.profilePicture : "../src/images/default.jpg"} alt="Profile picture"/>
+                                    <img src={f.profilePicture ? f.profilePicture : "../src/images/default.jpg"}
+                                         alt="Profile picture"/>
                                     <p>{f.name} {f.surname}</p>
                                 </li>
                             </Link>

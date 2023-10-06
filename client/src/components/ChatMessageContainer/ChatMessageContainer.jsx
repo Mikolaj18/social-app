@@ -19,8 +19,6 @@ const ChatMessageContainer = () => {
         enabled: !!selectedConversation.userId,
     });
 
-    console.log(isLoading, "mess")
-
     useEffect(() => {
         if (messagecContainerRef.current) messagecContainerRef.current.scrollTop = messagecContainerRef.current.scrollHeight;
         }, [data]);
@@ -28,7 +26,6 @@ const ChatMessageContainer = () => {
     useEffect(() => {
         if (selectedConversation.userId) refetch();
     }, [selectedConversation.userId, refetch]);
-
 
     return (
         <div className="chat__message-container">

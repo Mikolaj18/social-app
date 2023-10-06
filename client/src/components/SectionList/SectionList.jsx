@@ -34,10 +34,12 @@ const SectionList = ({dataFriends}) => {
                         <p>Friends</p>
                     </li>
                 </Link>
-                <li className="sectionList__item">
-                    <ForumIcon/>
-                    <p>Messages</p>
-                </li>
+                <Link reloadDocument to="/chat">
+                    <li className="sectionList__item">
+                        <ForumIcon/>
+                        <p>Messages</p>
+                    </li>
+                </Link>
             </ul>
             <ul className="sectionList">
                 <li className="sectionList__item">

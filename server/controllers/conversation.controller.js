@@ -6,7 +6,7 @@ export const getConversations = async (req, res, next) => {
         const conversations = await Conversation.find({participants: userId}).populate({
             path: "participants",
             select: "name surname profilePicture",
-        });
+        }).sort({updatedAt: -1});
 
         //remove current user from conversations
         conversations.forEach(conversation => {
@@ -31,7 +31,7 @@ export const createConversation = async (req, res, next) => {
                 participants: [senderId, recipientId],
                 lastMessage: {
                     text: "",
-                    sender: senderId,
+                    sender: null,
                 },
             });
         }

@@ -5,7 +5,6 @@ import ChatMessageContainer from "../../components/ChatMessageContainer/ChatMess
 import {getConversations} from "../../db/conversations/getConversations.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import {useQuery} from "@tanstack/react-query";
-import {useConversations} from "../../context/conversationsContext.jsx";
 
 const Chat = () => {
 
@@ -13,8 +12,6 @@ const Chat = () => {
         queryKey: ["conversations"],
         queryFn: async () => await getConversations(),
     });
-
-    console.log(isLoading, "conv")
 
     return (
         <section className="chat">

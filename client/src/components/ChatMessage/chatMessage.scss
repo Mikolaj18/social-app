@@ -13,11 +13,12 @@
 
       &-text {
         background: themed("bg-message");
-        padding: 9px 12px 8px 12px;
+        padding: 10px 12px 8px 12px;
         border-radius: 25px;
         font-size: 1.5rem;
         color: themed("color-first");
         word-wrap: break-word;
+        max-width: 450px;
       }
 
     //owner message styles
