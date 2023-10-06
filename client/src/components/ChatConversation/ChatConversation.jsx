@@ -1,18 +1,39 @@
 import "./chatConversation.scss";
-const ChatConversation = () => {
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext.jsx";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import {useConversations} from "../../context/conversationsContext.jsx";
+const ChatConversation = ({conversation}) => {
+    const user = conversation.participants[0];
+    const lastMessage = conversation.lastMessage;
+    const {currentUser} = useContext(AuthContext);
+    const { selectedConversation, setSelectedConversation } = useConversations();
+    console.log(selectedConversation);
     return (
-        <div className="chat__conversation">
+        <div
+            className={
+            selectedConversation?._id === conversation._id
+                ? "chat__conversation chat__conversation--selected"
+                : "chat__conversation"}
+             onClick={() => setSelectedConversation({
+            _id: conversation._id,
+            userId: user._id,
+            name: user.name,
+            surname: user.surname,
+            profilePicture: user.profilePicture,
+        })}>
             <div className="chat__conversation-img user-profile-rounded">
                 <img
-                    src="https://res.cloudinary.com/dih42rvjf/raw/upload/v1693226396/social/mdictliqqll8icnwijsi.jpg"
-                    alt=""/>
+                    src={user.profilePicture}
+                    alt="pfp"/>
             </div>
             <div className="chat__conversation-flex">
                 <div className="chat__conversation-data">
-                    John Doe
+                    {user.name} {user.surname}
                 </div>
                 <div className="chat__conversation-last-msg">
-                    Lorem ipsum dolor
+                    {currentUser._id === lastMessage.sender ? <DoneAllIcon/> : ""}
+                    {lastMessage.text.length > 18 ? `${lastMessage.text.substring(0, 18)}...` : lastMessage.text}
                 </div>
             </div>
         </div>

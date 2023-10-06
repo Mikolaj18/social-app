@@ -20,6 +20,7 @@
 
     &__aside {
       flex: 2;
+      position: relative;
 
       h2 {
         margin-bottom: 10px;
@@ -38,6 +39,7 @@
       row-gap: 15px;
       overflow-y: auto;
       max-height: 260px;
+
       @media(min-width: $breakpoint-tablet) {
         max-height: 390px;
       }

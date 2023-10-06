@@ -9,6 +9,7 @@ $themes: (
                 color-first: $color-black,
                 bg-hover-first: $color-gray-second,
                 bg-hover-second: $color-gray-third,
+                bg-selected-conversation: $color-blue-third,
         ),
         dark: (
                 bg: $theme-dark-bg,
@@ -18,6 +19,7 @@ $themes: (
                 color-first: $theme-dark-color-first,
                 bg-hover-first: $theme-dark-bg-third,
                 bg-hover-second: $theme-dark-hover-second,
+                bg-selected-conversation: $color-blue-second,
         ),
 );
 

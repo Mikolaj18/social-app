@@ -7,5 +7,4 @@ const router = express.Router();
 
 router.get("/", checkToken, getConversations);
 
-
 export default router;

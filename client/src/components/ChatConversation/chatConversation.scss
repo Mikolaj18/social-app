@@ -22,8 +22,23 @@
         font-weight: $fw-700;
       }
 
+      &-last-msg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        column-gap: 5px;
+      }
+
       &:hover {
         background-color: themed("bg-hover-first");
+      }
+      &--selected {
+        background-color: themed("bg-selected-conversation");
+
+        &:hover {
+          background-color: themed("bg-selected-conversation");
+        }
       }
     }
   }
