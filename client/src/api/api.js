@@ -22,4 +22,5 @@ export const LIKES_URL = `${import.meta.env.VITE_API_URL}/likes`;
 
 export const SEARCH_URL = `${import.meta.env.VITE_API_URL}/users/search`;
 export const CONVERSATIONS_URL = `${import.meta.env.VITE_API_URL}/conversations`;
+export const MESSAGES_URL = `${import.meta.env.VITE_API_URL}/messages`;
 export const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY;

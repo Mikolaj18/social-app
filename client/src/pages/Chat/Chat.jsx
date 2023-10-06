@@ -29,7 +29,6 @@ const Chat = () => {
     //     fetchData();
     // }, [setConversations]);
 
-
     return (
         <section className="chat">
             <div className="chat__wrapper">
@@ -39,13 +38,6 @@ const Chat = () => {
                         <SearchBar/>
                     </div>
                     <div className="chat__conversations">
-                        {/*{loadingConversations ? (*/}
-                        {/*    <Spinner/>*/}
-                        {/*) : (*/}
-                        {/*    conversations.map(conversation => (*/}
-                        {/*        <ChatConversation key={conversation._id} conversation={conversation}/>*/}
-                        {/*    ))*/}
-                        {/*)}*/}
                         {isLoading ? <Spinner/> : error ? "Something went wrong" :
                             data.map(conversation => (
                                 <ChatConversation key={conversation._id} conversation={conversation}/>

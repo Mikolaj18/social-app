@@ -5,6 +5,7 @@
   @include themify($themes) {
     &__message {
       &-container {
+        position: relative;
         flex: 4;
         box-shadow: $form-box-shadow;
         border-radius: 10px;

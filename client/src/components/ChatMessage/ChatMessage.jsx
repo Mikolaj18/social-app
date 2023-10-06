@@ -1,13 +1,19 @@
 import "./chatMessage.scss";
-const ChatMessage = ({isOwner}) => {
+import {useConversations} from "../../context/conversationsContext.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext.jsx";
+const ChatMessage = ({message, isOwner}) => {
+    const {selectedConversation} = useConversations();
+    const {currentUser} = useContext(AuthContext);
+
     return (
       <div className={isOwner ? "chat__message chat__message--is-owner" : "chat__message"}>
           <div className="chat__message-text">
-               Lorem ipsum Lorem ipsumLorem ipsumLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+              {message.text}
           </div>
           <div className="chat__message-img user-profile-rounded">
               <img
-                  src="https://res.cloudinary.com/dih42rvjf/raw/upload/v1693226396/social/mdictliqqll8icnwijsi.jpg"
+                  src={isOwner ? currentUser.profilePicture : selectedConversation.profilePicture}
                   alt=""/>
           </div>
       </div>

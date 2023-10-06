@@ -30,7 +30,7 @@ const UserProfile = () => {
     }, [isOpen]);
 
     const {isLoading, error, data} = useQuery({
-        queryKey: ["profile"],
+        queryKey: ["profile", id],
         queryFn: async () => await getSingleUserData(id),
     });
 
@@ -45,7 +45,7 @@ const UserProfile = () => {
     });
 
     const {isLoading: friendsIsLoading, error: friendsError, data: friendsData} = useQuery({
-        queryKey: [currentUser._id],
+        queryKey: ["friends", currentUser._id],
         queryFn: async () => await getFriendsList(id),
     });
 

@@ -8,7 +8,6 @@ const ChatConversation = ({conversation}) => {
     const lastMessage = conversation.lastMessage;
     const {currentUser} = useContext(AuthContext);
     const { selectedConversation, setSelectedConversation } = useConversations();
-    console.log(selectedConversation);
     return (
         <div
             className={

@@ -1,36 +1,59 @@
 import "./chatMessageContainer.scss";
 import ChatMessage from "../ChatMessage/ChatMessage.jsx";
 import MessageForm from "../MessageForm/MessageForm.jsx";
+import {useConversations} from "../../context/conversationsContext.jsx";
+import {useQuery} from "@tanstack/react-query";
+import {getMessages} from "../../db/messages/getMessages.js";
+import {useContext, useEffect} from "react";
+import Spinner from "../Spinner/Spinner.jsx";
+import {AuthContext} from "../../context/authContext.jsx";
+import {Link} from "react-router-dom";
 
 const ChatMessageContainer = () => {
+    const {selectedConversation} = useConversations();
+    const {currentUser} = useContext(AuthContext);
+    const {isLoading, error, data, refetch} = useQuery({
+        queryKey: ["messages", selectedConversation.userId],
+        queryFn: async () => await getMessages(selectedConversation.userId),
+        enabled: !!selectedConversation.userId,
+    });
+
+    useEffect(() => {
+        if (selectedConversation.userId) {
+            refetch();
+        }
+    }, [selectedConversation.userId, refetch]);
+    console.log(selectedConversation)
     return (
-      <div className="chat__message-container">
-          <div className="chat__message-user">
-              <div className="chat__message-user-img user-profile-rounded">
-                  <img
-                      src="https://res.cloudinary.com/dih42rvjf/raw/upload/v1693226396/social/mdictliqqll8icnwijsi.jpg"
-                      alt=""/>
-              </div>
-              <div className="chat__message-user-data">
-                  John Doe
-              </div>
-          </div>
-          <div className="chat__messages">
-              <ChatMessage isOwner={true}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={true}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={true}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={true}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={false}/>
-              <ChatMessage isOwner={true}/>
-              <ChatMessage isOwner={false}/>
-          </div>
-          <MessageForm/>
-      </div>
+        <div className="chat__message-container">
+            {!selectedConversation.userId ? (
+                <h1 className="center">Select a conversation to start messaging</h1>
+            ) : (
+                <>
+                    <Link reloadDocument to={`/profile/${selectedConversation.userId}`}>
+                        <div className="chat__message-user">
+                            <div className="chat__message-user-img user-profile-rounded">
+                                <img
+                                    src={selectedConversation.profilePicture}
+                                    alt=""/>
+                            </div>
+                            <div className="chat__message-user-data">
+                                {selectedConversation.name} {selectedConversation.surname}
+                            </div>
+                        </div>
+                    </Link>
+                    <div className="chat__messages">
+                        {isLoading ? <Spinner/> : error ? "Something went wrong" :
+                            data.map(message => (
+                                <ChatMessage key={message._id} message={message}
+                                             isOwner={currentUser._id === message.sender}/>
+                            ))
+                        }
+                    </div>
+                    <MessageForm/>
+                </>
+            )}
+        </div>
     );
 }
 

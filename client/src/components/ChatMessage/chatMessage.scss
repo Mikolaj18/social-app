@@ -6,14 +6,15 @@
     &__message {
       display: flex;
       flex-flow: row-reverse;
+      justify-content: start;
       max-width: 450px;
       width: 100%;
       column-gap: 10px;
 
       &-text {
         background: themed("bg-message");
-        padding: 8px 12px;
-        border-radius: 10px;
+        padding: 9px 12px 8px 12px;
+        border-radius: 25px;
         font-size: 1.5rem;
         color: themed("color-first");
         word-wrap: break-word;
@@ -22,6 +23,7 @@
     //owner message styles
       &--is-owner {
         align-self: flex-end;
+        justify-content: end;
         flex-flow: row;
         .chat__message {
           &-text {

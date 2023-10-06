@@ -43,6 +43,7 @@ a {
 .theme {
   height: 100vh;
   overflow: auto;
+
   &--dark {
     background: $theme-dark-bg;
 
@@ -116,11 +117,22 @@ a {
   background-color: transparent;
 }
 
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+* .theme--light::-webkit-scrollbar-thumb {
+  background-color: $color-gray-fifth;
+}
+
+* .theme--dark::-webkit-scrollbar-thumb {
+  background-color: $color-gray-sixth;
+}
+
 ::-webkit-scrollbar-thumb {
   @include themify($themes) {
     background-color: themed("bg-message");
-    border-radius: 20px;
-    border: 6px solid transparent;
-    background-clip: content-box;
   }
 }
