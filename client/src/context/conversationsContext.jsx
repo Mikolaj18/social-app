@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 const ConversationsContext = createContext();
 
 const ConversationsContextProvider = ({ children }) => {
+    const [conversations, setConversations] = useState(null);
     const [selectedConversation, setSelectedConversation] = useState({
         _id: '',
         userId: '',
@@ -14,6 +15,8 @@ const ConversationsContextProvider = ({ children }) => {
     return (
         <ConversationsContext.Provider
             value={{
+                conversations,
+                setConversations,
                 selectedConversation,
                 setSelectedConversation,
             }}

@@ -5,29 +5,16 @@ import ChatMessageContainer from "../../components/ChatMessageContainer/ChatMess
 import {getConversations} from "../../db/conversations/getConversations.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import {useQuery} from "@tanstack/react-query";
+import {useConversations} from "../../context/conversationsContext.jsx";
 
 const Chat = () => {
+
     const {isLoading, error, data} = useQuery({
         queryKey: ["conversations"],
         queryFn: async () => await getConversations(),
     });
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await getConversations();
-    //             if (data.error) {
-    //                 console.log(data.error);
-    //                 return;
-    //             }
-    //             setConversations(data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         } finally {
-    //             setLoadingConversations(false);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [setConversations]);
+
+    console.log(isLoading, "conv")
 
     return (
         <section className="chat">

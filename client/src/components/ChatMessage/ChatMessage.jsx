@@ -13,8 +13,7 @@ const ChatMessage = ({message, isOwner}) => {
           </div>
           <div className="chat__message-img user-profile-rounded">
               <img
-                  src={isOwner ? currentUser.profilePicture : selectedConversation.profilePicture}
-                  alt=""/>
+                  src={isOwner ? currentUser.profilePicture : selectedConversation.profilePicture} alt="pfp"/>
           </div>
       </div>
     );

@@ -11,17 +11,6 @@ export const sendMessage = async (req, res, next) => {
             participants: { $all: [senderId, recipientId] },
         });
 
-        if (!conversation) {
-            conversation = new Conversation({
-                participants: [senderId, recipientId],
-                lastMessage: {
-                    text: message,
-                    sender: senderId,
-                },
-            });
-            await conversation.save();
-        }
-
         const newMessage = new Message({
             conversationId: conversation._id,
             sender: senderId,

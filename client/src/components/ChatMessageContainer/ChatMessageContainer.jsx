@@ -4,12 +4,13 @@ import MessageForm from "../MessageForm/MessageForm.jsx";
 import {useConversations} from "../../context/conversationsContext.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {getMessages} from "../../db/messages/getMessages.js";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Spinner from "../Spinner/Spinner.jsx";
 import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
 
 const ChatMessageContainer = () => {
+    const messagecContainerRef = useRef();
     const {selectedConversation} = useConversations();
     const {currentUser} = useContext(AuthContext);
     const {isLoading, error, data, refetch} = useQuery({
@@ -18,12 +19,17 @@ const ChatMessageContainer = () => {
         enabled: !!selectedConversation.userId,
     });
 
+    console.log(isLoading, "mess")
+
     useEffect(() => {
-        if (selectedConversation.userId) {
-            refetch();
-        }
+        if (messagecContainerRef.current) messagecContainerRef.current.scrollTop = messagecContainerRef.current.scrollHeight;
+        }, [data]);
+
+    useEffect(() => {
+        if (selectedConversation.userId) refetch();
     }, [selectedConversation.userId, refetch]);
-    console.log(selectedConversation)
+
+
     return (
         <div className="chat__message-container">
             {!selectedConversation.userId ? (
@@ -42,7 +48,7 @@ const ChatMessageContainer = () => {
                             </div>
                         </div>
                     </Link>
-                    <div className="chat__messages">
+                    <div className="chat__messages" ref={messagecContainerRef}>
                         {isLoading ? <Spinner/> : error ? "Something went wrong" :
                             data.map(message => (
                                 <ChatMessage key={message._id} message={message}
