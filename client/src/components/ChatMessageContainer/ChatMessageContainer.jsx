@@ -1,5 +1,6 @@
 import "./chatMessageContainer.scss";
 import ChatMessage from "../ChatMessage/ChatMessage.jsx";
+import MessageForm from "../MessageForm/MessageForm.jsx";
 
 const ChatMessageContainer = () => {
     return (
@@ -28,6 +29,7 @@ const ChatMessageContainer = () => {
               <ChatMessage isOwner={true}/>
               <ChatMessage isOwner={false}/>
           </div>
+          <MessageForm/>
       </div>
     );
 }

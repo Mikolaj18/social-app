@@ -6,8 +6,8 @@
     &__message {
       display: flex;
       flex-flow: row-reverse;
-      width: max-content;
       max-width: 450px;
+      width: 100%;
       column-gap: 10px;
 
       &-text {

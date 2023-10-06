@@ -3,7 +3,7 @@ import "./searchBar.scss";
 
 const SearchBar = ({onSubmit, searchRef}) => {
     return (
-        <form onSubmit={onSubmit}>
+        <form className="searchBar" onSubmit={onSubmit}>
             <input type="text" placeholder="Search for users" ref={searchRef}/>
             <button type="submit">
                 <SearchIcon/>

@@ -1,0 +1,48 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/theme.scss";
+
+.messageForm {
+  width: 100%;
+  box-shadow: $form-box-shadow;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px;
+  @include themify($themes) {
+    &__input {
+      width: 100%;
+
+      textarea {
+        width: 100%;
+        color: themed("color-first");
+        background: themed("bg-third");
+        font-family: $font-default;
+        resize: none;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 20px;
+      }
+    }
+    button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+
+      svg {
+        width: 25px;
+        height: 25px;
+        color: $color-blue;
+        transition: all .4s;
+
+      }
+
+      &:disabled {
+        svg {
+          color: $color-gray-fourth;
+          transition: all .4s;
+
+        }
+      }
+    }
+  }
+}

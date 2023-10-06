@@ -1,7 +1,7 @@
 @import "../../../styles/vars.scss";
 @import "../../../styles/theme.scss";
 
-form {
+.searchBar {
   @include themify($themes) {
     input {
       background: themed("bg-third");
