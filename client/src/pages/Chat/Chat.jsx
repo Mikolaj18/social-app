@@ -5,8 +5,13 @@ import ChatMessageContainer from "../../components/ChatMessageContainer/ChatMess
 import {getConversations} from "../../db/conversations/getConversations.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import {useQuery} from "@tanstack/react-query";
+import {useSocket} from "../../context/socketContext.jsx";
+import {useConversations} from "../../context/conversationsContext.jsx";
 
 const Chat = () => {
+    const {onlineUsers} = useSocket();
+    const { selectedConversation } = useConversations();
+
     const {isLoading, error, data} = useQuery({
         queryKey: ["conversations"],
         queryFn: async () => await getConversations(),
@@ -23,7 +28,11 @@ const Chat = () => {
                     <div className="chat__conversations">
                         {isLoading ? <Spinner/> : error ? "Something went wrong" :
                             data.map(conversation => (
-                                <ChatConversation key={conversation._id} conversation={conversation}/>
+                                <ChatConversation
+                                    key={conversation._id}
+                                    conversation={conversation}
+                                    isOnline={onlineUsers.includes(conversation.participants[0]._id)}
+                                />
                             ))
                         }
                     </div>

@@ -2,22 +2,26 @@ import "./chatMessageContainer.scss";
 import ChatMessage from "../ChatMessage/ChatMessage.jsx";
 import MessageForm from "../MessageForm/MessageForm.jsx";
 import {useConversations} from "../../context/conversationsContext.jsx";
-import {useQuery} from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {getMessages} from "../../db/messages/getMessages.js";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef} from "react";
 import Spinner from "../Spinner/Spinner.jsx";
 import {AuthContext} from "../../context/authContext.jsx";
 import {Link} from "react-router-dom";
+import {useSocket} from "../../context/socketContext.jsx";
 
 const ChatMessageContainer = () => {
     const messageContainerRef = useRef();
-    const {selectedConversation} = useConversations();
+    const queryClient = useQueryClient();
+    const {selectedConversation, setConversation} = useConversations();
     const {currentUser} = useContext(AuthContext);
+    const {socket} = useSocket();
     const {isLoading, error, data, refetch} = useQuery({
         queryKey: ["messages", selectedConversation.userId],
         queryFn: async () => await getMessages(selectedConversation.userId),
         enabled: !!selectedConversation.userId,
     });
+
 
     useEffect(() => {
         if (messageContainerRef.current) messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
@@ -26,6 +30,24 @@ const ChatMessageContainer = () => {
     useEffect(() => {
         if (selectedConversation.userId) refetch();
     }, [selectedConversation.userId, refetch]);
+
+    useEffect(() => {
+        const handleNewMessage = (message) => {
+            if (selectedConversation.userId === message.sender) {
+                queryClient.setQueryData(["messages", selectedConversation.userId], (prevData) => {
+                    if (prevData) return [...prevData, message];
+                });
+            }
+            queryClient.invalidateQueries("conversations", selectedConversation.userId);
+        };
+
+        if (socket) {
+            socket.on("newMessage", handleNewMessage);
+            return () => {
+                socket.off("newMessage", handleNewMessage);
+            };
+        }
+    }, [socket, queryClient, selectedConversation.userId]);
 
     return (
         <div className="chat__message-container">

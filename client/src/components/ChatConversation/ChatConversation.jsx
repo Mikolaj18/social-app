@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import {useConversations} from "../../context/conversationsContext.jsx";
-const ChatConversation = ({conversation}) => {
+const ChatConversation = ({conversation, isOnline}) => {
     const user = conversation.participants[0];
     const lastMessage = conversation.lastMessage;
     const {currentUser} = useContext(AuthContext);
@@ -28,7 +28,7 @@ const ChatConversation = ({conversation}) => {
             </div>
             <div className="chat__conversation-flex">
                 <div className="chat__conversation-data">
-                    {user.name} {user.surname}
+                    {user.name} {user.surname} {isOnline && "ONLINE"}
                 </div>
                 <div className="chat__conversation-last-msg">
                     {currentUser._id === lastMessage.sender ? <DoneAllIcon/> : ""}

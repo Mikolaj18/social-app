@@ -1,6 +1,6 @@
 import {render, screen, waitFor} from "@testing-library/react";
 import PostForm from "../PostForm.jsx";
-import TestContextProvider from "../../../context/TestContextProvider.jsx";
+import TestContextProvider from "../../../context/testContextProvider.jsx";
 import userEvent from "@testing-library/user-event";
 import {act} from "react-dom/test-utils";
 
