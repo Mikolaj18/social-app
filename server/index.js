@@ -11,8 +11,8 @@ import commentsRoutes from "./routes/comment.route.js";
 import likesRoutes from "./routes/like.route.js";
 import messagesRoutes from "./routes/messages.route.js";
 import conversationsRoutes from "./routes/conversations.route.js";
+import {app, server} from "./socket/socket.js";
 
-const app = express();
 dotenv.config();
 
 const connect = async () => {
@@ -25,14 +25,14 @@ const connect = async () => {
 }
 
 app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.setHeader("Access-Control-Allow-Origin", process.env.API_URL_CLIENT);
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
 
-app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
+app.use(cors({credentials: true, origin: process.env.API_URL_CLIENT}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -53,7 +53,7 @@ app.use((error, req, res, next) => {
 });
 
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
     connect();
     console.log("Server is running.");
 });
