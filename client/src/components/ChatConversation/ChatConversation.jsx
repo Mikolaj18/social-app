@@ -25,10 +25,11 @@ const ChatConversation = ({conversation, isOnline}) => {
                 <img
                     src={user.profilePicture ? user.profilePicture : "../src/images/default.jpg"}
                     alt="pfp"/>
+                {isOnline && <span className="online"></span>}
             </div>
             <div className="chat__conversation-flex">
                 <div className="chat__conversation-data">
-                    {user.name} {user.surname} {isOnline && "ONLINE"}
+                    {user.name} {user.surname}
                 </div>
                 <div className="chat__conversation-last-msg">
                     {currentUser._id === lastMessage.sender ? <DoneAllIcon/> : ""}

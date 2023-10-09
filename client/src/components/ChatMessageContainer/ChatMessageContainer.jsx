@@ -13,7 +13,7 @@ import {useSocket} from "../../context/socketContext.jsx";
 const ChatMessageContainer = () => {
     const messageContainerRef = useRef();
     const queryClient = useQueryClient();
-    const {selectedConversation, setConversation} = useConversations();
+    const {selectedConversation} = useConversations();
     const {currentUser} = useContext(AuthContext);
     const {socket} = useSocket();
     const {isLoading, error, data, refetch} = useQuery({
@@ -32,13 +32,12 @@ const ChatMessageContainer = () => {
     }, [selectedConversation.userId, refetch]);
 
     useEffect(() => {
-        const handleNewMessage = (message) => {
-            if (selectedConversation.userId === message.sender) {
-                queryClient.setQueryData(["messages", selectedConversation.userId], (prevData) => {
-                    if (prevData) return [...prevData, message];
-                });
-            }
-            queryClient.invalidateQueries("conversations", selectedConversation.userId);
+        const handleNewMessage = () => {
+            // if (selectedConversation.userId === message.sender) {
+            //     // queryClient.invalidateQueries("messages", selectedConversation.userId);
+            //
+            // }
+            queryClient.invalidateQueries("conversations");
         };
 
         if (socket) {

@@ -11,6 +11,10 @@
       transition: all .4s;
       cursor: pointer;
 
+      &-img {
+        position: relative;
+      }
+
       &-flex {
         display: flex;
         font-size: 1.2rem;

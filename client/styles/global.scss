@@ -74,6 +74,17 @@ a {
   }
 }
 
+.online {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #31A24C;
+  border: 1px solid black;
+  border-radius: 50%;
+  right: 0;
+  bottom: 0;
+}
+
 .user-profile-rounded {
   width: 36px;
   height: 36px;

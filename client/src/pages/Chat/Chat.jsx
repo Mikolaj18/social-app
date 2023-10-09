@@ -10,8 +10,6 @@ import {useConversations} from "../../context/conversationsContext.jsx";
 
 const Chat = () => {
     const {onlineUsers} = useSocket();
-    const { selectedConversation } = useConversations();
-
     const {isLoading, error, data} = useQuery({
         queryKey: ["conversations"],
         queryFn: async () => await getConversations(),
