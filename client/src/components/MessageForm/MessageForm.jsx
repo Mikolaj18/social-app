@@ -25,23 +25,31 @@ const MessageForm = () => {
         actions.resetForm();
         actions.setSubmitting(false);
     }
+    const handleKeyPress = (e, submitForm) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            submitForm();
+        }
+    };
+
 
     return (
         <Formik
             initialValues={{message: ""}}
             onSubmit={handleSubmit}
         >
-            {({ values}) => (
+            {({ values, submitForm}) => (
                 <Form className="messageForm">
                     <div className="messageForm__input">
                         <Field
                             as="textarea"
                             name="message"
                             placeholder="Aa"
+                            onKeyPress={(e) => handleKeyPress(e, submitForm)}
                         />
                         <ErrorMessage name="message" component="div" className="error" />
                     </div>
-                    <button type="submit" disabled={!values.message}>
+                    <button type="button" onClick={submitForm} disabled={!values.message}>
                         <SendIcon />
                     </button>
                 </Form>
