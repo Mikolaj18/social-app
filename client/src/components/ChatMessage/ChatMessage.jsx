@@ -1,15 +1,13 @@
 import "./chatMessage.scss";
 import {useConversation} from "../../context/conversationsContext.jsx";
 import {useState} from "react";
+import moment from "moment";
 
 const ChatMessage = ({message, isOwner}) => {
     const {selectedConversation} = useConversation();
     const [isHovered, setIsHovered] = useState(false);
-    const date = new Date(message.createdAt);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-
+    const parsedDate = moment(message.createdAt);
+    const formattedData = parsedDate.format('DD.MM.YYYY, HH:mm');
     return (
         <div className={isOwner ? "chat__message chat__message--is-owner" : "chat__message"} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <div className="chat__message-text">
@@ -22,7 +20,7 @@ const ChatMessage = ({message, isOwner}) => {
                     />
                 </div>
             }
-            {isHovered && <div className="chat__message-date">{formattedTime}</div> }
+            {isHovered && <div className="chat__message-date">{formattedData}</div> }
         </div>
     );
 }

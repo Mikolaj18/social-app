@@ -7,10 +7,10 @@
       display: flex;
       flex-flow: row-reverse;
       justify-content: start;
-      max-width: 450px;
       position: relative;
       column-gap: 10px;
       width: max-content;
+      max-width: 100%;
 
 
       &-text {
@@ -20,7 +20,18 @@
         font-size: 1.5rem;
         color: themed("color-first");
         word-wrap: break-word;
-        max-width: 450px;
+        width: max-content;
+        max-width: 100%;
+        @media(min-width: $breakpoint-600) {
+          max-width: 450px;
+        }
+      }
+      
+      &-img {
+        display: none;
+        @media(min-width: $breakpoint-tablet) {
+          display: block;
+        }
       }
 
       &-date {
@@ -29,8 +40,10 @@
         padding: 10px;
         border-radius: 10px;
         color: themed("color-second");
-        right: -50px;
-        transition: all .4s;
+        width: max-content;
+        @media(min-width: $breakpoint-laptop) {
+          right: -110px;
+        }
       }
 
     //owner message styles
@@ -44,9 +57,10 @@
             color: $color-white;
           }
           &-date {
-            left: -50px;
-            right: unset;
-            transition: all .4s;
+            @media(min-width: $breakpoint-laptop){
+              right: unset;
+              left: -110px;
+            }
           }
         }
       }
