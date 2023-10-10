@@ -10,6 +10,7 @@ $themes: (
                 bg-hover-first: $color-gray-second,
                 bg-hover-second: $color-gray-third,
                 bg-selected-conversation: $color-blue-third,
+                bg-seen-message: $color-gray-eighth,
         ),
         dark: (
                 bg: $theme-dark-bg,
@@ -20,6 +21,7 @@ $themes: (
                 bg-hover-first: $theme-dark-bg-third,
                 bg-hover-second: $theme-dark-hover-second,
                 bg-selected-conversation: $color-blue-second,
+                bg-seen-message: $color-gray-seventh,
         ),
 );
 

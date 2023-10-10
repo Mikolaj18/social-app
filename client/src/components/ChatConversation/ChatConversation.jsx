@@ -2,12 +2,13 @@ import "./chatConversation.scss";
 import {useContext} from "react";
 import {AuthContext} from "../../context/authContext.jsx";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import {useConversations} from "../../context/conversationsContext.jsx";
+import {useConversation} from "../../context/conversationsContext.jsx";
 const ChatConversation = ({conversation, isOnline}) => {
     const user = conversation.participants[0];
     const lastMessage = conversation.lastMessage;
     const {currentUser} = useContext(AuthContext);
-    const { selectedConversation, setSelectedConversation } = useConversations();
+    const { selectedConversation, setSelectedConversation } = useConversation();
+    console.log(conversation);
     return (
         <div
             className={

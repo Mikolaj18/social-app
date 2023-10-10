@@ -26,6 +26,13 @@
           color: themed("color-first");
         }
       }
+      &-seen {
+        display: flex;
+        justify-content: flex-end;
+      }
+      &-sent-date {
+        color: themed("bg-seen-message");
+      }
     }
   }
   &__messages {
@@ -33,7 +40,7 @@
     margin-top: 20px;
     padding: 0 20px 20px;
     flex-flow: column;
-    row-gap: 20px;
+    row-gap: 6px;
     height: 510px;
     overflow-y: auto;
   }

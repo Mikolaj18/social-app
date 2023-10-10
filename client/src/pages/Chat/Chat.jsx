@@ -6,7 +6,7 @@ import {getConversations} from "../../db/conversations/getConversations.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {useSocket} from "../../context/socketContext.jsx";
-import {useConversations} from "../../context/conversationsContext.jsx";
+import {useConversation} from "../../context/conversationsContext.jsx";
 
 const Chat = () => {
     const {onlineUsers} = useSocket();

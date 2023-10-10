@@ -2,6 +2,7 @@ import {Server} from "socket.io";
 import http from 'http';
 import express from "express";
 import dotenv from "dotenv";
+import Message from "../models/message.model.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,18 @@ io.on('connection', (socket) => {
     if(typeof userId !== "undefined") userSocketMap[userId] = socket.id;
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap)); //array of users
+
+    socket.on("markMessagesAsSeen", async({conversationId, userId}) => {
+        try {
+            await Message.updateMany({conversationId: conversationId, seen: false}, {
+                $set: {seen: true},
+            });
+            io.to(userSocketMap[userId]).emit("messagesSeen", {conversationId});
+        } catch (error) {
+            console.log(error);
+        }
+    })
+
     socket.on("disconnect", () => {
         console.log("user disconnected");
         delete userSocketMap[userId];

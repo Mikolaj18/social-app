@@ -26,12 +26,12 @@ const ConversationsContextProvider = ({ children }) => {
     );
 }
 
-const useConversations = () => {
+const useConversation = () => {
     const context = useContext(ConversationsContext);
     if (!context) {
-        throw new Error('useConversations must be used within a ConversationsContextProvider');
+        throw new Error('useConversation must be used within a ConversationsContextProvider');
     }
     return context;
 }
 
-export { ConversationsContextProvider, useConversations };
+export { ConversationsContextProvider, useConversation };

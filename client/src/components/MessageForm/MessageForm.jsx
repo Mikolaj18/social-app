@@ -3,10 +3,10 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import SendIcon from "@mui/icons-material/Send.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {sendMessage} from "../../db/messages/sendMessage.js";
-import {useConversations} from "../../context/conversationsContext.jsx";
+import {useConversation} from "../../context/conversationsContext.jsx";
 const MessageForm = () => {
     const queryClient = useQueryClient();
-    const {selectedConversation} = useConversations();
+    const {selectedConversation} = useConversation();
 
     const mutation = useMutation({
         mutationFn: async (data) => await sendMessage(data),

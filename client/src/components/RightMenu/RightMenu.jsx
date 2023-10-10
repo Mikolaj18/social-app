@@ -6,13 +6,13 @@ import {AuthContext} from "../../context/authContext.jsx";
 import Spinner from "../Spinner/Spinner.jsx";
 import {Link} from "react-router-dom";
 import {createConversation} from "../../db/conversations/createConversation.js";
-import {useConversations} from "../../context/conversationsContext.jsx";
+import {useConversation} from "../../context/conversationsContext.jsx";
 import {getConversations} from "../../db/conversations/getConversations.js";
 
 const RightMenu = () => {
     const {currentUser} = useContext(AuthContext);
     const queryClient = useQueryClient();
-    const {setSelectedConversation} = useConversations();
+    const {setSelectedConversation} = useConversation();
 
     const {isLoading: isLoadingConv, error: errorConv, data: dataConv} = useQuery({
         queryKey: ["conversations"],
