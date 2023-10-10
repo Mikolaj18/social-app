@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
             await Message.updateMany({conversationId: conversationId, seen: false}, {
                 $set: {seen: true},
             });
-            io.to(userSocketMap[userId]).emit("messagesSeen", {conversationId});
+            io.to(userSocketMap[userId]).emit("messagesSeen", {conversationId}); //sent to the other user
         } catch (error) {
             console.log(error);
         }
