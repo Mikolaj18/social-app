@@ -7,10 +7,12 @@ $themes: (
                 bg-third: $bg-gray,
                 bg-message: $color-gray-fifth,
                 color-first: $color-black,
+                color-second: $theme-dark-color-first,
                 bg-hover-first: $color-gray-second,
                 bg-hover-second: $color-gray-third,
                 bg-selected-conversation: $color-blue-third,
                 bg-seen-message: $color-gray-eighth,
+                bg-message-date: $color-black-second,
         ),
         dark: (
                 bg: $theme-dark-bg,
@@ -18,10 +20,12 @@ $themes: (
                 bg-third: $theme-dark-bg-third,
                 bg-message: $color-gray-sixth,
                 color-first: $theme-dark-color-first,
+                color-second: $color-black,
                 bg-hover-first: $theme-dark-bg-third,
                 bg-hover-second: $theme-dark-hover-second,
                 bg-selected-conversation: $color-blue-second,
                 bg-seen-message: $color-gray-seventh,
+                bg-message-date: $color-white-second,
         ),
 );
 

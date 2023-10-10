@@ -17,7 +17,7 @@ const ChatMessageContainer = () => {
     const {selectedConversation} = useConversation();
     const {currentUser} = useContext(AuthContext);
     const {socket} = useSocket();
-    const {isLoading, error, data, refetch} = useQuery({
+    const {isLoading, error, data} = useQuery({
         queryKey: ["messages", selectedConversation.userId],
         queryFn: async () => await getMessages(selectedConversation.userId),
         enabled: !!selectedConversation.userId,
@@ -28,17 +28,8 @@ const ChatMessageContainer = () => {
         if (messageContainerRef.current) messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
         }, [data]);
 
-    // useEffect(() => {
-    //     if (selectedConversation.userId) refetch();
-    //     console.log('elo')
-    // }, [selectedConversation.userId, refetch]);
-
     useEffect(() => {
         const handleNewMessage = () => {
-            // if (selectedConversation.userId === message.sender) {
-            //     // queryClient.invalidateQueries("messages", selectedConversation.userId);
-            //
-            // }
             queryClient.invalidateQueries("conversations");
         };
 
@@ -63,7 +54,6 @@ const ChatMessageContainer = () => {
         if(socket) {
             socket.on("messagesSeen", ({ conversationId }) => {
                 if (selectedConversation._id === conversationId) {
-                    // Oznacz wiadomości jako przeczytane w stanie React Query
                     queryClient.setQueryData(["messages", selectedConversation.userId], (prevData) => {
                         if (prevData) {
                             return prevData.map((message) => {

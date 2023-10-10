@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
         } catch (error) {
             console.log(error);
         }
-    })
+    });
 
     socket.on("disconnect", () => {
         console.log("user disconnected");

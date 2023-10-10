@@ -8,8 +8,10 @@
       flex-flow: row-reverse;
       justify-content: start;
       max-width: 450px;
-      width: 100%;
+      position: relative;
       column-gap: 10px;
+      width: max-content;
+
 
       &-text {
         background: themed("bg-message");
@@ -21,6 +23,16 @@
         max-width: 450px;
       }
 
+      &-date {
+        position: absolute;
+        background: themed("bg-message-date");
+        padding: 10px;
+        border-radius: 10px;
+        color: themed("color-second");
+        right: -50px;
+        transition: all .4s;
+      }
+
     //owner message styles
       &--is-owner {
         align-self: flex-end;
@@ -30,6 +42,11 @@
           &-text {
             background: $color-blue;
             color: $color-white;
+          }
+          &-date {
+            left: -50px;
+            right: unset;
+            transition: all .4s;
           }
         }
       }
